@@ -1,0 +1,901 @@
+<div class="row">                      
+                      <!-- CARD 1 -->
+                      <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card card-rounded">
+                            <div class="card-body">
+
+                            <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                <h4 class="card-title card-title-dash">Financial</h4>
+                                <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                </div>
+                            </div>
+
+                            <!-- 3 chart sejajar -->
+                            <div class="d-flex justify-content-between">
+
+                                <!-- Chart 1 -->
+                                <div class="chart-container" data-chart="earning" style="width: 32%;">
+                                <p class="text-center mb-2">Total Earning</p>
+
+                               <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                    <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                    <h4 class="me-2">PCS</h4> -->
+                                </div>
+                                    <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                    <div class="me-3"><div id="marketing-overview-legend3_1"></div></div>
+                                </div>
+
+                                <div class="chartjs-bar-wrapper mt-2">
+                                    <canvas id="marketingOverview3_1"></canvas>
+                                </div>
+                                </div>
+
+                                <!-- Chart 2 -->
+                                <div class="chart-container" data-chart="modal" style="width: 32%;">
+                                <p class="text-center mb-2">Total Modal</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                    <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                    <h4 class="me-2">PCS</h4> -->
+                                </div>
+                                    <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                    <div class="me-3"><div id="marketing-overview-legend2_1"></div></div>
+                                </div>
+
+                                <div class="chartjs-bar-wrapper mt-2">
+                                    <canvas id="marketingOverview2_1"></canvas>
+                                </div>
+                                </div>
+
+                                <!-- Chart 3 -->
+                                <div class="chart-container" data-chart="profit" style="width: 32%;">
+                                <p class="text-center mb-2">Total Profit</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                    <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                    <h4 class="me-2">PCS</h4> -->
+                                </div>
+                                    <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                    <div class="me-3"><div id="marketing-overview-legend1_1"></div></div>
+                                </div>
+
+                                <div class="chartjs-bar-wrapper mt-2">
+                                    <canvas id="marketingOverview1_1"></canvas>
+                                </div>
+                                </div>
+
+                            </div>
+
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- CARD 2 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — February</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div class="chart-container" data-chart="earning" style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_2"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_2"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div class="chart-container" data-chart="modal" style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_2"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_2"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div class="chart-container" data-chart="profit" style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_2"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_2"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 3 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — March</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_3"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_3"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_3"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_3"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_3"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_3"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 4 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — April</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_4"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_4"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_4"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_4"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_4"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_4"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 5 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — Mei</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_5"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_5"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_5"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_5"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_5"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_5"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 6 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — June</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_6"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_6"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_6"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_6"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_6"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_6"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 7 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — July</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_7"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_7"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_7"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_7"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_7"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_7"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 8 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — August</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_8"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_8"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_8"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_8"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_8"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_8"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 9 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — September</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_9"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_9"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_9"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_9"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_9"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_9"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 10 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — October</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_10"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_10"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_10"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_10"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_10"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_10"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 11 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — November</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_11"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_11"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_11"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_11"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_11"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_11"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- CARD 12 -->
+                        <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+
+                                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Financial — December</h4>
+                                    <p class="card-subtitle card-subtitle-dash">2024 – 2025</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3 chart sejajar -->
+                                <div class="d-flex justify-content-between">
+
+                                    <!-- Chart 1 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Earning</p>
+
+                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend3_12"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview3_12"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 2 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Modal</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend2_12"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview2_12"></canvas>
+                                    </div>
+                                    </div>
+
+                                    <!-- Chart 3 -->
+                                    <div style="width: 32%;">
+                                    <p class="text-center mb-2">Total Profit</p>
+
+                                    <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                                    <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                        <!-- <h2 class="me-2 fw-bold"> 72.674 </h2>
+                                        <h4 class="me-2">PCS</h4> -->
+                                    </div>
+                                        <!-- <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">$36,2531.00</h2><h4 class="me-2">USD</h4><h4 class="text-success">(+1.37%)</h4></div> -->
+                                        <div class="me-3"><div id="marketing-overview-legend1_12"></div></div>
+                                    </div>
+
+                                    <div class="chartjs-bar-wrapper mt-2">
+                                        <canvas id="marketingOverview1_12"></canvas>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
+                            </div>
+                            </div>
+                  </div>
