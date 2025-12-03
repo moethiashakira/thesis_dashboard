@@ -176,6 +176,120 @@
     //   document.getElementById('performance-line-legend').innerHTML = salesTop.generateLegend();
     // }
 
+  // SHARE BUTTON
+  if ($("#btnShare").length) {
+    $("#btnShare").click(function () {
+      $("#shareMenu").toggle();
+    });
+
+    $("#waShare").click(() => {
+      window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`, "_blank");
+    });
+    $("#mailShare").click(() => {
+      window.location.href = `mailto:?subject=Share Dashboard&body=${encodeURIComponent(location.href)}`;
+    });
+  }
+
+  // PRINT BUTTON
+  if ($("#btnPrint").length) {
+    $("#btnPrint").click(() => {
+      window.print();
+    });
+  }
+
+// =======================================
+// GLOBAL DATA (FIX agar tidak ketimpa)
+// =======================================
+window.GLOBAL_DATA = {
+  recommendations: [],
+  lowSales: [],
+  lowStock: []
+};
+
+
+
+
+
+// =======================================
+// EXPORT KE EXCEL — DATA TIDAK TERTIMPA
+// =======================================
+// if ($("#exportToExcel").length) {
+
+//   $("#exportToExcel").click(function () {
+
+//     const sheet1 = XLSX.utils.json_to_sheet(GLOBAL_DATA.recommendations);
+//     const sheet2 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowSales);
+//     const sheet3 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowStock);
+
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, sheet1, "Recommendation Table");
+//     XLSX.utils.book_append_sheet(workbook, sheet2, "Low Sales Table");
+//     XLSX.utils.book_append_sheet(workbook, sheet3, "Low Stock Table");
+
+//     XLSX.writeFile(workbook, "product_report_export.xlsx");
+//   });
+// }
+
+// =======================
+// EXPORT MULTI-SHEET
+// =======================
+if ($("#exportToExcel").length) {
+
+  $("#exportToExcel").click(function () {
+
+    // Sheet 1 – Recommendation Table
+    const sheet1 = XLSX.utils.json_to_sheet(GLOBAL_DATA.recommendations);
+
+    // Sheet 2 – Low Sales Table
+    const sheet2 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowSales);
+
+    // Sheet 3 – Low Stock Table
+    const sheet3 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowStock);
+
+    // Sheet 4 – Yearly Financial Chart Data
+    const chartData = [];
+    const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+    // 2024
+    months.forEach((m, i) => {
+      chartData.push({
+        year: 2024,
+        month: m,
+        earning: dataset2024.earning[i],
+        modal:   dataset2024.modal[i],
+        profit:  dataset2024.profit[i],
+      });
+    });
+
+    // 2025
+    months.forEach((m, i) => {
+      chartData.push({
+        year: 2025,
+        month: m,
+        earning: dataset2025.earning[i],
+        modal:   dataset2025.modal[i],
+        profit:  dataset2025.profit[i],
+      });
+    });
+
+    const sheet4 = XLSX.utils.json_to_sheet(chartData);
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, sheet1, "Recommendation Table");
+    XLSX.utils.book_append_sheet(wb, sheet2, "Low Sales Table");
+    XLSX.utils.book_append_sheet(wb, sheet3, "Low Stock Table");
+    XLSX.utils.book_append_sheet(wb, sheet4, "Yearly Financial Chart");
+
+    // Save file
+    XLSX.writeFile(wb, "dashboard_export.xlsx");
+  });
+
+}
+
+
+
+
     if ($("#performaneLine").length) {
       var ctx = document.getElementById("performaneLine").getContext('2d');
 
@@ -385,17 +499,6 @@
 
         $('#filterYearChartBtn').html(`${year} <span class="ms-2">&#9662;</span>`);
       });
-
-      // $(".filter-year-chart").on("click", function () {
-      //   let year = $(this).data("year");
-      //   $("#filterYearChartBtn").html(
-      //     `${year} <span class="ms-2">&#9662;</span>`
-      //   );
-
-      //   updateChart();
-      // });
-
-
     }
 
 
@@ -1989,6 +2092,7 @@ if ($("#earningTable").length) {
 
     // Render awal
     renderTable(filterProducts(selectedYear, selectedMonth));
+    GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
 
 
     // ================================
@@ -2005,6 +2109,7 @@ if ($("#earningTable").length) {
         ' <span class="ms-1">&#9662;</span>';
 
         renderTable(filterProducts(selectedYear, selectedMonth));
+        GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
       });
     });
 
@@ -2026,8 +2131,12 @@ if ($("#earningTable").length) {
 
         // update tabel kamu
         renderTable(filterProducts(selectedYear, selectedMonth));
+        GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
       });
     });
+
+
+
   }
 
 // =============================
@@ -2431,6 +2540,7 @@ if ($("#lowSalesTable").length) {
 
   // Render awal
   renderTable(filterProducts(selectedYear, selectedMonth));
+  GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
 
   // ================================
   // EVENT YEAR FILTER
@@ -2446,6 +2556,7 @@ if ($("#lowSalesTable").length) {
         ' <span class="ms-1">&#9662;</span>';
 
       renderTable(filterProducts(selectedYear, selectedMonth));
+      GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
     });
   });
 
@@ -2465,6 +2576,7 @@ if ($("#lowSalesTable").length) {
         selectedMonth === "all" ? "All Months" : monthName;
 
       renderTable(filterProducts(selectedYear, selectedMonth));
+      GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
     });
   });
 }
@@ -2923,6 +3035,7 @@ if ($("#lowStockTable").length) {
 
   // Render pertama
   renderLowStockTable(filterLowStock(lowStockYear, lowStockMonth));
+  GLOBAL_DATA.lowStock = lowStockData.filter(p => p.stock < 20);
 
   // ================================
   // EVENT YEAR FILTER
@@ -2938,6 +3051,7 @@ if ($("#lowStockTable").length) {
         ' <span class="ms-1">&#9662;</span>';
 
       renderLowStockTable(filterLowStock(lowStockYear, lowStockMonth));
+      GLOBAL_DATA.lowStock = lowStockData.filter(p => p.stock < 20);
     });
   });
 
@@ -2955,8 +3069,10 @@ if ($("#lowStockTable").length) {
         lowStockMonth === "all" ? "All Months" : monthLabel;
 
       renderLowStockTable(filterLowStock(lowStockYear, lowStockMonth));
+      GLOBAL_DATA.lowStock = lowStockData.filter(p => p.stock < 20);
     });
   });
+
 }
 
 

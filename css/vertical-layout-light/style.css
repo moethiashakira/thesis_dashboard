@@ -30986,6 +30986,77 @@ div.tagsinput span.tag a {
   justify-content:flex-start;
 } */
 
+/* ================= SHARE MENU ================= */
+.btn-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.share-menu {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+  z-index: 999;
+}
+
+.share-menu a {
+  margin: 0 5px;
+  font-size: 20px;
+  text-decoration: none;
+  color: #444;
+}
+
+.share-menu a:hover {
+  transform: scale(1.15);
+}
+
+/* ================= PRINT MODE ================= */
+@media print {
+  aside, .sidebar, header, nav, .btn-wrapper, .navbar {
+    display: none !important;
+  }
+
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+
+  /* Chart or wide content auto landscape */
+  .chart-container {
+    page: landscape;
+  }
+}
+
+/* Optional Styling */
+.btn {
+  padding: 7px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-otline-dark {
+  background: transparent;
+  border: 1px solid #444;
+  color: #444;
+}
+
+.btn-primary {
+  border: none;
+  background: #007bff;
+}
+
 
 
 
