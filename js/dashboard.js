@@ -1650,7 +1650,7 @@ if ($("#ratingTable").length) {
   // ================================
   // LOAD JSON
   // ================================
-  fetch("../../json/lowSalesTable2 & ratingTable.json")
+  fetch("../../json/ratingTable.json")
     .then(res => res.json())
     .then(data => {
       productData = data.sort(() => 0.5 - Math.random()).slice(0, 100);
@@ -2781,7 +2781,7 @@ if ($("#lowSalesTable2").length) {
   let lowSalesProductData2 = []; // <- kosong dulu
 
   // Load JSON dari folder data
-  fetch("../../json/lowSalesTable2 & ratingTable.json")
+  fetch("../../json/lowSalesTable2.json")
     .then(response => response.json())
     .then(data => {
       lowSalesProductData2 = data;
