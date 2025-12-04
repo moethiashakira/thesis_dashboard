@@ -1505,145 +1505,160 @@ if ($("#ratingTable").length) {
   // ================================
   // DUMMY DATA PRODUCT LIST
   // ================================
-  const productData = [
-        // ======= 1 =======
-    { id: "P0101", 
-      name: "Men Black Hoodie Oversize", 
-      category: "Atasan Pria", 
-      price: 199000, 
-      sold: 450, 
-      date: "2025-03-21", 
-      rating: 4.8, 
-      discount: 10, 
-      stock: 200, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  // const productData = [
+  //       // ======= 1 =======
+  //   { id: "P0101", 
+  //     name: "Men Black Hoodie Oversize", 
+  //     category: "Atasan Pria", 
+  //     price: 199000, 
+  //     sold: 450, 
+  //     date: "2025-03-21", 
+  //     rating: 4.8, 
+  //     discount: 10, 
+  //     stock: 200, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 2 =======
-    { 
-      id: "P0102", 
-      name: "Women Floral Summer Dress", 
-      category: "Gaun Wanita", 
-      price: 259000, sold: 400, 
-      date: "2025-02-10", 
-      rating: 4.5, 
-      discount: 12, 
-      stock: 120, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 3 =======
-    { 
-      id: "P0103", 
-      name: "Men Formal White Shirt Slim Fit", 
-      category: "Atasan Pria", 
-      price: 149000, 
-      sold: 300, 
-      date: "2024-08-01", 
-      rating: 4.3, 
-      discount: 5, 
-      stock: 85, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 4 =======
-    { 
-      id: "P0104", 
-      name: "Women Casual Sneakers White", 
-      category: "Sepatu Wanita", 
-      price: 329000, 
-      sold: 280, 
-      date: "2025-05-13", 
-      rating: 4.7, 
-      discount: 8, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg"
-    },
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
 
-    // ======= 5 =======  
-    { 
-      id: "P0105", 
-      name: "Kids Polo Shirt", 
-      category: "Anak", 
-      price: 89000, 
-      sold: 270, 
-      date: "2024-11-20", 
-      rating: 4.0, 
-      discount: 2, 
-      stock: 50,
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 6 =======
-    { 
-      id: "P0106", 
-      name: "Women Slim Fit Jeans Blue", 
-      category: "Bawahan Wanita", 
-      price: 209000, 
-      sold: 260, 
-      date: "2024-09-14", 
-      rating: 4.2, 
-      discount: 10, 
-      stock: 30, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 7 =======
-    { 
-      id: "P0107", 
-      name: "Men Sport Running Shoes Black", 
-      category: "Sepatu Pria", 
-      price: 399000, 
-      sold: 255, 
-      date: "2025-01-12", 
-      rating: 4.6, 
-      discount: 6, 
-      stock: 10, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 8 =======
-    { 
-      id: "P0108", 
-      name: "Women Handbag Leather Brown", 
-      category: "Aksesoris Wanita", 
-      price: 499000, 
-      sold: 230, 
-      date: "2025-06-07", 
-      rating: 4.9, 
-      discount: 15, 
-      stock: 140, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 9 =======
-    { 
-      id: "P0109", 
-      name: "Men Oversized Graphic T-shirt", 
-      category: "Atasan Pria", 
-      price: 129000, 
-      sold: 225, 
-      date: "2025-07-15", 
-      rating: 3.9, 
-      discount: 5, 
-      stock: 90, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 10 =======
-    { 
-      id: "P0110", 
-      name: "Sport Cap Black Edition", 
-      category: "Aksesoris Unisex", 
-      price: 69000, 
-      sold: 210, 
-      date: "2024-10-30", 
-      rating: 4.1, 
-      discount: 3, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg" 
-    }
-  ];
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+  let productData = []; // awalnya kosong → diisi dari JSON
+
+  // ================================
+  // LOAD JSON
+  // ================================
+  fetch("../../json/lowSalesTable2 & ratingTable.json")
+    .then(res => res.json())
+    .then(data => {
+      productData = data.sort(() => 0.5 - Math.random()).slice(0, 100);
+
+      console.log("Total product rating data:", productData.length);
+      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+    })
+    .catch(err => console.error("Gagal load JSON:", err));
 
 
   // ================================
@@ -1739,7 +1754,7 @@ if ($("#ratingTable").length) {
   let selectedRating = "all";
 
   // Render awal
-  renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+  // renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
 
 
   // ================================
@@ -1800,50 +1815,69 @@ if ($("#earningTable").length) {
   // ================================
   // DUMMY DATA PRODUCT LIST (with Modal)
   // ================================
-  const productData = [
-    {
-      id: "P0767",
-      name: "Next Look Men Blue Slim Fit Solid Formal Shirt",
-      category: "Atasan Pria",
-      price: 104310,
-      modal: 70000,
-      sold: 60,
-      date: "2025-01-24",
-      rating: 4.51,
-      discount: 22,
-      stock: 10,
-      status: "In Stock",
-      image: "../../images/asset/logo-02.jpg"
-    },
-    {
-      id: "P0017",
-      name: "T-Shirt Mini Garis (Crop Top)",
-      category: "Atasan Wanita",
-      price: 149000,
-      modal: 90000,
-      sold: 250,
-      date: "2024-08-12",
-      rating: 4.08,
-      discount: 2,
-      stock: 11,
-      status: "In Stock",
-      image: "../../images/asset/logo-02.jpg"
-    },
-    {
-      id: "P0296",
-      name: "Ziyaa Women Grey Printed Kurta With Trousers",
-      category: "Bawahan Wanita",
-      price: 198930,
-      modal: 120000,
-      sold: 235,
-      date: "2025-06-30",
-      rating: 2.2,
-      discount: 11,
-      stock: 244,
-      status: "In Stock",
-      image: "../../images/asset/logo-02.jpg"
-    }
-  ];
+  // const productData = [
+  //   {
+  //     id: "P0767",
+  //     name: "Next Look Men Blue Slim Fit Solid Formal Shirt",
+  //     category: "Atasan Pria",
+  //     price: 104310,
+  //     modal: 70000,
+  //     sold: 60,
+  //     date: "2025-01-24",
+  //     rating: 4.51,
+  //     discount: 22,
+  //     stock: 10,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+  //   {
+  //     id: "P0017",
+  //     name: "T-Shirt Mini Garis (Crop Top)",
+  //     category: "Atasan Wanita",
+  //     price: 149000,
+  //     modal: 90000,
+  //     sold: 250,
+  //     date: "2024-08-12",
+  //     rating: 4.08,
+  //     discount: 2,
+  //     stock: 11,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+  //   {
+  //     id: "P0296",
+  //     name: "Ziyaa Women Grey Printed Kurta With Trousers",
+  //     category: "Bawahan Wanita",
+  //     price: 198930,
+  //     modal: 120000,
+  //     sold: 235,
+  //     date: "2025-06-30",
+  //     rating: 2.2,
+  //     discount: 11,
+  //     stock: 244,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   }
+  // ];
+
+  let productData = []; // kosong dulu, nanti diisi JSON
+
+  // ================================
+  // LOAD JSON (ambil max 100 data)
+  // ================================
+  fetch("../../json/productEarning.json")
+    .then(res => res.json())
+    .then(data => {
+
+      // Replace semuanya pakai JSON
+      productData = data.sort(() => 0.5 - Math.random()).slice(0, 100);
+
+      console.log("Total data dari JSON:", productData.length);
+
+      // Render setelah data siap
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    })
+    .catch(err => console.error("Gagal load JSON:", err));
 
   // ================================
   // FILTER FUNCTION
@@ -1920,7 +1954,7 @@ if ($("#earningTable").length) {
   let selectedYear = "all";
   let selectedMonth = "all";
 
-  renderTable(filterProducts(selectedYear, selectedMonth));
+  // renderTable(filterProducts(selectedYear, selectedMonth));
 
   // ================================
   // EVENT YEAR FILTER
@@ -2147,145 +2181,160 @@ if ($("#recTable2").length) {
   // ===============================================
   // DUMMY PRODUCT DATA (10 items)
   // ===============================================
-  const productData2 = [
-    // ======= 1 =======
-    { id: "P0101", 
-      name: "Men Black Hoodie Oversize", 
-      category: "Atasan Pria", 
-      price: 199000, 
-      sold: 450, 
-      date: "2025-03-21", 
-      rating: 4.8, 
-      discount: 10, 
-      stock: 200, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  // const productData2 = [
+  //   // ======= 1 =======
+  //   {
+  //     id: "P0001",
+  //     name: "Free authority men white batman printed t-shirt",
+  //     category: "Atasan pria",
+  //     price: 85310,
+  //     sold: 36,
+  //     date: "2025-12-29",
+  //     rating: 3.01,
+  //     discount: 0.1,
+  //     stock: 247,
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
     
-    // ======= 2 =======
-    { 
-      id: "P0102", 
-      name: "Women Floral Summer Dress", 
-      category: "Gaun Wanita", 
-      price: 259000, sold: 400, 
-      date: "2025-02-10", 
-      rating: 4.5, 
-      discount: 12, 
-      stock: 120, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, 
+  //     sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 3 =======
-    { 
-      id: "P0103", 
-      name: "Men Formal White Shirt Slim Fit", 
-      category: "Atasan Pria", 
-      price: 149000, 
-      sold: 300, 
-      date: "2024-08-01", 
-      rating: 4.3, 
-      discount: 5, 
-      stock: 85, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 4 =======
-    { 
-      id: "P0104", 
-      name: "Women Casual Sneakers White", 
-      category: "Sepatu Wanita", 
-      price: 329000, 
-      sold: 280, 
-      date: "2025-05-13", 
-      rating: 4.7, 
-      discount: 8, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg"
-    },
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
 
-    // ======= 5 =======  
-    { 
-      id: "P0105", 
-      name: "Kids Polo Shirt", 
-      category: "Anak", 
-      price: 89000, 
-      sold: 270, 
-      date: "2024-11-20", 
-      rating: 4.0, 
-      discount: 2, 
-      stock: 50,
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 6 =======
-    { 
-      id: "P0106", 
-      name: "Women Slim Fit Jeans Blue", 
-      category: "Bawahan Wanita", 
-      price: 209000, 
-      sold: 260, 
-      date: "2024-09-14", 
-      rating: 4.2, 
-      discount: 10, 
-      stock: 30, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 7 =======
-    { 
-      id: "P0107", 
-      name: "Men Sport Running Shoes Black", 
-      category: "Sepatu Pria", 
-      price: 399000, 
-      sold: 255, 
-      date: "2025-01-12", 
-      rating: 4.6, 
-      discount: 6, 
-      stock: 10, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 8 =======
-    { 
-      id: "P0108", 
-      name: "Women Handbag Leather Brown", 
-      category: "Aksesoris Wanita", 
-      price: 499000, 
-      sold: 230, 
-      date: "2025-06-07", 
-      rating: 4.9, 
-      discount: 15, 
-      stock: 140, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 9 =======
-    { 
-      id: "P0109", 
-      name: "Men Oversized Graphic T-shirt", 
-      category: "Atasan Pria", 
-      price: 129000, 
-      sold: 225, 
-      date: "2025-07-15", 
-      rating: 3.9, 
-      discount: 5, 
-      stock: 90, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 10 =======
-    { 
-      id: "P0110", 
-      name: "Sport Cap Black Edition", 
-      category: "Aksesoris Unisex", 
-      price: 69000, 
-      sold: 210, 
-      date: "2024-10-30", 
-      rating: 4.1, 
-      discount: 3, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg" 
-    }
-  ];
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+
+  let productData2 = []; // INI YANG DIPAKAI FILTER & RENDER
+
+  fetch("../../json/recTable2.json")
+    .then(res => res.json())
+    .then(data => {
+      productData2 = data;
+      console.log("Data loaded:", productData2.length);
+      renderTable2(filterProducts2(selectedYear2, selectedMonth2));
+    })
+    .catch(err => console.error("JSON Load Error:", err));
+
 
 
   // ===============================================
@@ -2302,7 +2351,7 @@ if ($("#recTable2").length) {
 
         return matchYear && matchMonth;
       })
-      .slice(0, 10); // Limit Top 10
+      .slice(0, 100); // Limit Top 10
   }
 
 
@@ -2375,7 +2424,7 @@ if ($("#recTable2").length) {
   let selectedYear2 = "all";
   let selectedMonth2 = "all";
 
-  renderTable2(filterProducts2(selectedYear2, selectedMonth2));
+  // renderTable2(filterProducts2(selectedYear2, selectedMonth2));
 
 
   // ===============================================
@@ -2585,148 +2634,163 @@ if ($("#lowSalesTable").length) {
 // LOW SALES TABLE 2 (LOWEST SALES PRODUCT)
 // =====================================================
 if ($("#lowSalesTable2").length) {
-  const lowSalesProductData2 = [
-    // ======= 1 =======
-    { id: "P0101", 
-      name: "Men Black Hoodie Oversize", 
-      category: "Atasan Pria", 
-      price: 199000, 
-      sold: 450, 
-      date: "2025-03-21", 
-      rating: 4.8, 
-      discount: 10, 
-      stock: 200, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  // const lowSalesProductData2 = [
+  //   // ======= 1 =======
+  //   { id: "P0101", 
+  //     name: "Men Black Hoodie Oversize", 
+  //     category: "Atasan Pria", 
+  //     price: 199000, 
+  //     sold: 450, 
+  //     date: "2025-03-21", 
+  //     rating: 4.8, 
+  //     discount: 10, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 2 =======
-    { 
-      id: "P0102", 
-      name: "Women Floral Summer Dress", 
-      category: "Gaun Wanita", 
-      price: 259000, sold: 400, 
-      date: "2025-02-10", 
-      rating: 4.5, 
-      discount: 12, 
-      stock: 120, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 3 =======
-    { 
-      id: "P0103", 
-      name: "Men Formal White Shirt Slim Fit", 
-      category: "Atasan Pria", 
-      price: 149000, 
-      sold: 300, 
-      date: "2024-08-01", 
-      rating: 4.3, 
-      discount: 5, 
-      stock: 85, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 4 =======
-    { 
-      id: "P0104", 
-      name: "Women Casual Sneakers White", 
-      category: "Sepatu Wanita", 
-      price: 329000, 
-      sold: 280, 
-      date: "2025-05-13", 
-      rating: 4.7, 
-      discount: 8, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg"
-    },
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
 
-    // ======= 5 =======  
-    { 
-      id: "P0105", 
-      name: "Kids Polo Shirt", 
-      category: "Anak", 
-      price: 89000, 
-      sold: 270, 
-      date: "2024-11-20", 
-      rating: 4.0, 
-      discount: 2, 
-      stock: 50,
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 6 =======
-    { 
-      id: "P0106", 
-      name: "Women Slim Fit Jeans Blue", 
-      category: "Bawahan Wanita", 
-      price: 209000, 
-      sold: 260, 
-      date: "2024-09-14", 
-      rating: 4.2, 
-      discount: 10, 
-      stock: 30, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 7 =======
-    { 
-      id: "P0107", 
-      name: "Men Sport Running Shoes Black", 
-      category: "Sepatu Pria", 
-      price: 399000, 
-      sold: 255, 
-      date: "2025-01-12", 
-      rating: 4.6, 
-      discount: 6, 
-      stock: 10, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 8 =======
-    { 
-      id: "P0108", 
-      name: "Women Handbag Leather Brown", 
-      category: "Aksesoris Wanita", 
-      price: 499000, 
-      sold: 230, 
-      date: "2025-06-07", 
-      rating: 4.9, 
-      discount: 15, 
-      stock: 140, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 9 =======
-    { 
-      id: "P0109", 
-      name: "Men Oversized Graphic T-shirt", 
-      category: "Atasan Pria", 
-      price: 129000, 
-      sold: 225, 
-      date: "2025-07-15", 
-      rating: 3.9, 
-      discount: 5, 
-      stock: 90, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 10 =======
-    { 
-      id: "P0110", 
-      name: "Sport Cap Black Edition", 
-      category: "Aksesoris Unisex", 
-      price: 69000, 
-      sold: 210, 
-      date: "2024-10-30", 
-      rating: 4.1, 
-      discount: 3, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg" 
-    }
-  ];
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+  
 
   let sortFieldLow2 = null;
   let sortDirectionLow2 = 'asc'; // asc / desc
+  let lowSalesProductData2 = []; // <- kosong dulu
+
+  // Load JSON dari folder data
+  fetch("../../json/lowSalesTable2 & ratingTable.json")
+    .then(response => response.json())
+    .then(data => {
+      lowSalesProductData2 = data;
+
+      // Render setelah data selesai load
+      renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
+    })
+    .catch(err => console.error("Gagal load JSON:", err));
+
 
 
 
@@ -2744,7 +2808,7 @@ if ($("#lowSalesTable2").length) {
 
         return matchYear && matchMonth;
       })
-      .slice(0, 10);
+      .slice(0, 100);
   }
 
 
@@ -2843,7 +2907,7 @@ if ($("#lowSalesTable2").length) {
   let selectedLowYear2 = "all";
   let selectedLowMonth2 = "all";
 
-  renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
+  // renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
 
 
   // ===============================================
@@ -3079,147 +3143,160 @@ if ($("#lowStockTable").length) {
 // ================================
 // LOW STOCK TABLE 2 
 // ================================
-if ($("#lowStock2Table").length) {
+if ($("#lowStockTable2").length) {
 
-  const lowStockData2 = [
-    // ======= 1 =======
-    { id: "P0101", 
-      name: "Men Black Hoodie Oversize", 
-      category: "Atasan Pria", 
-      price: 199000, 
-      sold: 450, 
-      date: "2025-03-21", 
-      rating: 4.8, 
-      discount: 10, 
-      stock: 200, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  // const lowStockData2 = [
+  //   // ======= 1 =======
+  //   { id: "P0101", 
+  //     name: "Men Black Hoodie Oversize", 
+  //     category: "Atasan Pria", 
+  //     price: 199000, 
+  //     sold: 450, 
+  //     date: "2025-03-21", 
+  //     rating: 4.8, 
+  //     discount: 10, 
+  //     stock: 200, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 2 =======
-    { 
-      id: "P0102", 
-      name: "Women Floral Summer Dress", 
-      category: "Gaun Wanita", 
-      price: 259000, sold: 400, 
-      date: "2025-02-10", 
-      rating: 4.5, 
-      discount: 12, 
-      stock: 120, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 3 =======
-    { 
-      id: "P0103", 
-      name: "Men Formal White Shirt Slim Fit", 
-      category: "Atasan Pria", 
-      price: 149000, 
-      sold: 300, 
-      date: "2024-08-01", 
-      rating: 4.3, 
-      discount: 5, 
-      stock: 85, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
     
-    // ======= 4 =======
-    { 
-      id: "P0104", 
-      name: "Women Casual Sneakers White", 
-      category: "Sepatu Wanita", 
-      price: 329000, 
-      sold: 280, 
-      date: "2025-05-13", 
-      rating: 4.7, 
-      discount: 8, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg"
-    },
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
 
-    // ======= 5 =======  
-    { 
-      id: "P0105", 
-      name: "Kids Polo Shirt", 
-      category: "Anak", 
-      price: 89000, 
-      sold: 270, 
-      date: "2024-11-20", 
-      rating: 4.0, 
-      discount: 2, 
-      stock: 50,
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 6 =======
-    { 
-      id: "P0106", 
-      name: "Women Slim Fit Jeans Blue", 
-      category: "Bawahan Wanita", 
-      price: 209000, 
-      sold: 260, 
-      date: "2024-09-14", 
-      rating: 4.2, 
-      discount: 10, 
-      stock: 30, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 7 =======
-    { 
-      id: "P0107", 
-      name: "Men Sport Running Shoes Black", 
-      category: "Sepatu Pria", 
-      price: 399000, 
-      sold: 255, 
-      date: "2025-01-12", 
-      rating: 4.6, 
-      discount: 6, 
-      stock: 10, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 8 =======
-    { 
-      id: "P0108", 
-      name: "Women Handbag Leather Brown", 
-      category: "Aksesoris Wanita", 
-      price: 499000, 
-      sold: 230, 
-      date: "2025-06-07", 
-      rating: 4.9, 
-      discount: 15, 
-      stock: 140, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 9 =======
-    { 
-      id: "P0109", 
-      name: "Men Oversized Graphic T-shirt", 
-      category: "Atasan Pria", 
-      price: 129000, 
-      sold: 225, 
-      date: "2025-07-15", 
-      rating: 3.9, 
-      discount: 5, 
-      stock: 90, 
-      image: "../../images/asset/logo-02.jpg" 
-    },
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
 
-    // ======= 10 =======
-    { 
-      id: "P0110", 
-      name: "Sport Cap Black Edition", 
-      category: "Aksesoris Unisex", 
-      price: 69000, 
-      sold: 210, 
-      date: "2024-10-30", 
-      rating: 4.1, 
-      discount: 3, 
-      stock: 300, 
-      image: "../../images/asset/logo-02.jpg" 
-    }
-  ];
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+  let lowStockData2 = []; // kosong dulu, nanti terisi dari JSON
+
+  // ===== Load JSON =====
+  fetch("../../json/lowStockTable2.json")
+    .then(res => res.json())
+    .then(data => {
+      lowStockData2 = data;
+
+      console.log("Total data loaded:", lowStockData2.length);
+      renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
+    })
+    .catch(err => console.error("Gagal load JSON:", err));
 
   // ================================
   // FILTER LOGIC
@@ -3232,7 +3309,7 @@ if ($("#lowStock2Table").length) {
         return (year === "all" || itemYear === year) &&
                (month === "all" || itemMonth === month);
       })
-      .slice(0, 10);
+      .slice(0, 100);
   }
 
   // ================================
@@ -3293,7 +3370,7 @@ if ($("#lowStock2Table").length) {
   let selectedLowStockYear2 = "all";
   let selectedLowStockMonth2 = "all";
 
-  renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
+  // renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
 
   // ================================
   // YEAR FILTER EVENT

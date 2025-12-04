@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="../../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../../images/asset/logo-02.jpg" />
+  <!-- Font Awesome untuk icon share -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
@@ -379,13 +381,12 @@
       <!-- partial:partials/_sidebar.html --> 
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="../../index1.html">
-              <!-- <i class="mdi mdi-grid-large menu-icon"></i> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link active" href="index1.html">
               <i></i>
               <span class="menu-title">Dashboard 1</span>
             </a>
-          </li>
+          </li> -->
            <li class="nav-item">
             <a class="nav-link" href="../../index.html">
               <!-- <i class="mdi mdi-grid-large menu-icon"></i> -->
@@ -578,17 +579,31 @@
                       <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
                     </li> -->
                   </ul>
-                  <div>
-                    <div class="btn-wrapper">
-                      <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
-                      <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
-                      <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
+                 <div>
+                  <div class="btn-wrapper">
+                    <button id="btnShare" class="btn btn-otline-dark align-items-center">
+                      <i class="icon-share"></i> Share
+                    </button>
+
+                    <button id="btnPrint" class="btn btn-otline-dark">
+                      <i class="icon-printer"></i> Print
+                    </button>
+
+                    <button id="exportToExcel" class="btn btn-primary text-white me-0">
+                      <i class="icon-download"></i> Export
+                    </button>
+
+                    <!-- SHARE DROPDOWN -->
+                    <div id="shareMenu" class="share-menu">
+                      <a href="#" id="waShare"><i class="fab fa-whatsapp" style="color:#25D366;"></i></a>
+                      <a href="#" id="mailShare"><i class="fas fa-envelope" style="color:#444;"></i></a>
                     </div>
                   </div>
                 </div>
+                </div>
                 <div class="tab-content tab-content-basic">
                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
-                      <div id="lowStock2Table">
+                      <div id="lowStockTable2">
                         <div class="row flex-grow">
                           <div class="col-12 grid-margin stretch-card">
                             <div class="card card-rounded">
@@ -710,6 +725,9 @@
   <script src="../../js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
   <script src="../../js/dashboard.js"></script>
   <script src="../../js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
