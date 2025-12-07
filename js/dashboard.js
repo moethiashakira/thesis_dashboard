@@ -1651,14 +1651,22 @@ if ($("#ratingTable").length) {
   // LOAD JSON
   // ================================
   fetch("../../json/ratingTable.json")
-    .then(res => res.json())
-    .then(data => {
-      productData = data.sort(() => 0.5 - Math.random()).slice(0, 100);
+  .then(res => res.json())
+  .then(data => {
 
-      console.log("Total product rating data:", productData.length);
-      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-    })
-    .catch(err => console.error("Gagal load JSON:", err));
+    // FIX: convert rating dari string → number
+    data = data.map(item => ({
+      ...item,
+      rating: Number(item.rating)
+    }));
+
+    productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    console.log("Total product rating data:", productData.length);
+    renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+  })
+  .catch(err => console.error("Gagal load JSON:", err));
+
 
 
   // ================================
@@ -1870,7 +1878,7 @@ if ($("#earningTable").length) {
     .then(data => {
 
       // Replace semuanya pakai JSON
-      productData = data.sort(() => 0.5 - Math.random()).slice(0, 100);
+      productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
 
       console.log("Total data dari JSON:", productData.length);
 
@@ -1918,37 +1926,45 @@ if ($("#earningTable").length) {
   // RENDER TABLE
   // ================================
   function renderTable(filtered) {
-    const tbody = document.querySelector("#earningProductTableBody");
-    tbody.innerHTML = "";
+  const tbody = document.querySelector("#earningProductTableBody");
+  tbody.innerHTML = "";
 
-    filtered.forEach(p => {
-      const stockInfo = getStockStatus(p.stock);
+  filtered.forEach(p => {
+    const stockInfo = getStockStatus(p.stock);
 
-      tbody.innerHTML += `
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
-              <div>
-                <h6 class="mb-0">${p.name}</h6>
-                <small>${p.id}</small>
-              </div>
+    tbody.innerHTML += `
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="${p.image}" class="product-img" alt="">
+            <div>
+              <h6 class="mb-0">${p.name}</h6>
+              <small>${p.id}</small>
             </div>
-          </td>
+          </div>
+        </td>
 
-          <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
-          <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
-          <td>${p.sold}</td>
-          <td>${formatDate(p.date)}</td>
-          <td>${p.rating}</td>
-          <td>${p.discount}%</td>
-          <td>${p.stock}</td>
-          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
-    });
-  }
+        <td>${p.category}</td>
+
+        <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+
+        <td>Rp ${p.earning.toLocaleString("id-ID")}</td>   <!-- ⬅️ BARU -->
+
+        <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
+
+        <td>Rp ${p.profit.toLocaleString("id-ID")}</td>    <!-- ⬅️ BARU -->
+
+        <td>${p.sold}</td>
+        <td>${formatDate(p.date)}</td>
+        <td>${p.rating}</td>
+        <td>${p.discount}%</td>
+        <td>${p.stock}</td>
+        <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+      </tr>
+    `;
+  });
+}
+
 
   // DEFAULT FILTER
   let selectedYear = "all";
@@ -2342,17 +2358,26 @@ if ($("#recTable2").length) {
   // ===============================================
   function filterProducts2(year, month) {
     return productData2
-      .sort((a, b) => b.sold - a.sold) // Highest Sales
       .filter(item => {
         const [itemYear, itemMonth] = item.date.split("-");
-
         const matchYear = year === "all" || itemYear === year;
         const matchMonth = month === "all" || itemMonth === month;
-
         return matchYear && matchMonth;
       })
-      .slice(0, 100); // Limit Top 10
+      .sort((a, b) => {
+        // SOLD → desc (highest first)
+        if (b.sold !== a.sold) return b.sold - a.sold;
+
+        // RATING → desc (highest first)
+        if (parseFloat(b.rating) !== parseFloat(a.rating))
+          return parseFloat(b.rating) - parseFloat(a.rating);
+
+        // PRICE → asc (lowest first)
+        return a.price - b.price;
+      })
+      .slice(0, 10);
   }
+
 
 
   // ===============================================
@@ -2781,7 +2806,7 @@ if ($("#lowSalesTable2").length) {
   let lowSalesProductData2 = []; // <- kosong dulu
 
   // Load JSON dari folder data
-  fetch("../../json/lowSalesTable2.json")
+  fetch("../../json/ratingTable.json")
     .then(response => response.json())
     .then(data => {
       lowSalesProductData2 = data;
@@ -2808,7 +2833,7 @@ if ($("#lowSalesTable2").length) {
 
         return matchYear && matchMonth;
       })
-      .slice(0, 100);
+      .slice(0, 10);
   }
 
 
@@ -3309,7 +3334,7 @@ if ($("#lowStockTable2").length) {
         return (year === "all" || itemYear === year) &&
                (month === "all" || itemMonth === month);
       })
-      .slice(0, 100);
+      .slice(0, 10);
   }
 
   // ================================
