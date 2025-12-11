@@ -1714,49 +1714,51 @@ if ($("#ratingTable").length) {
   //   }
   // ];
 
-  let productData = []; // awalnya kosong → diisi dari JSON
+  // ================================
+  // 1. SETUP VARIABLES
+  // ================================
+  let ratingProductData = []; 
   window.ratingProductData = [];
 
+  // Default States Filter
+  let selectedYear = "all";
+  let selectedMonth = "all";
+  let selectedRating = "all";
+
   // ================================
-  // LOAD JSON
+  // 2. LOAD JSON
   // ================================
   fetch("../../json/ratingTable.json") 
   .then(res => res.json())
   .then(data => {
 
-    // FIX: convert rating dari string → number
+    // Konversi rating string -> number
     data = data.map(item => ({
       ...item,
       rating: Number(item.rating)
     }));
 
-    // productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-
+    // Ambil 10 data acak
     window.ratingProductData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-
-    // console.log("Total product rating data:", productData.length);
     
     console.log("Data Random Rating Terpilih:", window.ratingProductData);
     
+    // Render tampilan awal
     renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
   })
   .catch(err => console.error("Gagal load JSON:", err));
 
-
-
   // ================================
-  // FORMAT TANGGAL
+  // 3. HELPER: FORMAT TANGGAL
   // ================================
   function formatDate(dateStr) {
     return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
+      day: "numeric", month: "long", year: "numeric"
     });
   }
 
   // ================================
-  // STOCK STATUS FUNCTION
+  // 4. HELPER: STOCK STATUS
   // ================================
   function getStockStatus(stock) {
     if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
@@ -1765,7 +1767,7 @@ if ($("#ratingTable").length) {
   }
 
   // ================================
-  // FILTER FUNCTION
+  // 5. CORE LOGIC: FILTER FUNCTION
   // ================================
   function filterProducts(year, month, ratingRange) {
     return window.ratingProductData.filter(item => {
@@ -1776,15 +1778,14 @@ if ($("#ratingTable").length) {
       const matchYear = year === "all" || itemYear === year;
       const matchMonth = month === "all" || itemMonth === month;
 
-      // ========== FILTER RATING ==========
+      // Filter Rating Logic
       let matchRating = true;
-      
       if (ratingRange !== "all") {
         const r = item.rating;
-
         const rangeStart = Number(ratingRange);
-        const rangeEnd = ratingRange === "5" ? 5.99 : rangeStart + 0.99;
-
+        // Jika pilih "5", ambil 5.0 - 5.99 (meskipun max biasanya 5.0)
+        // Jika pilih "4", ambil 4.0 - 4.99
+        const rangeEnd = ratingRange === "5" ? 5.99 : rangeStart + 0.99; 
         matchRating = r >= rangeStart && r <= rangeEnd;
       }
 
@@ -1792,13 +1793,17 @@ if ($("#ratingTable").length) {
     });
   }
 
-
   // ================================
-  // RENDER TABLE
+  // 6. RENDER TABLE (VISUAL)
   // ================================
   function renderTable(filtered) {
     const tbody = document.querySelector("#ratingTableBody");
     tbody.innerHTML = "";
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data untuk filter ini.</td></tr>`;
+      return;
+    }
 
     filtered.forEach(p => {
       const stockInfo = getStockStatus(p.stock);
@@ -1814,7 +1819,6 @@ if ($("#ratingTable").length) {
               </div>
             </div>
           </td>
-
           <td>${p.category}</td>
           <td>Rp ${p.price.toLocaleString("id-ID")}</td>
           <td>${p.sold}</td>
@@ -1828,45 +1832,29 @@ if ($("#ratingTable").length) {
     });
   }
 
-
   // ================================
-  // DEFAULT STATES
+  // 7. FILTER EVENTS
   // ================================
-  let selectedYear = "all";
-  let selectedMonth = "all";
-  let selectedRating = "all";
-
-  // Render awal
-  // renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-
-
-  // ================================
-  // FILTER YEAR (filter-year-rating)
-  // ================================
+  
+  // Filter Year
   document.querySelectorAll(".filter-year-rating").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
-
       selectedYear = this.dataset.year;
 
       document.getElementById("filterYearRatingBtn").innerHTML =
-        (selectedYear === "all" ? "All Years" : selectedYear) +
-        ' <span class="ms-1">&#9662;</span>';
+        (selectedYear === "all" ? "All Years" : selectedYear) + ' <span class="ms-1">&#9662;</span>';
 
       renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
     });
   });
 
-  // ================================
-  // FILTER MONTH (filter-month-rating)
-  // ================================
+  // Filter Month
   document.querySelectorAll(".filter-month-rating").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
-
       selectedMonth = this.dataset.month;
 
-      // update label
       document.getElementById("filterMonthRatingLabel").textContent =
         selectedMonth === "all" ? "All Months" : this.innerText.trim();
 
@@ -1874,13 +1862,10 @@ if ($("#ratingTable").length) {
     });
   });
 
-  // ================================
-  // FILTER RATING (filter-rating)
-  // ================================
+  // Filter Rating
   document.querySelectorAll(".filter-rating").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
-
       selectedRating = this.dataset.rating;
 
       document.getElementById("filterRatingBtn").innerHTML =
@@ -1890,32 +1875,33 @@ if ($("#ratingTable").length) {
     });
   });
 
-  // EXPORT RATING PRODUCT PAGE
+  // ================================
+  // 8. EXPORT EXCEL (LOGIC FIX)
+  // ================================
   const btnExport = document.getElementById('exportToExcel');
   if (btnExport) {
     btnExport.addEventListener('click', function() {
       
-      // 1. SIAPKAN DATA CHART (Overview Rating)
-      // Data hardcoded sesuai chart JS kamu
+      // --- SHEET 1: OVERVIEW (STATIC - Tidak ikut filter sesuai request) ---
       const chartLabels = ["1 - 1,99", "2 - 2,99", "3 - 3,99", "4 - 4,99", "5"];
-      const chartDataValues = [168, 225, 172, 235, 0];
+      const chartDataValues = [168, 225, 172, 235, 0]; // Data Hardcoded dari Chart
 
-      let sheet1Content = [["Rating Range", "Total Product Count"]]; // Header
-      
+      let sheet1Content = [["Rating Range", "Total Product Count"]];
       for(let i=0; i<chartLabels.length; i++){
         sheet1Content.push([ chartLabels[i], chartDataValues[i] ]);
       }
 
-      // 2. SIAPKAN DATA TABEL (Product Details)
-      // Ambil dari window.ratingProductData yang sudah diacak
-      let dataToExport = window.ratingProductData || [];
+      // --- SHEET 2: PRODUCT TABLE (DYNAMIC - Ikut Filter) ---
+      
+      // 🔥 FIX: Panggil filterProducts menggunakan variabel state saat ini
+      const dataToExport = filterProducts(selectedYear, selectedMonth, selectedRating);
 
       if (dataToExport.length === 0) {
-        alert("Data masih memuat... Silakan coba sebentar lagi.");
+        alert("Tidak ada data produk untuk filter yang dipilih.");
         return;
       }
 
-      // Mapping agar kolom Excel rapi
+      // Mapping Data Excel
       const sheet2Data = dataToExport.map(item => ({
         "ID": item.id,
         "Product Name": item.name,
@@ -1929,14 +1915,14 @@ if ($("#ratingTable").length) {
         "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
       }));
 
-      // 3. GENERATE FILE EXCEL
+      // Generate File
       const wb = XLSX.utils.book_new();
 
-      // Sheet 1: Chart Overview
+      // Append Sheet 1
       const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
       XLSX.utils.book_append_sheet(wb, ws1, "Rating Overview");
 
-      // Sheet 2: Product List
+      // Append Sheet 2
       const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
       XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
 
@@ -1997,30 +1983,34 @@ if ($("#earningTable").length) {
   //   }
   // ];
 
-  let productData = []; // kosong dulu, nanti diisi JSON
+  // ================================
+  // 1. SETUP VARIABLES
+  // ================================
+  let productData = [];
   window.productData = [];
+  
+  // Default Filter state
+  let selectedYear = "all";
+  let selectedMonth = "all";
 
   // ================================
-  // LOAD JSON (ambil max 100 data)
+  // 2. LOAD JSON
   // ================================
   fetch("../../json/productEarning.json")
     .then(res => res.json())
     .then(data => {
-
-      // Replace semuanya pakai JSON
-      // productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      // Ambil data acak 100 biji (sesuai logic kamu sebelumnya)
       window.productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
       
-      // console.log("Total data dari JSON:", productData.length);
-      console.log("Data Random Terpilih:", window.productData);
+      console.log("Data Loaded:", window.productData.length);
 
-      // Render setelah data siap
+      // Render pertama kali
       renderTable(filterProducts(selectedYear, selectedMonth));
     })
     .catch(err => console.error("Gagal load JSON:", err));
 
   // ================================
-  // FILTER FUNCTION
+  // 3. FILTER FUNCTION
   // ================================
   function filterProducts(year, month) {
     return window.productData.filter(item => {
@@ -2035,19 +2025,14 @@ if ($("#earningTable").length) {
   }
 
   // ================================
-  // DATE FORMATTER
+  // 4. HELPER FUNCTIONS
   // ================================
   function formatDate(dateStr) {
     return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
+      day: "numeric", month: "long", year: "numeric"
     });
   }
 
-  // ================================
-  // STOCK STATUS
-  // ================================
   function getStockStatus(stock) {
     if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
     if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
@@ -2055,53 +2040,87 @@ if ($("#earningTable").length) {
   }
 
   // ================================
-  // RENDER TABLE
+  // 5. RENDER TABLE (Hanya Render Visual HTML)
   // ================================
   function renderTable(filtered) {
-  const tbody = document.querySelector("#earningProductTableBody");
-  tbody.innerHTML = "";
+    const tbody = document.querySelector("#earningProductTableBody");
+    tbody.innerHTML = "";
 
-  filtered.forEach(p => {
-    const stockInfo = getStockStatus(p.stock);
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="12" class="text-center">Tidak ada data untuk filter ini.</td></tr>`;
+      return;
+    }
 
-    tbody.innerHTML += `
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img src="${p.image}" class="product-img" alt="">
-            <div>
-              <h6 class="mb-0">${p.name}</h6>
-              <small>${p.id}</small>
+    filtered.forEach(p => {
+      const stockInfo = getStockStatus(p.stock);
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
             </div>
-          </div>
-        </td>
+          </td>
+          <td>${p.category}</td>
+          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.earning.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.profit.toLocaleString("id-ID")}</td>
+          <td>${p.sold}</td>
+          <td>${formatDate(p.date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
 
-        <td>${p.category}</td>
+  // ================================
+  // 6. FILTER EVENT LISTENERS
+  // ================================
+  
+  // Year Filter
+  document.querySelectorAll(".filter-year-earning").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear = this.dataset.year;
 
-        <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+      document.getElementById("filterEarningTableYearBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) +
+        ' <span class="ms-1">&#9662;</span>';
 
-        <td>Rp ${p.earning.toLocaleString("id-ID")}</td>   <!-- ⬅️ BARU -->
-
-        <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
-
-        <td>Rp ${p.profit.toLocaleString("id-ID")}</td>    <!-- ⬅️ BARU -->
-
-        <td>${p.sold}</td>
-        <td>${formatDate(p.date)}</td>
-        <td>${p.rating}</td>
-        <td>${p.discount}%</td>
-        <td>${p.stock}</td>
-        <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-      </tr>
-    `;
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    });
   });
 
-  // EXPORT PRODUCT EARNING PAGE
+  // Month Filter
+  document.querySelectorAll(".filter-earning-month").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth = this.dataset.month;
+
+      const monthName = this.innerText.trim();
+      document.getElementById("filterEarningTableMonthLabel").textContent =
+        selectedMonth === "all" ? "All Months" : monthName;
+
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    });
+  });
+
+  // ================================
+  // 7. EXPORT PRODUCT EARNING PAGE
+  // ================================
   const btnExport = document.getElementById('exportToExcel');
   if (btnExport) {
     btnExport.addEventListener('click', function() {
       
-      // 1. CHART DATA (Hardcoded)
+      // --- A. Financial Overview (Hardcoded - Tetap/Tidak difilter sesuai request "hanya utk table") ---
       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
       const financialData = {
         earning: {
@@ -2128,12 +2147,13 @@ if ($("#earningTable").length) {
         ]);
       }
 
-      // 2. DATA TABLE (Dari window.productData)
-      let dataToExport = window.productData || []; 
+      // --- B. DATA TABLE (Ini yang difilter) ---
+      
+      // 🔥 FIX: Panggil fungsi filter menggunakan variabel selectedYear & selectedMonth saat ini
+      const dataToExport = filterProducts(selectedYear, selectedMonth);
 
-      // PENGECEKAN DATA KOSONG HANYA DILAKUKAN DISINI
       if (dataToExport.length === 0) {
-        alert("Data belum siap atau kosong. Tunggu sebentar lalu coba lagi.");
+        alert("Tidak ada data tabel untuk diexport pada filter ini.");
         return;
       }
 
@@ -2152,58 +2172,20 @@ if ($("#earningTable").length) {
         "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
       }));
 
+      // --- C. Generate Excel ---
       const wb = XLSX.utils.book_new();
+      
+      // Sheet 1: Overview (Static)
       const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
       XLSX.utils.book_append_sheet(wb, ws1, "Financial Overview");
+      
+      // Sheet 2: Product Details (Filtered)
       const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
       XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
 
       XLSX.writeFile(wb, "Product_Earning_Report.xlsx");
     });
   }
-}
-
-
-  // DEFAULT FILTER
-  let selectedYear = "all";
-  let selectedMonth = "all";
-
-  // renderTable(filterProducts(selectedYear, selectedMonth));
-
-  // ================================
-  // EVENT YEAR FILTER
-  // ================================
-  document.querySelectorAll(".filter-year-earning").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      selectedYear = this.dataset.year;
-
-      document.getElementById("filterEarningTableYearBtn").innerHTML =
-        (selectedYear === "all" ? "All Years" : selectedYear) +
-        ' <span class="ms-1">&#9662;</span>';
-
-      renderTable(filterProducts(selectedYear, selectedMonth));
-    });
-  });
-
-  // ================================
-  // EVENT MONTH FILTER
-  // ================================
-  document.querySelectorAll(".filter-earning-month").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      selectedMonth = this.dataset.month;
-
-      const monthName = this.innerText.trim();
-      document.getElementById("filterEarningTableMonthLabel").textContent =
-        selectedMonth === "all" ? "All Months" : monthName;
-
-      renderTable(filterProducts(selectedYear, selectedMonth));
-    });
-  });
-
 }
 
 
@@ -2538,91 +2520,99 @@ if ($("#recTable2").length) {
   // ];
 
 
-  let productData2 = []; // INI YANG DIPAKAI FILTER & RENDER
-  window.recProductData2 = [];
+  // Variabel untuk menyimpan 10 Rekomendasi Terbaik (Global)
+  let staticTop10Rec = []; 
 
+  // ===============================================
+  // 1. LOAD JSON & PROSES LOGIKA UTAMA
+  // ===============================================
   fetch("../../json/recTable2.json")
     .then(res => res.json())
     .then(data => {
-      // productData2 = data;
-      window.recProductData2 = data;
+      
+      // LOGIKA REKOMENDASI:
+      // 1. Urutkan berdasarkan SOLD (Tinggi -> Rendah)
+      // 2. Jika sold sama, urutkan RATING (Tinggi -> Rendah)
+      // 3. Jika rating sama, urutkan PRICE (Rendah -> Tinggi / Murah)
+      
+      staticTop10Rec = data.sort((a, b) => {
+        // Cek Sales (Sold)
+        const soldA = Number(a.sold);
+        const soldB = Number(b.sold);
+        if (soldB !== soldA) return soldB - soldA; // Descending
 
-      // console.log("Data loaded:", productData2.length);
-      console.log("Data Recommendation Loaded:", window.recProductData2.length);
+        // Cek Rating
+        const rateA = Number(a.rating);
+        const rateB = Number(b.rating);
+        if (rateB !== rateA) return rateB - rateA; // Descending
 
-      renderTable2(filterProducts2(selectedYear2, selectedMonth2));
+        // Cek Price
+        const priceA = Number(a.price);
+        const priceB = Number(b.price);
+        return priceA - priceB; // Ascending (Cari yang murah)
+      })
+      .slice(0, 10); // AMBIL 10 TERBAIK SAJA & KUNCI
+
+      console.log("Top 10 Recommendations Locked:", staticTop10Rec);
+
+      // Render pertama kali
+      renderTable2(staticTop10Rec);
     })
-    // .catch(err => console.error("JSON Load Error:", err));
     .catch(err => {
       console.error("JSON Load Error:", err);
-      // Fallback jika fetch gagal (opsional)
-      alert("Gagal memuat data produk rekomendasi.");
+      staticTop10Rec = [];
+      renderTable2([]);
     });
 
-
-
   // ===============================================
-  // FILTER FUNCTION
+  // 2. FILTER FUNCTION (Hanya main di Top 10)
   // ===============================================
-  function filterProducts2(year, month) {
-    return window.recProductData2
-      .filter(item => {
-        const [itemYear, itemMonth] = item.date.split("-");
-        const matchYear = year === "all" || itemYear === year;
-        const matchMonth = month === "all" || itemMonth === month;
-        return matchYear && matchMonth;
-      })
-      .sort((a, b) => {
-        // SOLD → desc (highest first)
-        if (b.sold !== a.sold) return b.sold - a.sold;
-
-        // RATING → desc (highest first)
-        if (parseFloat(b.rating) !== parseFloat(a.rating))
-          return parseFloat(b.rating) - parseFloat(a.rating);
-
-        // PRICE → asc (lowest first)
-        return a.price - b.price;
-      })
-      .slice(0, 10);
+  function getFilteredRec(year, month) {
+    // Kita filter DARI 10 data statis tadi
+    return staticTop10Rec.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      
+      const matchYear = year === "all" || itemYear === year;
+      const matchMonth = month === "all" || itemMonth === month;
+      
+      return matchYear && matchMonth;
+    });
   }
 
-
-
   // ===============================================
-  // DATE FORMATTER
+  // 3. HELPER FUNCTIONS
   // ===============================================
   function formatDate2(dateStr) {
     return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
+      day: "numeric", month: "long", year: "numeric"
     });
   }
 
-
-  // ===============================================
-  // STOCK STATUS STYLE
-  // ===============================================
   function getStockStatus2(stock) {
-    if (stock >= 100) {
-      return { text: "In Stock", class: "badge bg-success" }; 
-    }
-    if (stock >= 11) {
-      return { text: "Warning", class: "badge bg-warning text-dark" }; 
-    }
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" }; 
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" }; 
     return { text: "Low Stock", class: "badge bg-danger" }; 
   }
 
-
   // ===============================================
-  // RENDER TABLE
+  // 4. RENDER TABLE
   // ===============================================
-  function renderTable2(filtered) {
+  function renderTable2(filteredData) {
     const tbody = document.getElementById("recProductTableBody2");
+    
+    // PENTING: Reset tabel biar ga double
     tbody.innerHTML = "";
 
-    filtered.forEach(p => {
+    if (filteredData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data rekomendasi di periode ini.</td></tr>`;
+      return;
+    }
+
+    filteredData.forEach(p => {
       const stockInfo = getStockStatus2(p.stock);
+      
+      // Format Harga Indonesia
+      const formattedPrice = Number(p.price).toLocaleString("id-ID");
 
       tbody.innerHTML += `
         <tr>
@@ -2637,7 +2627,7 @@ if ($("#recTable2").length) {
           </td>
 
           <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${formattedPrice}</td>
           <td>${p.sold}</td>
           <td>${formatDate2(p.date)}</td>
           <td>${p.rating}</td>
@@ -2650,36 +2640,26 @@ if ($("#recTable2").length) {
     });
   }
 
-
   // ===============================================
-  // DEFAULT
+  // 5. FILTER EVENTS
   // ===============================================
   let selectedYear2 = "all";
   let selectedMonth2 = "all";
 
-  // renderTable2(filterProducts2(selectedYear2, selectedMonth2));
-
-
-  // ===============================================
-  // YEAR FILTER EVENT
-  // ===============================================
+  // Filter Year
   document.querySelectorAll(".filter-year-2").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       selectedYear2 = this.dataset.year;
 
       document.getElementById("filterYear2Btn").innerHTML =
-        (selectedYear2 === "all" ? "All Years" : selectedYear2) +
-        ' <span class="ms-1">&#9662;</span>';
+        (selectedYear2 === "all" ? "All Years" : selectedYear2) + ' <span class="ms-1">&#9662;</span>';
 
-      renderTable2(filterProducts2(selectedYear2, selectedMonth2));
+      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
     });
   });
 
-
-  // ===============================================
-  // MONTH FILTER EVENT
-  // ===============================================
+  // Filter Month
   document.querySelectorAll(".filter-month-2").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -2689,27 +2669,28 @@ if ($("#recTable2").length) {
       document.getElementById("filterMonth2Label").textContent =
         selectedMonth2 === "all" ? "All Months" : monthText;
 
-      renderTable2(filterProducts2(selectedYear2, selectedMonth2));
+      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
     });
   });
 
-  // EXPORT RECOMMRNDATION PRODUCT PAGE
+  // ===============================================
+  // 6. EXPORT EXCEL
+  // ===============================================
   const btnExport = document.getElementById('exportToExcel');
   
   if (btnExport) {
     btnExport.addEventListener('click', function() {
-      
-      // 1. Ambil data yang sedang ditampilkan (Top 10 filtered)
-      const dataToExport = filterProducts2(selectedYear2, selectedMonth2);
+      // Ambil data dari hasil filter staticTop10Rec
+      const dataToExport = getFilteredRec(selectedYear2, selectedMonth2);
 
       if (dataToExport.length === 0) {
         alert("Tidak ada data rekomendasi untuk filter yang dipilih.");
         return;
       }
 
-      // 2. Mapping Data untuk Excel
+      // Mapping Data untuk Excel
       const sheetData = dataToExport.map((item, index) => ({
-        "Rank": index + 1, // Ranking 1-10
+        "No": index + 1, // Ranking berdasarkan logika sort di awal
         "ID": item.id,
         "Product Name": item.name,
         "Category": item.category,
@@ -2722,21 +2703,16 @@ if ($("#recTable2").length) {
         "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
       }));
 
-      // 3. Generate Excel File
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
 
-      // Auto-width kolom (opsional)
-      const wscols = [
+      ws['!cols'] = [
         {wch: 6},  {wch: 10}, {wch: 40}, {wch: 15}, 
         {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
         {wch: 10}, {wch: 8},  {wch: 10}
       ];
-      ws['!cols'] = wscols;
-
+      
       XLSX.utils.book_append_sheet(wb, ws, "Top Recommendations");
-
-      // 4. DOWNLOAD FILE (NAMA FILE DIUBAH DI SINI)
       XLSX.writeFile(wb, "Recommendation_Product_Report.xlsx");
     });
   }
@@ -3633,50 +3609,48 @@ if ($("#lowStockTable2").length) {
   // ];
 
   let lowStockData2 = []; // kosong dulu, nanti terisi dari JSON
-  window.lowStockData2 = [];
+  // Variabel untuk menyimpan 10 data terendah yang statis (tidak berubah)
+  let staticTop10Data = []; 
 
-  // ===== Load JSON =====
+  // ================================
+  // LOAD JSON
+  // ================================
   fetch("../../json/lowStockTable2.json")
     .then(res => res.json())
     .then(data => {
-      // lowStockData2 = data;
-
-      // console.log("Total data loaded:", lowStockData2.length);
-
-      // LOGIKA DATA:
-      // 1. Acak seluruh data (Shuffle)
-      // 2. Ambil 50 data acak sebagai sampel
-      const randomPool = data.sort(() => 0.5 - Math.random()).slice(0, 50);
       
-      // Simpan ke Global Variable
-      window.lowStockData2 = randomPool;
+      // LOGIKA BARU: 
+      // 1. Urutkan semua data dari stock terkecil ke terbesar
+      // 2. Ambil 10 teratas SAJA dan simpan sebagai data statis.
+      // Jadi nanti kalau difilter, dia cuma mengotak-atik 10 data ini.
+      staticTop10Data = data
+        .sort((a, b) => a.stock - b.stock) // Urutkan stock 1 - 100
+        .slice(0, 10); // Ambil 10 biji saja
 
-      console.log("Data Low Stock (Random Pool) Loaded:", window.lowStockData2.length);
+      console.log("Top 10 Low Stock Loaded:", staticTop10Data);
 
-      renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
+      // Render pertama kali (tampilkan semua dari 10 data itu)
+      renderLowStockTable2(staticTop10Data);
     })
-    // .catch(err => console.error("Gagal load JSON:", err));
     .catch(err => {
       console.error("Gagal load JSON:", err);
-      // Fallback
-      window.lowStockData2 = [];
+      staticTop10Data = [];
       renderLowStockTable2([]);
     });
 
   // ================================
   // FILTER LOGIC
   // ================================
-  function filterLowStockProducts2(year, month) {
-    return window.lowStockData2
-      .sort((a, b) => a.sold - b.sold)
-      .filter(item => {
-        const [itemYear, itemMonth] = item.date.split("-");
-        return (year === "all" || itemYear === year) &&
-               (month === "all" || itemMonth === month);
-      })
-      // 🔥 WAJIB: Urutkan dari STOCK TERKECIL ke TERBESAR (Ascending)
-      .sort((a, b) => a.stock - b.stock)
-      .slice(0, 10);
+  function getFilteredData(year, month) {
+    // Kita filter DARI 10 data statis tadi, bukan dari seluruh database.
+    return staticTop10Data.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      
+      const matchYear = (year === "all" || itemYear === year);
+      const matchMonth = (month === "all" || itemMonth === month);
+
+      return matchYear && matchMonth;
+    });
   }
 
   // ================================
@@ -3700,12 +3674,21 @@ if ($("#lowStockTable2").length) {
   // ================================
   // RENDER TABLE
   // ================================
-  function renderLowStockTable2(filtered) {
+  function renderLowStockTable2(filteredData) {
     const tbody = document.getElementById("lowStockTableBody2");
     tbody.innerHTML = "";
 
-    filtered.forEach(p => {
+    // Jika hasil filter kosong (misal di Top 10 itu tidak ada yg bulan Mei)
+    if (filteredData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data di Top 10 Low Stock untuk periode ini.</td></tr>`;
+      return;
+    }
+
+    filteredData.forEach(p => {
       const stockInfo = getStockStatusLowStock2(p.stock);
+
+      // PERBAIKAN HARGA: Paksa jadi Number dulu baru di-format
+      const hargaRupiah = Number(p.price).toLocaleString("id-ID");
 
       tbody.innerHTML += `
         <tr>
@@ -3719,7 +3702,7 @@ if ($("#lowStockTable2").length) {
             </div>
           </td>
           <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${hargaRupiah}</td> 
           <td>${p.sold}</td>
           <td>${formatDateLowStock2(p.date)}</td>
           <td>${p.rating}</td>
@@ -3737,8 +3720,6 @@ if ($("#lowStockTable2").length) {
   let selectedLowStockYear2 = "all";
   let selectedLowStockMonth2 = "all";
 
-  // renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
-
   // ================================
   // YEAR FILTER EVENT
   // ================================
@@ -3751,7 +3732,8 @@ if ($("#lowStockTable2").length) {
       document.getElementById("filterYearLowStock2Btn").innerHTML =
         `${selectedLowStockYear2 === "all" ? "All Years" : selectedLowStockYear2} <span class="ms-1">&#9662;</span>`;
 
-      renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
+      // Render ulang berdasarkan data yang sudah disaring dari Top 10
+      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
     });
   });
 
@@ -3768,53 +3750,51 @@ if ($("#lowStockTable2").length) {
       document.getElementById("filterMonthLowStock2Label").textContent =
         selectedLowStockMonth2 === "all" ? "All Months" : monthText;
 
-      renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
+      // Render ulang berdasarkan data yang sudah disaring dari Top 10
+      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
     });
   });
 
-  // EXPORT LOW STOCK PRODUCT PAGE
+  // ================================
+  // EXPORT EXCEL
+  // ================================
   const btnExport = document.getElementById('exportToExcel');
   
   if (btnExport) {
     btnExport.addEventListener('click', function() {
-      
-      // Ambil data yang sedang ditampilkan (Filtered & Sorted by Lowest Stock)
-      const dataToExport = filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2);
+      // Ambil data yang sedang tampil di layar (Filtered version of Top 10)
+      const dataToExport = getFilteredData(selectedLowStockYear2, selectedLowStockMonth2);
 
       if (dataToExport.length === 0) {
-        alert("Data kosong (mungkin masih loading JSON atau filter tidak cocok).");
+        alert("Tidak ada data untuk diexport pada periode ini.");
         return;
       }
 
-      // Mapping Data untuk Excel
       const sheetData = dataToExport.map((item, index) => ({
         "No": index + 1,
         "ID": item.id,
         "Product Name": item.name,
         "Category": item.category,
-        "Price": item.price,
+        "Price": item.price, 
         "Sold Count": item.sold,
         "Date": item.date,
         "Rating": item.rating,
         "Discount (%)": item.discount,
-        "Stock": item.stock, // Kolom terpenting di halaman ini
+        "Stock": item.stock,
         "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
       }));
 
-      // Generate Excel File
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
 
-      const wscols = [
+      // Mengatur lebar kolom
+      ws['!cols'] = [
         {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
         {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
         {wch: 10}, {wch: 8},  {wch: 10}
       ];
-      ws['!cols'] = wscols;
 
-      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Products");
-
-      // Output File Name
+      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Product");
       XLSX.writeFile(wb, "LowStock_Product_Report.xlsx");
     });
   }
