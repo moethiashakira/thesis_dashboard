@@ -1,0 +1,175 @@
+if ($("#recTable").length){
+    // ================================
+    // DUMMY DATA PRODUCT LIST
+    // ================================
+    const productData = [
+      {
+        id: "P0767",
+        name: "Next Look Men Blue Slim Fit Solid Formal Shirt",
+        category: "Atasan Pria",
+        price: 104310,
+        sold: 60,
+        date: "2025-01-24",
+        rating: 4.51,
+        discount: 22,
+        stock: 10,
+        status: "In Stock",
+        image: "./images/asset/logo-02.jpg"
+      },
+      {
+        id: "P0017",
+        name: "T-Shirt Mini Garis (Crop Top)",
+        category: "Atasan Wanita",
+        price: 149000,
+        sold: 250,
+        date: "2024-08-12",
+        rating: 4.08,
+        discount: 2,
+        stock: 11,
+        status: "In Stock",
+        image: "./images/asset/logo-02.jpg"
+      },
+      {
+        id: "P0296",
+        name: "Ziyaa Women Grey Printed Kurta With Trousers",
+        category: "Bawahan Wanita",
+        price: 198930,
+        sold: 235,
+        date: "2025-06-30",
+        rating: 2.2,
+        discount: 11,
+        stock: 244,
+        status: "In Stock",
+        image: "./images/asset/logo-02.jpg"
+      }
+    ];
+
+
+    // ================================
+    // FILTER FUNCTION
+    // ================================
+    function filterProducts(year, month) {
+      return productData.filter(item => {
+        const itemYear = item.date.split("-")[0];
+        const itemMonth = item.date.split("-")[1];
+
+        const matchYear = year === "all" || itemYear === year;
+        const matchMonth = month === "all" || itemMonth === month;
+
+        return matchYear && matchMonth;
+      });
+    }
+
+
+    // ================================
+    // FORMAT TANGGAL
+    // ================================
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    // ================================
+    // STOCK STATUS FUNCTION
+    // ================================
+    function getStockStatus(stock) {
+      if (stock >= 100) {
+        return { text: "In Stock", class: "badge bg-success" }; // hijau
+      }
+      if (stock >= 11) {
+        return { text: "Warning", class: "badge bg-warning text-dark" }; // kuning
+      }
+      return { text: "Low Stock", class: "badge bg-danger" }; // merah
+    }
+
+    // ================================
+    // RENDER TABLE
+    // ================================
+    function renderTable(filtered) {
+      const tbody = document.querySelector("#recProductTableBody");
+      tbody.innerHTML = "";
+
+      filtered.forEach(p => {
+
+        const stockInfo = getStockStatus(p.stock);
+
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="${p.image}" class="product-img" alt="">
+                <div>
+                  <h6 class="mb-0">${p.name}</h6>
+                  <small>${p.id}</small>
+                </div>
+              </div>
+            </td>
+
+            <td>${p.category}</td>
+            <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+            <td>${p.sold}</td>
+            <td>${formatDate(p.date)}</td>
+            <td>${p.rating}</td>
+            <td>${p.discount}%</td>
+            <td>${p.stock}</td>
+
+            <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+          </tr>
+        `;
+      });
+    }
+
+    // ================================
+    // DEFAULT FILTER STATE
+    // ================================
+    let selectedYear = "all";
+    let selectedMonth = "all";
+
+    // Render awal
+    renderTable(filterProducts(selectedYear, selectedMonth));
+    GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
+
+
+    // ================================
+    // EVENT YEAR FILTER
+    // ================================
+    document.querySelectorAll(".filter-year-rec").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault(); // ⛔ stop page jumping
+
+        selectedYear = this.dataset.year;
+
+        document.getElementById("filterYearRecBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) +
+        ' <span class="ms-1">&#9662;</span>';
+
+        renderTable(filterProducts(selectedYear, selectedMonth));
+        GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
+      });
+    });
+
+    // ================================
+    // EVENT MONTH FILTER
+    // ================================
+    document.querySelectorAll(".filter-month").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const m = this.dataset.month;
+        selectedMonth = m === "all" ? "all" : m;
+
+        const monthName = this.innerText.trim();
+
+        // Update label bulan tanpa ganggu arrow
+        document.getElementById("filterMonthLabel").textContent =
+          selectedMonth === "all" ? "All Months" : monthName;
+
+        // update tabel kamu
+        renderTable(filterProducts(selectedYear, selectedMonth));
+        GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
+      });
+    });
+  }

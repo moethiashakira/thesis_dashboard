@@ -1,0 +1,165 @@
+if ($("#lowSalesTable").length) {
+  // ================================
+  // DUMMY DATA PRODUCT LIST
+  // ================================
+  const productData = [
+    {
+      id: "P0604",
+      name: "Ed Hardy Grey Printed Jacket",
+      category: "Atasan Pria",
+      price: 503310,
+      sold: 3,
+      date: "2025-10-4",
+      rating: 1.98,
+      discount: 3,
+      stock: 657,
+      image: "./images/asset/logo-02.jpg"
+    },
+    {
+      id: "P0186",
+      name: "Alcis Women Charcoal Grey Solid Sporty Sacket",
+      category: "Atasan Pria",
+      price: 379810,
+      sold: 3,
+      date: "2025-03-1",
+      rating: 2.46,
+      discount: 4,
+      stock: 65,
+      image: "./images/asset/logo-02.jpg"
+    },
+    {
+      id: "P0264",
+      name: "Mango Women Beige & Grey Printed Round Neck T-Shirt",
+      category: "Atasan Wanita",
+      price: 378100,
+      sold: 9,
+      date: "2024-11-30",
+      rating: 1.5,
+      discount: 5,
+      stock: 2,
+      image: "./images/asset/logo-02.jpg"
+    }
+  ];
+
+  // ================================
+  // FILTER FUNCTION
+  // ================================
+  function filterProducts(year, month) {
+    return productData.filter(item => {
+      const itemYear = item.date.split("-")[0];
+      const itemMonth = item.date.split("-")[1];
+
+      const matchYear = year === "all" || itemYear === year;
+      const matchMonth = month === "all" || itemMonth === month;
+
+      return matchYear && matchMonth;
+    });
+  }
+
+  // ================================
+  // FORMAT TANGGAL
+  // ================================
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  }
+
+  // ================================
+  // STOCK STATUS FUNCTION
+  // ================================
+  function getStockStatus(stock) {
+    if (stock >= 100) {
+      return { text: "In Stock", class: "badge bg-success" }; 
+    }
+    if (stock >= 11) {
+      return { text: "Warning", class: "badge bg-warning text-dark" }; 
+    }
+    return { text: "Low Stock", class: "badge bg-danger" }; 
+  }
+
+  // ================================
+  // RENDER TABLE
+  // ================================
+  function renderTable(filtered) {
+    const tbody = document.querySelector("#lowSalesTableBody");
+    tbody.innerHTML = "";
+
+    filtered.forEach(p => {
+      const stockInfo = getStockStatus(p.stock);
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
+            </div>
+          </td>
+
+          <td>${p.category}</td>
+          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>${p.sold}</td>
+          <td>${formatDate(p.date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
+
+  // ================================
+  // DEFAULT FILTER STATE
+  // ================================
+  let selectedYear = "all";
+  let selectedMonth = "all";
+
+  // Render awal
+  renderTable(filterProducts(selectedYear, selectedMonth));
+  GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
+
+  // ================================
+  // EVENT YEAR FILTER
+  // ================================
+  document.querySelectorAll(".lowSales-filter-year").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      selectedYear = this.dataset.year;
+
+      document.getElementById("lowSalesYearBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) +
+        ' <span class="ms-1">&#9662;</span>';
+
+      renderTable(filterProducts(selectedYear, selectedMonth));
+      GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
+    });
+  });
+
+  // ================================
+  // EVENT MONTH FILTER
+  // ================================
+  document.querySelectorAll(".lowSales-filter-month").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const m = this.dataset.month;
+      selectedMonth = m === "all" ? "all" : m;
+
+      const monthName = this.innerText.trim();
+
+      document.getElementById("lowSalesMonthLabel").textContent =
+        selectedMonth === "all" ? "All Months" : monthName;
+
+      renderTable(filterProducts(selectedYear, selectedMonth));
+      GLOBAL_DATA.lowSales = productData.filter(p => p.sold < 100);
+    });
+  });
+}
