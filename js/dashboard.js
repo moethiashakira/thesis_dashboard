@@ -473,16 +473,20 @@ window.GLOBAL_DATA = {
           }
 
           // Data Tables (Hardcoded for Dashboard)
-          const recData = [
-            { id: "P0767", name: "Next Look Men Blue Slim Fit Solid Formal Shirt", category: "Atasan Pria", price: 104310, sold: 60, status: "Low Stock" },
-            { id: "P0017", name: "T-Shirt Mini Garis (Crop Top)", category: "Atasan Wanita", price: 149000, sold: 250, status: "Warning" },
-            { id: "P0296", name: "Ziyaa Women Grey Printed Kurta With Trousers", category: "Bawahan Wanita", price: 198930, sold: 235, status: "In Stock" }
+           const recData = [
+            { id: "P0767", name: "Next Look Men Blue Slim Fit Solid Formal Shirt", category: "Atasan Pria", price: 104310, sold: 60, date: "2025-01-24", rating: 4.51, discount: 22, stock: 10, status: "Low Stock" },
+            { id: "P0017", name: "T-Shirt Mini Garis (Crop Top)", category: "Atasan Wanita", price: 149000, sold: 250, date: "2024-08-12", rating: 4.08, discount: 2, stock: 11, status: "Warning" },
+            { id: "P0296", name: "Ziyaa Women Grey Printed Kurta With Trousers", category: "Bawahan Wanita", price: 198930, sold: 235, date: "2025-06-30", rating: 2.2, discount: 11, stock: 244, status: "In Stock" }
           ];
           const lowSalesData = [
-            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, status: "In Stock" }
+            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, date: "2025-10-4", rating: 1.98, discount: 3, stock: 657, status: "In Stock" },
+            { id: "P0186", name: "Alcis Women Charcoal Grey Solid Sporty Sacket", category: "Atasan Pria", price: 379810, sold: 3, date: "2025-03-1", rating: 2.46, discount: 4, stock: 65, status: "Warning" },
+            { id: "P0264", name: "Mango Women Beige & Grey Printed Round Neck T-Shirt", category: "Atasan Wanita", price: 378100, sold: 9, date: "2024-11-30", rating: 1.5, discount: 5, stock: 2, status: "Low Stock" }
           ];
           const lowStockData = [
-            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, stock: 3, status: "Low Stock" }
+            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, date: "2024-10-4", rating: 1.98, discount: 3, stock: 3, status: "Low Stock" },
+            { id: "P0186", name: "Alcis Women Charcoal Grey Solid Sporty Sacket", category: "Atasan Pria", price: 379810, sold: 3, date: "2025-03-1", rating: 2.46, discount: 4, stock: 1, status: "Low Stock" },
+            { id: "P0264", name: "Mango Women Beige & Grey Printed Round Neck T-Shirt", category: "Atasan Wanita", price: 378100, sold: 9, date: "2025-11-30", rating: 1.5, discount: 5, stock: 2, status: "Low Stock" }
           ];
 
           // Generate Excel
