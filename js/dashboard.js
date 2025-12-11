@@ -176,6 +176,8 @@
     //   document.getElementById('performance-line-legend').innerHTML = salesTop.generateLegend();
     // }
 
+
+
   // SHARE BUTTON
   if ($("#btnShare").length) {
     $("#btnShare").click(function () {
@@ -229,65 +231,6 @@ window.GLOBAL_DATA = {
 //     XLSX.writeFile(workbook, "product_report_export.xlsx");
 //   });
 // }
-
-// =======================
-// EXPORT MULTI-SHEET
-// =======================
-if ($("#exportToExcel").length) {
-
-  $("#exportToExcel").click(function () {
-
-    // Sheet 1 – Recommendation Table
-    const sheet1 = XLSX.utils.json_to_sheet(GLOBAL_DATA.recommendations);
-
-    // Sheet 2 – Low Sales Table
-    const sheet2 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowSales);
-
-    // Sheet 3 – Low Stock Table
-    const sheet3 = XLSX.utils.json_to_sheet(GLOBAL_DATA.lowStock);
-
-    // Sheet 4 – Yearly Financial Chart Data
-    const chartData = [];
-    const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-
-    // 2024
-    months.forEach((m, i) => {
-      chartData.push({
-        year: 2024,
-        month: m,
-        earning: dataset2024.earning[i],
-        modal:   dataset2024.modal[i],
-        profit:  dataset2024.profit[i],
-      });
-    });
-
-    // 2025
-    months.forEach((m, i) => {
-      chartData.push({
-        year: 2025,
-        month: m,
-        earning: dataset2025.earning[i],
-        modal:   dataset2025.modal[i],
-        profit:  dataset2025.profit[i],
-      });
-    });
-
-    const sheet4 = XLSX.utils.json_to_sheet(chartData);
-
-    // Create workbook
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, sheet1, "Recommendation Table");
-    XLSX.utils.book_append_sheet(wb, sheet2, "Low Sales Table");
-    XLSX.utils.book_append_sheet(wb, sheet3, "Low Stock Table");
-    XLSX.utils.book_append_sheet(wb, sheet4, "Yearly Financial Chart");
-
-    // Save file
-    XLSX.writeFile(wb, "dashboard_export.xlsx");
-  });
-
-}
-
-
 
 
     if ($("#performaneLine").length) {
@@ -499,6 +442,64 @@ if ($("#exportToExcel").length) {
 
         $('#filterYearChartBtn').html(`${year} <span class="ms-2">&#9662;</span>`);
       });
+
+      // EXPORT DASHBOARD MAIN PAGE
+      // Pastikan tombol export ada sebelum pasang listener
+      const btnExport = document.getElementById('exportToExcel');
+      
+      if (btnExport) {
+        btnExport.addEventListener('click', function() {
+          
+          // --- DATA HARDCODED UNTUK DASHBOARD ---
+          const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+          
+          const fin2024 = {
+              earning: [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+              modal:   [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+              profit:  [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870]
+          };
+          const fin2025 = {
+              earning: [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560],
+              modal:   [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808],
+              profit:  [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+          };
+
+          // Header Sheet 1
+          let sheetFinancial = [["Month", "Earning 2024", "Profit 2024", "Earning 2025", "Profit 2025", "Modal 2024", "Modal 2025"]];
+          for (let i = 0; i < months.length; i++) {
+            sheetFinancial.push([
+              months[i], fin2024.earning[i], fin2024.profit[i], fin2025.earning[i], fin2025.profit[i], fin2024.modal[i], fin2025.modal[i]
+            ]);
+          }
+
+          // Data Tables (Hardcoded for Dashboard)
+          const recData = [
+            { id: "P0767", name: "Next Look Men Blue Slim Fit Solid Formal Shirt", category: "Atasan Pria", price: 104310, sold: 60, status: "Low Stock" },
+            { id: "P0017", name: "T-Shirt Mini Garis (Crop Top)", category: "Atasan Wanita", price: 149000, sold: 250, status: "Warning" },
+            { id: "P0296", name: "Ziyaa Women Grey Printed Kurta With Trousers", category: "Bawahan Wanita", price: 198930, sold: 235, status: "In Stock" }
+          ];
+          const lowSalesData = [
+            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, status: "In Stock" }
+          ];
+          const lowStockData = [
+            { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, stock: 3, status: "Low Stock" }
+          ];
+
+          // Generate Excel
+          const wb = XLSX.utils.book_new();
+          const wsFinancial = XLSX.utils.aoa_to_sheet(sheetFinancial);
+          const recSheet = XLSX.utils.json_to_sheet(recData);
+          const lowSalesSheet = XLSX.utils.json_to_sheet(lowSalesData);
+          const lowStockSheet = XLSX.utils.json_to_sheet(lowStockData);
+
+          XLSX.utils.book_append_sheet(wb, wsFinancial, "Financial Overview");
+          XLSX.utils.book_append_sheet(wb, recSheet, "Recommendations");
+          XLSX.utils.book_append_sheet(wb, lowSalesSheet, "Low Sales");
+          XLSX.utils.book_append_sheet(wb, lowStockSheet, "Low Stock");
+
+          XLSX.writeFile(wb, "Dashboard_Page_Report.xlsx");
+        });
+      }
     }
 
 
@@ -1388,6 +1389,71 @@ if ($("#exportToExcel").length) {
         updateAllCharts(idx);
       });
     });
+
+    // EXPORT PRODUCT SOLD PAGE
+    const btnExport = document.getElementById('exportToExcel');
+    if (btnExport) {
+      btnExport.addEventListener('click', function() {
+          
+          const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      
+          // Data dari marketingOverviewData (Disalin agar bisa diakses button)
+          const dataOverview2024 = [2195, 2070, 2262, 2047, 2050, 2158, 2092, 2059, 2023, 2156, 2088, 2141];
+          const dataOverview2025 = [2133, 2025, 2127, 1826, 2058, 1930, 1982, 2112, 1977, 2224, 1949, 2210];
+
+          // Buat Header untuk Sheet 1
+          let sheet1Content = [
+              ["Month", "Total Sales 2024", "Total Sales 2025"] // Header Row
+          ];
+
+          // Masukkan data baris per baris
+          for (let i = 0; i < months.length; i++) {
+              sheet1Content.push([
+                  months[i], 
+                  dataOverview2024[i], 
+                  dataOverview2025[i]
+              ]);
+          }
+
+          const detailData = {
+            atasanPria: {
+                2024: [496, 411, 484, 460, 426, 413, 429, 399, 392, 456, 390, 467],
+                2025: [387, 428, 451, 391, 440, 378, 426, 455, 377, 446, 404, 481]
+            },
+            atasanWanita: {
+                2024: [434, 492, 507, 437, 434, 509, 451, 538, 442, 513, 549, 548],
+                2025: [486, 491, 438, 396, 449, 494, 421, 474, 473, 479, 458, 520]
+            },
+            bawahanPria: {
+                2024: [679, 669, 684, 614, 684, 658, 635, 645, 631, 684, 629, 555],
+                2025: [704, 605, 659, 511, 638, 559, 589, 622, 591, 625, 597, 619]
+            },
+            bawahanWanita: {
+                2024: [586, 498, 587, 536, 506, 578, 577, 477, 558, 503, 520, 571],
+                2025: [556, 501, 579, 528, 531, 499, 546, 561, 536, 674, 490, 590]
+            }
+         };
+
+          let sheet2Content = [["Month", "Atasan Pria (2024)", "Atasan Pria (2025)", "Atasan Wanita (2024)", "Atasan Wanita (2025)", "Bawahan Pria (2024)", "Bawahan Pria (2025)", "Bawahan Wanita (2024)", "Bawahan Wanita (2025)"]];
+          for (let i = 0; i < months.length; i++) {
+              sheet2Content.push([
+                  months[i],
+                  detailData.atasanPria[2024][i], detailData.atasanPria[2025][i],
+                  detailData.atasanWanita[2024][i], detailData.atasanWanita[2025][i],
+                  detailData.bawahanPria[2024][i], detailData.bawahanPria[2025][i],
+                  detailData.bawahanWanita[2024][i], detailData.bawahanWanita[2025][i]
+              ]);
+          }
+
+          const wb = XLSX.utils.book_new();
+          const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+          XLSX.utils.book_append_sheet(wb, ws1, "Product Sold per Year");
+          const ws2 = XLSX.utils.aoa_to_sheet(sheet2Content);
+          XLSX.utils.book_append_sheet(wb, ws2, "Product Sold per Categories");
+
+          XLSX.writeFile(wb, "Product_Sold_Report.xlsx");
+      });
+    }
   }
 
   // ---- RATING BAR CHART ----
@@ -1498,7 +1564,6 @@ if ($("#ratingChart").length) {
   document.getElementById('rating-chart-legend').innerHTML =
     ratingChart.generateLegend();
 }
-
 
   // -------- RATING TABLE --------
 if ($("#ratingTable").length) {
@@ -1646,11 +1711,12 @@ if ($("#ratingTable").length) {
   // ];
 
   let productData = []; // awalnya kosong → diisi dari JSON
+  window.ratingProductData = [];
 
   // ================================
   // LOAD JSON
   // ================================
-  fetch("../../json/ratingTable.json")
+  fetch("../../json/ratingTable.json") 
   .then(res => res.json())
   .then(data => {
 
@@ -1660,9 +1726,14 @@ if ($("#ratingTable").length) {
       rating: Number(item.rating)
     }));
 
-    productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+    // productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
 
-    console.log("Total product rating data:", productData.length);
+    window.ratingProductData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    // console.log("Total product rating data:", productData.length);
+    
+    console.log("Data Random Rating Terpilih:", window.ratingProductData);
+    
     renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
   })
   .catch(err => console.error("Gagal load JSON:", err));
@@ -1693,7 +1764,7 @@ if ($("#ratingTable").length) {
   // FILTER FUNCTION
   // ================================
   function filterProducts(year, month, ratingRange) {
-    return productData.filter(item => {
+    return window.ratingProductData.filter(item => {
 
       const itemYear = item.date.split("-")[0];
       const itemMonth = item.date.split("-")[1];
@@ -1815,6 +1886,60 @@ if ($("#ratingTable").length) {
     });
   });
 
+  // EXPORT RATING PRODUCT PAGE
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // 1. SIAPKAN DATA CHART (Overview Rating)
+      // Data hardcoded sesuai chart JS kamu
+      const chartLabels = ["1 - 1,99", "2 - 2,99", "3 - 3,99", "4 - 4,99", "5"];
+      const chartDataValues = [168, 225, 172, 235, 0];
+
+      let sheet1Content = [["Rating Range", "Total Product Count"]]; // Header
+      
+      for(let i=0; i<chartLabels.length; i++){
+        sheet1Content.push([ chartLabels[i], chartDataValues[i] ]);
+      }
+
+      // 2. SIAPKAN DATA TABEL (Product Details)
+      // Ambil dari window.ratingProductData yang sudah diacak
+      let dataToExport = window.ratingProductData || [];
+
+      if (dataToExport.length === 0) {
+        alert("Data masih memuat... Silakan coba sebentar lagi.");
+        return;
+      }
+
+      // Mapping agar kolom Excel rapi
+      const sheet2Data = dataToExport.map(item => ({
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // 3. GENERATE FILE EXCEL
+      const wb = XLSX.utils.book_new();
+
+      // Sheet 1: Chart Overview
+      const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+      XLSX.utils.book_append_sheet(wb, ws1, "Rating Overview");
+
+      // Sheet 2: Product List
+      const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
+      XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
+
+      // Download
+      XLSX.writeFile(wb, "Rating_Product_Report.xlsx");
+    });
+  }
 }
 
 // -------- EARNING TABLE --------
@@ -1869,6 +1994,7 @@ if ($("#earningTable").length) {
   // ];
 
   let productData = []; // kosong dulu, nanti diisi JSON
+  window.productData = [];
 
   // ================================
   // LOAD JSON (ambil max 100 data)
@@ -1878,9 +2004,11 @@ if ($("#earningTable").length) {
     .then(data => {
 
       // Replace semuanya pakai JSON
-      productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-
-      console.log("Total data dari JSON:", productData.length);
+      // productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      window.productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      // console.log("Total data dari JSON:", productData.length);
+      console.log("Data Random Terpilih:", window.productData);
 
       // Render setelah data siap
       renderTable(filterProducts(selectedYear, selectedMonth));
@@ -1891,7 +2019,7 @@ if ($("#earningTable").length) {
   // FILTER FUNCTION
   // ================================
   function filterProducts(year, month) {
-    return productData.filter(item => {
+    return window.productData.filter(item => {
       const itemYear = item.date.split("-")[0];
       const itemMonth = item.date.split("-")[1];
 
@@ -1963,6 +2091,72 @@ if ($("#earningTable").length) {
       </tr>
     `;
   });
+
+  // EXPORT PRODUCT EARNING PAGE
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // 1. CHART DATA (Hardcoded)
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const financialData = {
+        earning: {
+          2024: [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+          2025: [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560]
+        },
+        modal: {
+          2024: [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+          2025: [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808]
+        },
+        profit: {
+          2024: [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870],
+          2025: [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+        }
+      };
+
+      let sheet1Content = [["Month", "Earning 2024", "Earning 2025", "Modal 2024", "Modal 2025", "Profit 2024", "Profit 2025"]];
+      for (let i = 0; i < months.length; i++) {
+        sheet1Content.push([
+          months[i],
+          financialData.earning[2024][i], financialData.earning[2025][i],
+          financialData.modal[2024][i],   financialData.modal[2025][i],
+          financialData.profit[2024][i],  financialData.profit[2025][i]
+        ]);
+      }
+
+      // 2. DATA TABLE (Dari window.productData)
+      let dataToExport = window.productData || []; 
+
+      // PENGECEKAN DATA KOSONG HANYA DILAKUKAN DISINI
+      if (dataToExport.length === 0) {
+        alert("Data belum siap atau kosong. Tunggu sebentar lalu coba lagi.");
+        return;
+      }
+
+      const sheet2Data = dataToExport.map(item => ({
+        "Product ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Modal": item.modal,
+        "Earning": item.earning,
+        "Profit": item.profit,
+        "Sold Qty": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+      XLSX.utils.book_append_sheet(wb, ws1, "Financial Overview");
+      const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
+      XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
+
+      XLSX.writeFile(wb, "Product_Earning_Report.xlsx");
+    });
+  }
 }
 
 
@@ -2341,15 +2535,25 @@ if ($("#recTable2").length) {
 
 
   let productData2 = []; // INI YANG DIPAKAI FILTER & RENDER
+  window.recProductData2 = [];
 
   fetch("../../json/recTable2.json")
     .then(res => res.json())
     .then(data => {
-      productData2 = data;
-      console.log("Data loaded:", productData2.length);
+      // productData2 = data;
+      window.recProductData2 = data;
+
+      // console.log("Data loaded:", productData2.length);
+      console.log("Data Recommendation Loaded:", window.recProductData2.length);
+
       renderTable2(filterProducts2(selectedYear2, selectedMonth2));
     })
-    .catch(err => console.error("JSON Load Error:", err));
+    // .catch(err => console.error("JSON Load Error:", err));
+    .catch(err => {
+      console.error("JSON Load Error:", err);
+      // Fallback jika fetch gagal (opsional)
+      alert("Gagal memuat data produk rekomendasi.");
+    });
 
 
 
@@ -2357,7 +2561,7 @@ if ($("#recTable2").length) {
   // FILTER FUNCTION
   // ===============================================
   function filterProducts2(year, month) {
-    return productData2
+    return window.recProductData2
       .filter(item => {
         const [itemYear, itemMonth] = item.date.split("-");
         const matchYear = year === "all" || itemYear === year;
@@ -2485,6 +2689,53 @@ if ($("#recTable2").length) {
     });
   });
 
+  // EXPORT RECOMMRNDATION PRODUCT PAGE
+  const btnExport = document.getElementById('exportToExcel');
+  
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // 1. Ambil data yang sedang ditampilkan (Top 10 filtered)
+      const dataToExport = filterProducts2(selectedYear2, selectedMonth2);
+
+      if (dataToExport.length === 0) {
+        alert("Tidak ada data rekomendasi untuk filter yang dipilih.");
+        return;
+      }
+
+      // 2. Mapping Data untuk Excel
+      const sheetData = dataToExport.map((item, index) => ({
+        "Rank": index + 1, // Ranking 1-10
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold Count": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // 3. Generate Excel File
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+
+      // Auto-width kolom (opsional)
+      const wscols = [
+        {wch: 6},  {wch: 10}, {wch: 40}, {wch: 15}, 
+        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
+        {wch: 10}, {wch: 8},  {wch: 10}
+      ];
+      ws['!cols'] = wscols;
+
+      XLSX.utils.book_append_sheet(wb, ws, "Top Recommendations");
+
+      // 4. DOWNLOAD FILE (NAMA FILE DIUBAH DI SINI)
+      XLSX.writeFile(wb, "Recommendation_Product_Report.xlsx");
+    });
+  }
 }
 
 
@@ -2799,22 +3050,39 @@ if ($("#lowSalesTable2").length) {
   //   }
   // ];
 
-  
-
   let sortFieldLow2 = null;
   let sortDirectionLow2 = 'asc'; // asc / desc
   let lowSalesProductData2 = []; // <- kosong dulu
 
+  window.lowSalesData = [];
+
   // Load JSON dari folder data
-  fetch("../../json/ratingTable.json")
+  fetch("../../json/lowSalesTable2.json")
     .then(response => response.json())
     .then(data => {
-      lowSalesProductData2 = data;
+      // lowSalesProductData2 = data;
+
+      // window.lowSalesData = data;
+
+      // window.lowSalesData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      // console.log("Data Low Sales Loaded:", window.lowSalesData.length);
+
+      const randomPool = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      // Simpan ke Global Variable
+      window.lowSalesData = randomPool;
+      
+      console.log("Data Low Sales (Random Pool) Loaded:", window.lowSalesData.length);
 
       // Render setelah data selesai load
       renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
     })
-    .catch(err => console.error("Gagal load JSON:", err));
+    // .catch(err => console.error("Gagal load JSON:", err));
+    .catch(err => {
+      console.error("Gagal load JSON:", err);
+      window.lowSalesData = []; 
+      renderLowSalesTable2([]);
+    });
 
 
 
@@ -2823,7 +3091,7 @@ if ($("#lowSalesTable2").length) {
   // FILTER FUNCTION (Low Sales ASC)
   // ===============================================
   function filterLowSalesProducts2(year, month) {
-    return lowSalesProductData2
+    return window.lowSalesData
       .sort((a, b) => a.sold - b.sold)
       .filter(item => {
         const [itemYear, itemMonth] = item.date.split("-");
@@ -2992,6 +3260,56 @@ if ($("#lowSalesTable2").length) {
     });
   });
 
+  // EXPORT LOW SALES PRODUCT PAGE
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // Ambil data yang sedang ditampilkan (Filtered & Sorted)
+      // Kita panggil ulang fungsi filter agar data yang diexport sesuai dengan tampilan
+      const dataToExport = filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2);
+
+      // Jika user melakukan sorting manual via klik header, kita gunakan sortLowSalesData juga
+      const finalData = sortLowSalesData(dataToExport);
+
+      if (finalData.length === 0) {
+        alert("Tidak ada data 'Low Sales' untuk filter yang dipilih.");
+        return;
+      }
+
+      // Mapping Data untuk Excel
+      const sheetData = finalData.map((item, index) => ({
+        "No": index + 1,
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold Count": item.sold, // Kolom penting di halaman ini
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // Generate Excel File
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+
+      // Auto-width kolom
+      const wscols = [
+        {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
+        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
+        {wch: 10}, {wch: 8},  {wch: 10}
+      ];
+      ws['!cols'] = wscols;
+
+      XLSX.utils.book_append_sheet(wb, ws, "Low Sales Products");
+
+      // NAMA FILE OUTPUT
+      XLSX.writeFile(wb, "LowSales_Product_Report.xlsx");
+    });
+  }
 }
 
 // =====================================================
@@ -3311,29 +3629,49 @@ if ($("#lowStockTable2").length) {
   // ];
 
   let lowStockData2 = []; // kosong dulu, nanti terisi dari JSON
+  window.lowStockData2 = [];
 
   // ===== Load JSON =====
   fetch("../../json/lowStockTable2.json")
     .then(res => res.json())
     .then(data => {
-      lowStockData2 = data;
+      // lowStockData2 = data;
 
-      console.log("Total data loaded:", lowStockData2.length);
+      // console.log("Total data loaded:", lowStockData2.length);
+
+      // LOGIKA DATA:
+      // 1. Acak seluruh data (Shuffle)
+      // 2. Ambil 50 data acak sebagai sampel
+      const randomPool = data.sort(() => 0.5 - Math.random()).slice(0, 50);
+      
+      // Simpan ke Global Variable
+      window.lowStockData2 = randomPool;
+
+      console.log("Data Low Stock (Random Pool) Loaded:", window.lowStockData2.length);
+
       renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
     })
-    .catch(err => console.error("Gagal load JSON:", err));
+    // .catch(err => console.error("Gagal load JSON:", err));
+    .catch(err => {
+      console.error("Gagal load JSON:", err);
+      // Fallback
+      window.lowStockData2 = [];
+      renderLowStockTable2([]);
+    });
 
   // ================================
   // FILTER LOGIC
   // ================================
   function filterLowStockProducts2(year, month) {
-    return lowStockData2
+    return window.lowStockData2
       .sort((a, b) => a.sold - b.sold)
       .filter(item => {
         const [itemYear, itemMonth] = item.date.split("-");
         return (year === "all" || itemYear === year) &&
                (month === "all" || itemMonth === month);
       })
+      // 🔥 WAJIB: Urutkan dari STOCK TERKECIL ke TERBESAR (Ascending)
+      .sort((a, b) => a.stock - b.stock)
       .slice(0, 10);
   }
 
@@ -3429,6 +3767,53 @@ if ($("#lowStockTable2").length) {
       renderLowStockTable2(filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2));
     });
   });
+
+  // EXPORT LOW STOCK PRODUCT PAGE
+  const btnExport = document.getElementById('exportToExcel');
+  
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // Ambil data yang sedang ditampilkan (Filtered & Sorted by Lowest Stock)
+      const dataToExport = filterLowStockProducts2(selectedLowStockYear2, selectedLowStockMonth2);
+
+      if (dataToExport.length === 0) {
+        alert("Data kosong (mungkin masih loading JSON atau filter tidak cocok).");
+        return;
+      }
+
+      // Mapping Data untuk Excel
+      const sheetData = dataToExport.map((item, index) => ({
+        "No": index + 1,
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold Count": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock, // Kolom terpenting di halaman ini
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // Generate Excel File
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+
+      const wscols = [
+        {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
+        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
+        {wch: 10}, {wch: 8},  {wch: 10}
+      ];
+      ws['!cols'] = wscols;
+
+      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Products");
+
+      // Output File Name
+      XLSX.writeFile(wb, "LowStock_Product_Report.xlsx");
+    });
+  }
 
 }
 
@@ -9408,6 +9793,13 @@ if ($("#greetingUpdate").length) {
     //       options: leaveReportOptionsDark
     //   });
     // }
+
+
+ 
+
+
+
+
 
     
   

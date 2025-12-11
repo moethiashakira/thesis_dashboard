@@ -1,0 +1,262 @@
+// ==========================================
+// INDEX (DASHBOARD MAIN PAGE)
+// ==========================================
+  document.getElementById('exportToExcel').addEventListener('click', function() {
+    
+    // 1. SIAPKAN DATA CHART (FINANCIAL)
+    // ---------------------------------
+    // Kita gabungkan data 2024 dan 2025 agar user bisa membandingkan di Excel
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    
+    const fin2024 = {
+        earning: [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+        modal:   [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+        profit:  [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870]
+    };
+
+    const fin2025 = {
+        earning: [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560],
+        modal:   [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808],
+        profit:  [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+    };
+
+    // Header Excel Sheet 1
+    let sheetFinancial = [
+      ["Month", "Earning 2024", "Profit 2024", "Earning 2025", "Profit 2025", "Modal 2024", "Modal 2025"]
+    ];
+
+    // Loop data chart ke dalam baris Excel
+    for (let i = 0; i < months.length; i++) {
+      sheetFinancial.push([
+        months[i],
+        fin2024.earning[i],
+        fin2024.profit[i],
+        fin2025.earning[i],
+        fin2025.profit[i],
+        fin2024.modal[i],
+        fin2025.modal[i]
+      ]);
+    }
+
+
+    // 2. SIAPKAN DATA TABEL 1 (RECOMMENDATION)
+    // ----------------------------------------
+    const recData = [
+      { id: "P0767", name: "Next Look Men Blue Slim Fit Solid Formal Shirt", category: "Atasan Pria", price: 104310, sold: 60, date: "2025-01-24", rating: 4.51, discount: 22, stock: 10, status: "Low Stock" },
+      { id: "P0017", name: "T-Shirt Mini Garis (Crop Top)", category: "Atasan Wanita", price: 149000, sold: 250, date: "2024-08-12", rating: 4.08, discount: 2, stock: 11, status: "Warning" },
+      { id: "P0296", name: "Ziyaa Women Grey Printed Kurta With Trousers", category: "Bawahan Wanita", price: 198930, sold: 235, date: "2025-06-30", rating: 2.2, discount: 11, stock: 244, status: "In Stock" }
+    ];
+    
+    // Format Header untuk Tabel JSON
+    const recSheet = XLSX.utils.json_to_sheet(recData);
+
+
+    // 3. SIAPKAN DATA TABEL 2 (LOW SALES)
+    // -----------------------------------
+    const lowSalesData = [
+      { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, date: "2025-10-4", rating: 1.98, discount: 3, stock: 657, status: "In Stock" },
+      { id: "P0186", name: "Alcis Women Charcoal Grey Solid Sporty Sacket", category: "Atasan Pria", price: 379810, sold: 3, date: "2025-03-1", rating: 2.46, discount: 4, stock: 65, status: "Warning" },
+      { id: "P0264", name: "Mango Women Beige & Grey Printed Round Neck T-Shirt", category: "Atasan Wanita", price: 378100, sold: 9, date: "2024-11-30", rating: 1.5, discount: 5, stock: 2, status: "Low Stock" }
+    ];
+
+    const lowSalesSheet = XLSX.utils.json_to_sheet(lowSalesData);
+
+
+    // 4. SIAPKAN DATA TABEL 3 (LOW STOCK)
+    // -----------------------------------
+    const lowStockData = [
+      { id: "P0604", name: "Ed Hardy Grey Printed Jacket", category: "Atasan Pria", price: 503310, sold: 3, date: "2024-10-4", rating: 1.98, discount: 3, stock: 3, status: "Low Stock" },
+      { id: "P0186", name: "Alcis Women Charcoal Grey Solid Sporty Sacket", category: "Atasan Pria", price: 379810, sold: 3, date: "2025-03-1", rating: 2.46, discount: 4, stock: 1, status: "Low Stock" },
+      { id: "P0264", name: "Mango Women Beige & Grey Printed Round Neck T-Shirt", category: "Atasan Wanita", price: 378100, sold: 9, date: "2025-11-30", rating: 1.5, discount: 5, stock: 2, status: "Low Stock" }
+    ];
+
+    const lowStockSheet = XLSX.utils.json_to_sheet(lowStockData);
+
+
+    // 5. BUAT WORKBOOK & DOWNLOAD
+    // ---------------------------
+    const wb = XLSX.utils.book_new();
+
+    // Konversi Array Chart ke Sheet
+    const wsFinancial = XLSX.utils.aoa_to_sheet(sheetFinancial);
+
+    // Append semua sheet ke workbook
+    XLSX.utils.book_append_sheet(wb, wsFinancial, "Financial Overview");
+    XLSX.utils.book_append_sheet(wb, recSheet, "Recommendations");
+    XLSX.utils.book_append_sheet(wb, lowSalesSheet, "Low Sales");
+    XLSX.utils.book_append_sheet(wb, lowStockSheet, "Low Stock");
+
+    // Trigger Download
+    XLSX.writeFile(wb, "Dashboard_Page_Report.xlsx");
+  });
+
+
+
+// ==========================================
+// PRODUCT SOLD PAGE
+// ==========================================
+  document.getElementById('exportToExcel').addEventListener('click', function() {
+      
+      // 1. SIAPKAN DATA CHART 1 (Overview)
+      // ----------------------------------
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      
+      // Data dari marketingOverviewData (Disalin agar bisa diakses button)
+      const dataOverview2024 = [2195, 2070, 2262, 2047, 2050, 2158, 2092, 2059, 2023, 2156, 2088, 2141];
+      const dataOverview2025 = [2133, 2025, 2127, 1826, 2058, 1930, 1982, 2112, 1977, 2224, 1949, 2210];
+
+      // Buat Header untuk Sheet 1
+      let sheet1Content = [
+          ["Month", "Total Sales 2024", "Total Sales 2025"] // Header Row
+      ];
+
+      // Masukkan data baris per baris
+      for (let i = 0; i < months.length; i++) {
+          sheet1Content.push([
+              months[i], 
+              dataOverview2024[i], 
+              dataOverview2025[i]
+          ]);
+      }
+
+      // 2. SIAPKAN DATA CHART 2 (Detail Kategori)
+      // -----------------------------------------
+      // Data dari productSoldData (Disalin)
+      const detailData = {
+          atasanPria: {
+              2024: [496, 411, 484, 460, 426, 413, 429, 399, 392, 456, 390, 467],
+              2025: [387, 428, 451, 391, 440, 378, 426, 455, 377, 446, 404, 481]
+          },
+          atasanWanita: {
+              2024: [434, 492, 507, 437, 434, 509, 451, 538, 442, 513, 549, 548],
+              2025: [486, 491, 438, 396, 449, 494, 421, 474, 473, 479, 458, 520]
+          },
+          bawahanPria: {
+              2024: [679, 669, 684, 614, 684, 658, 635, 645, 631, 684, 629, 555],
+              2025: [704, 605, 659, 511, 638, 559, 589, 622, 591, 625, 597, 619]
+          },
+          bawahanWanita: {
+              2024: [586, 498, 587, 536, 506, 578, 577, 477, 558, 503, 520, 571],
+              2025: [556, 501, 579, 528, 531, 499, 546, 561, 536, 674, 490, 590]
+          }
+      };
+
+      // Buat Header untuk Sheet 2 (Format Melebar)
+      let sheet2Content = [
+          [
+              "Month", 
+              "Atasan Pria (2024)", "Atasan Pria (2025)",
+              "Atasan Wanita (2024)", "Atasan Wanita (2025)",
+              "Bawahan Pria (2024)", "Bawahan Pria (2025)",
+              "Bawahan Wanita (2024)", "Bawahan Wanita (2025)"
+          ]
+      ];
+
+      // Masukkan data detail baris per baris
+      for (let i = 0; i < months.length; i++) {
+          sheet2Content.push([
+              months[i],
+              detailData.atasanPria[2024][i], detailData.atasanPria[2025][i],
+              detailData.atasanWanita[2024][i], detailData.atasanWanita[2025][i],
+              detailData.bawahanPria[2024][i], detailData.bawahanPria[2025][i],
+              detailData.bawahanWanita[2024][i], detailData.bawahanWanita[2025][i]
+          ]);
+      }
+
+      // 3. PROSES PEMBUATAN FILE EXCEL
+      // ------------------------------
+      // Buat Workbook Baru
+      const wb = XLSX.utils.book_new();
+
+      // Buat Worksheet 1
+      const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+      // Tambahkan Worksheet 1 ke Workbook dengan nama "Overview Sales"
+      XLSX.utils.book_append_sheet(wb, ws1, "Overview Sales");
+
+      // Buat Worksheet 2
+      const ws2 = XLSX.utils.aoa_to_sheet(sheet2Content);
+      // Tambahkan Worksheet 2 ke Workbook dengan nama "Category Details"
+      XLSX.utils.book_append_sheet(wb, ws2, "Category Details");
+
+      // 4. DOWNLOAD FILE
+      // ----------------
+      XLSX.writeFile(wb, "Product_Sold_Report.xlsx");
+  });
+
+// ==========================================
+// PRODUCT EARNING PAGE
+// ==========================================
+  document.getElementById('exportToExcel').addEventListener('click', function() {
+    
+    // ==========================================
+    // 1. SIAPKAN DATA CHART (Financial Overview)
+    // ==========================================
+    // (Bagian ini Tetap Sama karena datanya hardcode)
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const financialData = {
+      earning: {
+        2024: [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+        2025: [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560]
+      },
+      modal: {
+        2024: [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+        2025: [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808]
+      },
+      profit: {
+        2024: [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870],
+        2025: [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+      }
+    };
+
+    let sheet1Content = [["Month", "Earning 2024", "Earning 2025", "Modal 2024", "Modal 2025", "Profit 2024", "Profit 2025"]];
+    for (let i = 0; i < months.length; i++) {
+      sheet1Content.push([
+        months[i],
+        financialData.earning[2024][i], financialData.earning[2025][i],
+        financialData.modal[2024][i],   financialData.modal[2025][i],
+        financialData.profit[2024][i],  financialData.profit[2025][i]
+      ]);
+    }
+
+    // ==========================================
+    // 2. SIAPKAN DATA SHEET 2: PRODUCT LIST
+    // ==========================================
+    // 🔥 PENTING: Ambil data dari variabel global window.productData
+    // Data ini adalah data random yang SAMA PERSIS dengan yang tampil di tabel
+    
+    let dataToExport = window.productData || []; 
+
+    if (dataToExport.length === 0) {
+      alert("Data belum siap atau kosong. Tunggu sebentar lalu coba lagi.");
+      return;
+    }
+
+    // Mapping data agar kolomnya rapi
+    const sheet2Data = dataToExport.map(item => ({
+      "Product ID": item.id,
+      "Product Name": item.name,
+      "Category": item.category,
+      "Price": item.price,
+      "Modal": item.modal,
+      "Earning": item.earning,
+      "Profit": item.profit,
+      "Sold Qty": item.sold,
+      "Date": item.date,
+      "Rating": item.rating,
+      "Stock": item.stock,
+      "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+    }));
+
+    // ==========================================
+    // 3. GENERATE FILE EXCEL
+    // ==========================================
+    const wb = XLSX.utils.book_new();
+
+    const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+    XLSX.utils.book_append_sheet(wb, ws1, "Financial Overview");
+
+    const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
+    XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
+
+    XLSX.writeFile(wb, "Product_Earning_Report.xlsx");
+  });
