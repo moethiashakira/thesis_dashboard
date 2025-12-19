@@ -173,3 +173,355 @@ if ($("#recTable").length){
       });
     });
   }
+
+
+
+
+  NEWWWWWWWWW
+
+
+  if ($("#recTable2").length) {
+
+  // ===============================================
+  // DUMMY PRODUCT DATA (10 items)
+  // ===============================================
+  // const productData2 = [
+  //   // ======= 1 =======
+  //   {
+  //     id: "P0001",
+  //     name: "Free authority men white batman printed t-shirt",
+  //     category: "Atasan pria",
+  //     price: 85310,
+  //     sold: 36,
+  //     date: "2025-12-29",
+  //     rating: 3.01,
+  //     discount: 0.1,
+  //     stock: 247,
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+    
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, 
+  //     sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+    
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+    
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+
+  // Variabel untuk menyimpan 10 Rekomendasi Terbaik (Global)
+  let staticTop10Rec = []; 
+
+  // ===============================================
+  // 1. LOAD JSON & PROSES LOGIKA UTAMA
+  // ===============================================
+  fetch("../../json/recTable2.json")
+    .then(res => res.json())
+    .then(data => {
+      
+      // LOGIKA REKOMENDASI:
+      // 1. Urutkan berdasarkan SOLD (Tinggi -> Rendah)
+      // 2. Jika sold sama, urutkan RATING (Tinggi -> Rendah)
+      // 3. Jika rating sama, urutkan PRICE (Rendah -> Tinggi / Murah)
+      
+      staticTop10Rec = data.sort((a, b) => {
+        // Cek Sales (Sold)
+        const soldA = Number(a.sold);
+        const soldB = Number(b.sold);
+        if (soldB !== soldA) return soldB - soldA; // Descending
+
+        // Cek Rating
+        const rateA = Number(a.rating);
+        const rateB = Number(b.rating);
+        if (rateB !== rateA) return rateB - rateA; // Descending
+
+        // Cek Price
+        const priceA = Number(a.price);
+        const priceB = Number(b.price);
+        return priceA - priceB; // Ascending (Cari yang murah)
+      })
+      .slice(0, 10); // AMBIL 10 TERBAIK SAJA & KUNCI
+
+      console.log("Top 10 Recommendations Locked:", staticTop10Rec);
+
+      // Render pertama kali
+      renderTable2(staticTop10Rec);
+    })
+    .catch(err => {
+      console.error("JSON Load Error:", err);
+      staticTop10Rec = [];
+      renderTable2([]);
+    });
+
+  // ===============================================
+  // 2. FILTER FUNCTION (Hanya main di Top 10)
+  // ===============================================
+  function getFilteredRec(year, month) {
+    // Kita filter DARI 10 data statis tadi
+    return staticTop10Rec.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      
+      const matchYear = year === "all" || itemYear === year;
+      const matchMonth = month === "all" || itemMonth === month;
+      
+      return matchYear && matchMonth;
+    });
+  }
+
+  // ===============================================
+  // 3. HELPER FUNCTIONS
+  // ===============================================
+  function formatDate2(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+  }
+
+  function getStockStatus2(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" }; 
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" }; 
+    return { text: "Low Stock", class: "badge bg-danger" }; 
+  }
+
+  // ===============================================
+  // 4. RENDER TABLE
+  // ===============================================
+  function renderTable2(filteredData) {
+    const tbody = document.getElementById("recProductTableBody2");
+    
+    // PENTING: Reset tabel biar ga double
+    tbody.innerHTML = "";
+
+    if (filteredData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data rekomendasi di periode ini.</td></tr>`;
+      return;
+    }
+
+    filteredData.forEach(p => {
+      const stockInfo = getStockStatus2(p.stock);
+      
+      // Format Harga Indonesia
+      const formattedPrice = Number(p.price).toLocaleString("id-ID");
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
+            </div>
+          </td>
+
+          <td>${p.category}</td>
+          <td>Rp ${formattedPrice}</td>
+          <td>${p.sold}</td>
+          <td>${formatDate2(p.date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
+
+  // ===============================================
+  // 5. FILTER EVENTS
+  // ===============================================
+  let selectedYear2 = "all";
+  let selectedMonth2 = "all";
+
+  // Filter Year
+  document.querySelectorAll(".filter-year-2").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear2 = this.dataset.year;
+
+      document.getElementById("filterYear2Btn").innerHTML =
+        (selectedYear2 === "all" ? "All Years" : selectedYear2) + ' <span class="ms-1">&#9662;</span>';
+
+      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
+    });
+  });
+
+  // Filter Month
+  document.querySelectorAll(".filter-month-2").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth2 = this.dataset.month;
+
+      const monthText = this.innerText.trim();
+      document.getElementById("filterMonth2Label").textContent =
+        selectedMonth2 === "all" ? "All Months" : monthText;
+
+      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
+    });
+  });
+
+  // ===============================================
+  // 6. EXPORT EXCEL
+  // ===============================================
+  const btnExport = document.getElementById('exportToExcel');
+  
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      // Ambil data dari hasil filter staticTop10Rec
+      const dataToExport = getFilteredRec(selectedYear2, selectedMonth2);
+
+      if (dataToExport.length === 0) {
+        alert("Tidak ada data rekomendasi untuk filter yang dipilih.");
+        return;
+      }
+
+      // Mapping Data untuk Excel
+      const sheetData = dataToExport.map((item, index) => ({
+        "No": index + 1, // Ranking berdasarkan logika sort di awal
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold Count": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+
+      ws['!cols'] = [
+        {wch: 6},  {wch: 10}, {wch: 40}, {wch: 15}, 
+        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
+        {wch: 10}, {wch: 8},  {wch: 10}
+      ];
+      
+      XLSX.utils.book_append_sheet(wb, ws, "Top Recommendations");
+      XLSX.writeFile(wb, "Recommendation_Product_Report.xlsx");
+    });
+  }
+}

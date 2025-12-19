@@ -25,3 +25,366 @@
                               </div>
                             </div>
                           </div> 
+
+
+if ($("#ratingTable").length) {
+  // ================================
+  // DUMMY DATA PRODUCT LIST
+  // ================================
+  // const productData = [
+  //       // ======= 1 =======
+  //   { id: "P0101", 
+  //     name: "Men Black Hoodie Oversize", 
+  //     category: "Atasan Pria", 
+  //     price: 199000, 
+  //     sold: 450, 
+  //     date: "2025-03-21", 
+  //     rating: 4.8, 
+  //     discount: 10, 
+  //     stock: 200, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+    
+  //   // ======= 2 =======
+  //   { 
+  //     id: "P0102", 
+  //     name: "Women Floral Summer Dress", 
+  //     category: "Gaun Wanita", 
+  //     price: 259000, sold: 400, 
+  //     date: "2025-02-10", 
+  //     rating: 4.5, 
+  //     discount: 12, 
+  //     stock: 120, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+    
+  //   // ======= 3 =======
+  //   { 
+  //     id: "P0103", 
+  //     name: "Men Formal White Shirt Slim Fit", 
+  //     category: "Atasan Pria", 
+  //     price: 149000, 
+  //     sold: 300, 
+  //     date: "2024-08-01", 
+  //     rating: 4.3, 
+  //     discount: 5, 
+  //     stock: 85, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+    
+  //   // ======= 4 =======
+  //   { 
+  //     id: "P0104", 
+  //     name: "Women Casual Sneakers White", 
+  //     category: "Sepatu Wanita", 
+  //     price: 329000, 
+  //     sold: 280, 
+  //     date: "2025-05-13", 
+  //     rating: 4.7, 
+  //     discount: 8, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+
+  //   // ======= 5 =======  
+  //   { 
+  //     id: "P0105", 
+  //     name: "Kids Polo Shirt", 
+  //     category: "Anak", 
+  //     price: 89000, 
+  //     sold: 270, 
+  //     date: "2024-11-20", 
+  //     rating: 4.0, 
+  //     discount: 2, 
+  //     stock: 50,
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 6 =======
+  //   { 
+  //     id: "P0106", 
+  //     name: "Women Slim Fit Jeans Blue", 
+  //     category: "Bawahan Wanita", 
+  //     price: 209000, 
+  //     sold: 260, 
+  //     date: "2024-09-14", 
+  //     rating: 4.2, 
+  //     discount: 10, 
+  //     stock: 30, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 7 =======
+  //   { 
+  //     id: "P0107", 
+  //     name: "Men Sport Running Shoes Black", 
+  //     category: "Sepatu Pria", 
+  //     price: 399000, 
+  //     sold: 255, 
+  //     date: "2025-01-12", 
+  //     rating: 4.6, 
+  //     discount: 6, 
+  //     stock: 10, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 8 =======
+  //   { 
+  //     id: "P0108", 
+  //     name: "Women Handbag Leather Brown", 
+  //     category: "Aksesoris Wanita", 
+  //     price: 499000, 
+  //     sold: 230, 
+  //     date: "2025-06-07", 
+  //     rating: 4.9, 
+  //     discount: 15, 
+  //     stock: 140, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 9 =======
+  //   { 
+  //     id: "P0109", 
+  //     name: "Men Oversized Graphic T-shirt", 
+  //     category: "Atasan Pria", 
+  //     price: 129000, 
+  //     sold: 225, 
+  //     date: "2025-07-15", 
+  //     rating: 3.9, 
+  //     discount: 5, 
+  //     stock: 90, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   },
+
+  //   // ======= 10 =======
+  //   { 
+  //     id: "P0110", 
+  //     name: "Sport Cap Black Edition", 
+  //     category: "Aksesoris Unisex", 
+  //     price: 69000, 
+  //     sold: 210, 
+  //     date: "2024-10-30", 
+  //     rating: 4.1, 
+  //     discount: 3, 
+  //     stock: 300, 
+  //     image: "../../images/asset/logo-02.jpg" 
+  //   }
+  // ];
+
+  // ================================
+  // 1. SETUP VARIABLES
+  // ================================
+  let ratingProductData = []; 
+  window.ratingProductData = [];
+
+  // Default States Filter
+  let selectedYear = "all";
+  let selectedMonth = "all";
+  let selectedRating = "all";
+
+  // ================================
+  // 2. LOAD JSON
+  // ================================
+  fetch("../../json/product.json") 
+  .then(res => res.json())
+  .then(data => {
+
+    // Konversi rating string -> number
+    data = data.map(item => ({
+      ...item,
+      rating: Number(item.rating)
+    }));
+
+    // Ambil 10 data acak
+    window.ratingProductData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+    
+    console.log("Data Random Rating Terpilih:", window.ratingProductData);
+    
+    // Render tampilan awal
+    renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+  })
+  .catch(err => console.error("Gagal load JSON:", err));
+
+  // ================================
+  // 3. HELPER: FORMAT TANGGAL
+  // ================================
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+  }
+
+  // ================================
+  // 4. HELPER: STOCK STATUS
+  // ================================
+  function getStockStatus(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
+    return { text: "Low Stock", class: "badge bg-danger" };
+  }
+
+  // ================================
+  // 5. CORE LOGIC: FILTER FUNCTION
+  // ================================
+  function filterProducts(year, month, ratingRange) {
+    return window.ratingProductData.filter(item => {
+
+      const itemYear = item.date.split("-")[0];
+      const itemMonth = item.date.split("-")[1];
+
+      const matchYear = year === "all" || itemYear === year;
+      const matchMonth = month === "all" || itemMonth === month;
+
+      // Filter Rating Logic
+      let matchRating = true;
+      if (ratingRange !== "all") {
+        const r = item.rating;
+        const rangeStart = Number(ratingRange);
+        // Jika pilih "5", ambil 5.0 - 5.99 (meskipun max biasanya 5.0)
+        // Jika pilih "4", ambil 4.0 - 4.99
+        const rangeEnd = ratingRange === "5" ? 5.99 : rangeStart + 0.99; 
+        matchRating = r >= rangeStart && r <= rangeEnd;
+      }
+
+      return matchYear && matchMonth && matchRating;
+    });
+  }
+
+  // ================================
+  // 6. RENDER TABLE (VISUAL)
+  // ================================
+  function renderTable(filtered) {
+    const tbody = document.querySelector("#ratingTableBody");
+    tbody.innerHTML = "";
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data untuk filter ini.</td></tr>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const stockInfo = getStockStatus(p.stock);
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
+            </div>
+          </td>
+          <td>${p.category}</td>
+          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>${p.sold}</td>
+          <td>${formatDate(p.date)}</td>
+          <td>${p.rating.toFixed(2)}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
+
+  // ================================
+  // 7. FILTER EVENTS
+  // ================================
+  
+  // Filter Year
+  document.querySelectorAll(".filter-year-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear = this.dataset.year;
+
+      document.getElementById("filterYearRatingBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) + ' <span class="ms-1">&#9662;</span>';
+
+      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+    });
+  });
+
+  // Filter Month
+  document.querySelectorAll(".filter-month-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth = this.dataset.month;
+
+      document.getElementById("filterMonthRatingLabel").textContent =
+        selectedMonth === "all" ? "All Months" : this.innerText.trim();
+
+      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+    });
+  });
+
+  // Filter Rating
+  document.querySelectorAll(".filter-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedRating = this.dataset.rating;
+
+      document.getElementById("filterRatingBtn").innerHTML =
+        this.innerText + ' <span class="ms-1">&#9662;</span>';
+
+      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
+    });
+  });
+
+  // ================================
+  // 8. EXPORT EXCEL (LOGIC FIX)
+  // ================================
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // --- SHEET 1: OVERVIEW (STATIC - Tidak ikut filter sesuai request) ---
+      const chartLabels = ["1 - 1,99", "2 - 2,99", "3 - 3,99", "4 - 4,99", "5"];
+      const chartDataValues = [168, 225, 172, 235, 0]; // Data Hardcoded dari Chart
+
+      let sheet1Content = [["Rating Range", "Total Product Count"]];
+      for(let i=0; i<chartLabels.length; i++){
+        sheet1Content.push([ chartLabels[i], chartDataValues[i] ]);
+      }
+
+      // --- SHEET 2: PRODUCT TABLE (DYNAMIC - Ikut Filter) ---
+      
+      // 🔥 FIX: Panggil filterProducts menggunakan variabel state saat ini
+      const dataToExport = filterProducts(selectedYear, selectedMonth, selectedRating);
+
+      if (dataToExport.length === 0) {
+        alert("Tidak ada data produk untuk filter yang dipilih.");
+        return;
+      }
+
+      // Mapping Data Excel
+      const sheet2Data = dataToExport.map(item => ({
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Sold": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // Generate File
+      const wb = XLSX.utils.book_new();
+
+      // Append Sheet 1
+      const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+      XLSX.utils.book_append_sheet(wb, ws1, "Rating Overview");
+
+      // Append Sheet 2
+      const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
+      XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
+
+      // Download
+      XLSX.writeFile(wb, "Rating_Product_Report.xlsx");
+    });
+  }
+}

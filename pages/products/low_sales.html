@@ -615,6 +615,10 @@
                                 </div>
 
                                 <div class="d-flex gap-3 mt-3">
+
+                                <div class="form-group mb-0">
+                                  <input type="text" id="searchProduct" class="form-control form-control-sm" placeholder="Cari nama produk..." style="width: 200px;">
+                                </div>
             
                                 <!-- Filter Year -->
                                 <div class="dropdown">
@@ -659,7 +663,7 @@
                               <table class="table select-table">
                                 <thead>
                                   <tr>
-                                    <th data-field="name" class="sortable">Product <span class="sort-icon">▲▼</span></th>
+                                    <!-- <th data-field="name" class="sortable">Product <span class="sort-icon">▲▼</span></th>
                                     <th data-field="category" class="sortable">Category <span class="sort-icon">▲▼</span></th>
                                     <th data-field="price" class="sortable">Price <span class="sort-icon">▲▼</span></th>
                                     <th data-field="sold" class="sortable">Product Sold <span class="sort-icon">▲▼</span></th>
@@ -667,6 +671,17 @@
                                     <th data-field="rating" class="sortable">Rating <span class="sort-icon">▲▼</span></th>
                                     <th data-field="discount" class="sortable">Discount <span class="sort-icon">▲▼</span></th>
                                     <th data-field="stock" class="sortable">Stock <span class="sort-icon">▲▼</span></th>
+                                    <th>Status</th> -->
+
+
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Product Sold</th>
+                                    <th>Sold Date</th>
+                                    <th>Rating</th>
+                                    <th>Discount</th>
+                                    <th>Stock</th>
                                     <th>Status</th>
                                   </tr>
                                 </thead>
@@ -674,6 +689,17 @@
                                 <tbody id="lowSalesProductTableBody2"></tbody>
                               
                               </table>
+
+                              <div class="d-flex justify-content-between align-items-center mt-4 mb-3 px-2">
+                                <div id="paginationInfo" class="text-muted small fw-bold">
+                                  Showing 1 to 10 of 25 entries
+                                </div>
+                                  <nav>
+                                    <ul class="pagination mb-0" id="paginationControls">
+                                  </ul>
+                                </nav>
+                              </div>
+                              
                             </div>
                           </div>
                         </div>

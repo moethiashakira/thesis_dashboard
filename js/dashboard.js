@@ -1569,250 +1569,133 @@ if ($("#ratingChart").length) {
     ratingChart.generateLegend();
 }
 
-  // -------- RATING TABLE --------
+// -------- RATING TABLE --------
+// =====================================================
+// RATING TABLE 2
+// =====================================================
 if ($("#ratingTable").length) {
-  // ================================
-  // DUMMY DATA PRODUCT LIST
-  // ================================
-  // const productData = [
-  //       // ======= 1 =======
-  //   { id: "P0101", 
-  //     name: "Men Black Hoodie Oversize", 
-  //     category: "Atasan Pria", 
-  //     price: 199000, 
-  //     sold: 450, 
-  //     date: "2025-03-21", 
-  //     rating: 4.8, 
-  //     discount: 10, 
-  //     stock: 200, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 2 =======
-  //   { 
-  //     id: "P0102", 
-  //     name: "Women Floral Summer Dress", 
-  //     category: "Gaun Wanita", 
-  //     price: 259000, sold: 400, 
-  //     date: "2025-02-10", 
-  //     rating: 4.5, 
-  //     discount: 12, 
-  //     stock: 120, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 3 =======
-  //   { 
-  //     id: "P0103", 
-  //     name: "Men Formal White Shirt Slim Fit", 
-  //     category: "Atasan Pria", 
-  //     price: 149000, 
-  //     sold: 300, 
-  //     date: "2024-08-01", 
-  //     rating: 4.3, 
-  //     discount: 5, 
-  //     stock: 85, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 4 =======
-  //   { 
-  //     id: "P0104", 
-  //     name: "Women Casual Sneakers White", 
-  //     category: "Sepatu Wanita", 
-  //     price: 329000, 
-  //     sold: 280, 
-  //     date: "2025-05-13", 
-  //     rating: 4.7, 
-  //     discount: 8, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
-
-  //   // ======= 5 =======  
-  //   { 
-  //     id: "P0105", 
-  //     name: "Kids Polo Shirt", 
-  //     category: "Anak", 
-  //     price: 89000, 
-  //     sold: 270, 
-  //     date: "2024-11-20", 
-  //     rating: 4.0, 
-  //     discount: 2, 
-  //     stock: 50,
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 6 =======
-  //   { 
-  //     id: "P0106", 
-  //     name: "Women Slim Fit Jeans Blue", 
-  //     category: "Bawahan Wanita", 
-  //     price: 209000, 
-  //     sold: 260, 
-  //     date: "2024-09-14", 
-  //     rating: 4.2, 
-  //     discount: 10, 
-  //     stock: 30, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 7 =======
-  //   { 
-  //     id: "P0107", 
-  //     name: "Men Sport Running Shoes Black", 
-  //     category: "Sepatu Pria", 
-  //     price: 399000, 
-  //     sold: 255, 
-  //     date: "2025-01-12", 
-  //     rating: 4.6, 
-  //     discount: 6, 
-  //     stock: 10, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 8 =======
-  //   { 
-  //     id: "P0108", 
-  //     name: "Women Handbag Leather Brown", 
-  //     category: "Aksesoris Wanita", 
-  //     price: 499000, 
-  //     sold: 230, 
-  //     date: "2025-06-07", 
-  //     rating: 4.9, 
-  //     discount: 15, 
-  //     stock: 140, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 9 =======
-  //   { 
-  //     id: "P0109", 
-  //     name: "Men Oversized Graphic T-shirt", 
-  //     category: "Atasan Pria", 
-  //     price: 129000, 
-  //     sold: 225, 
-  //     date: "2025-07-15", 
-  //     rating: 3.9, 
-  //     discount: 5, 
-  //     stock: 90, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 10 =======
-  //   { 
-  //     id: "P0110", 
-  //     name: "Sport Cap Black Edition", 
-  //     category: "Aksesoris Unisex", 
-  //     price: 69000, 
-  //     sold: 210, 
-  //     date: "2024-10-30", 
-  //     rating: 4.1, 
-  //     discount: 3, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   }
-  // ];
-
-  // ================================
-  // 1. SETUP VARIABLES
-  // ================================
-  let ratingProductData = []; 
-  window.ratingProductData = [];
-
-  // Default States Filter
+  let staticRatingData = []; 
+  let filteredDataGlobal = [];
   let selectedYear = "all";
   let selectedMonth = "all";
   let selectedRating = "all";
+  let searchQuery = "";
 
-  // ================================
-  // 2. LOAD JSON
-  // ================================
-  fetch("../../json/ratingTable.json") 
-  .then(res => res.json())
-  .then(data => {
+  // Konfigurasi Pagination
+  let currentPage = 1;
+  const rowsPerPage = 10;
 
-    // Konversi rating string -> number
-    data = data.map(item => ({
-      ...item,
-      rating: Number(item.rating)
-    }));
+  // 1. FETCH DATA & INITIAL SORTING
+  fetch("../../json/product.json") 
+    .then(res => res.json())
+    .then(data => {
+      // LOGIKA SORTING: Ascending by Date Only (Terlama ke Terbaru)
+      const sortedData = data.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB; 
+      });
 
-    // Ambil 10 data acak
-    window.ratingProductData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-    
-    console.log("Data Random Rating Terpilih:", window.ratingProductData);
-    
-    // Render tampilan awal
-    renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-  })
-  .catch(err => console.error("Gagal load JSON:", err));
+      // Simpan seluruh data (Tampilkan semua data seperti permintaan tabel sebelumnya)
+      staticRatingData = sortedData;
+      filteredDataGlobal = [...staticRatingData];
 
-  // ================================
-  // 3. HELPER: FORMAT TANGGAL
-  // ================================
-  function formatDate(dateStr) {
-    return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric", month: "long", year: "numeric"
+      renderRatingTable();
+    })
+    .catch(err => {
+      console.error("Gagal load JSON:", err);
+      const tbody = document.querySelector("#ratingTableBody");
+      if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Error loading data.</td></tr>`;
     });
-  }
 
-  // ================================
-  // 4. HELPER: STOCK STATUS
-  // ================================
-  function getStockStatus(stock) {
-    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
-    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
-    return { text: "Low Stock", class: "badge bg-danger" };
-  }
-
-  // ================================
-  // 5. CORE LOGIC: FILTER FUNCTION
-  // ================================
-  function filterProducts(year, month, ratingRange) {
-    return window.ratingProductData.filter(item => {
-
-      const itemYear = item.date.split("-")[0];
-      const itemMonth = item.date.split("-")[1];
-
-      const matchYear = year === "all" || itemYear === year;
-      const matchMonth = month === "all" || itemMonth === month;
+  // 2. FUNGSI UPDATE FILTER (Search, Year, Month, Rating)
+  function updateRatingFilter() {
+    filteredDataGlobal = staticRatingData.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      const matchYear = (selectedYear === "all" || itemYear === selectedYear);
+      const matchMonth = (selectedMonth === "all" || itemMonth === selectedMonth);
+      const matchSearch = item.name.toLowerCase().includes(searchQuery);
 
       // Filter Rating Logic
       let matchRating = true;
-      if (ratingRange !== "all") {
-        const r = item.rating;
-        const rangeStart = Number(ratingRange);
-        // Jika pilih "5", ambil 5.0 - 5.99 (meskipun max biasanya 5.0)
-        // Jika pilih "4", ambil 4.0 - 4.99
-        const rangeEnd = ratingRange === "5" ? 5.99 : rangeStart + 0.99; 
+      if (selectedRating !== "all") {
+        const r = Number(item.rating);
+        const rangeStart = Number(selectedRating);
+        const rangeEnd = selectedRating === "5" ? 5.0 : rangeStart + 0.99; 
         matchRating = r >= rangeStart && r <= rangeEnd;
       }
 
-      return matchYear && matchMonth && matchRating;
+      return matchYear && matchMonth && matchSearch && matchRating;
+    });
+
+    currentPage = 1; 
+    renderRatingTable();
+  }
+
+  // 3. LISTENERS
+  const searchInput = document.getElementById("searchProduct");
+  if (searchInput) {
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value.toLowerCase();
+      updateRatingFilter();
     });
   }
 
-  // ================================
-  // 6. RENDER TABLE (VISUAL)
-  // ================================
-  function renderTable(filtered) {
+  document.querySelectorAll(".filter-year-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear = this.dataset.year;
+      document.getElementById("filterYearRatingBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) + ' <span class="ms-1">&#9662;</span>';
+      updateRatingFilter();
+    });
+  });
+
+  document.querySelectorAll(".filter-month-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth = this.dataset.month;
+      document.getElementById("filterMonthRatingLabel").textContent =
+        selectedMonth === "all" ? "All Months" : this.innerText.trim();
+      updateRatingFilter();
+    });
+  });
+
+  document.querySelectorAll(".filter-rating").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedRating = this.dataset.rating;
+      document.getElementById("filterRatingBtn").innerHTML =
+        this.innerText + ' <span class="ms-1">&#9662;</span>';
+      updateRatingFilter();
+    });
+  });
+
+  // 4. RENDER TABLE & PAGINATION
+  function renderRatingTable() {
     const tbody = document.querySelector("#ratingTableBody");
+    const paginationInfo = document.getElementById("paginationInfo");
+    if(!tbody) return;
     tbody.innerHTML = "";
 
-    if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data untuk filter ini.</td></tr>`;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedItems = filteredDataGlobal.slice(startIndex, endIndex);
+
+    if (filteredDataGlobal.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data ditemukan.</td></tr>`;
+      document.getElementById("paginationControls").innerHTML = "";
+      paginationInfo.innerText = "Showing 0 to 0 of 0 entries";
       return;
     }
 
-    filtered.forEach(p => {
+    paginatedItems.forEach(p => {
       const stockInfo = getStockStatus(p.stock);
-
       tbody.innerHTML += `
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
+              <img src="${p.image}" class="product-img" style="width:40px;height:40px;margin-right:10px;border-radius:8px;" alt="">
               <div>
                 <h6 class="mb-0">${p.name}</h6>
                 <small>${p.id}</small>
@@ -1820,245 +1703,244 @@ if ($("#ratingTable").length) {
             </div>
           </td>
           <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${Number(p.price).toLocaleString("id-ID")}</td>
           <td>${p.sold}</td>
           <td>${formatDate(p.date)}</td>
-          <td>${p.rating.toFixed(2)}</td>
+          <td>${Number(p.rating).toFixed(2)}</td>
           <td>${p.discount}%</td>
           <td>${p.stock}</td>
           <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
+        </tr>`;
     });
+
+    paginationInfo.innerText = `Showing ${startIndex + 1} to ${Math.min(endIndex, filteredDataGlobal.length)} of ${filteredDataGlobal.length} entries`;
+    setupPagination(filteredDataGlobal.length);
   }
 
-  // ================================
-  // 7. FILTER EVENTS
-  // ================================
-  
-  // Filter Year
-  document.querySelectorAll(".filter-year-rating").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedYear = this.dataset.year;
+  // 5. SETUP PAGINATION PINTAR 
+  function setupPagination(totalItems) {
+    const paginationControls = document.getElementById("paginationControls");
+    paginationControls.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
+    if (totalPages <= 1) return;
 
-      document.getElementById("filterYearRatingBtn").innerHTML =
-        (selectedYear === "all" ? "All Years" : selectedYear) + ' <span class="ms-1">&#9662;</span>';
+    addPageButton('<', currentPage > 1 ? currentPage - 1 : null);
 
-      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-    });
-  });
+    const range = 1; 
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+        addPageButton(i, i, i === currentPage);
+      } else if (i === currentPage - range - 1 || i === currentPage + range + 1) {
+        addPageButton('...', null, false, true);
+      }
+    }
 
-  // Filter Month
-  document.querySelectorAll(".filter-month-rating").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedMonth = this.dataset.month;
+    addPageButton('>', currentPage < totalPages ? currentPage + 1 : null);
+  }
 
-      document.getElementById("filterMonthRatingLabel").textContent =
-        selectedMonth === "all" ? "All Months" : this.innerText.trim();
+  function addPageButton(label, targetPage, isActive = false, isEllipsis = false) {
+    const paginationControls = document.getElementById("paginationControls");
+    const li = document.createElement("li");
+    li.className = `page-item ${isActive ? 'active' : ''} ${(targetPage === null && !isEllipsis) ? 'disabled' : ''}`;
+    
+    const btn = document.createElement("a");
+    btn.className = "page-link";
+    btn.href = "#";
+    btn.innerText = label;
 
-      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-    });
-  });
+    if (targetPage !== null) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = targetPage;
+        renderRatingTable();
+      });
+    } else if (isEllipsis) {
+      li.classList.add("disabled");
+    }
 
-  // Filter Rating
-  document.querySelectorAll(".filter-rating").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedRating = this.dataset.rating;
+    li.appendChild(btn);
+    paginationControls.appendChild(li);
+  }
 
-      document.getElementById("filterRatingBtn").innerHTML =
-        this.innerText + ' <span class="ms-1">&#9662;</span>';
-
-      renderTable(filterProducts(selectedYear, selectedMonth, selectedRating));
-    });
-  });
-
-  // ================================
-  // 8. EXPORT EXCEL (LOGIC FIX)
-  // ================================
+  // =====================================================
+  // 6. EXPORT EXCEL (2 SHEETS: CHART & TABLE LOGIC)
+  // =====================================================
   const btnExport = document.getElementById('exportToExcel');
   if (btnExport) {
-    btnExport.addEventListener('click', function() {
+    // Clone node untuk membersihkan event listener lama (mencegah double trigger)
+    const newBtn = btnExport.cloneNode(true);
+    btnExport.parentNode.replaceChild(newBtn, btnExport);
+
+    newBtn.addEventListener('click', function() {
       
-      // --- SHEET 1: OVERVIEW (STATIC - Tidak ikut filter sesuai request) ---
+      // --- SHEET 1: RATING OVERVIEW (DATA CHART) ---
       const chartLabels = ["1 - 1,99", "2 - 2,99", "3 - 3,99", "4 - 4,99", "5"];
-      const chartDataValues = [168, 225, 172, 235, 0]; // Data Hardcoded dari Chart
+      const chartDataValues = [168, 225, 172, 235, 0]; // Data Hardcoded
 
       let sheet1Content = [["Rating Range", "Total Product Count"]];
       for(let i=0; i<chartLabels.length; i++){
         sheet1Content.push([ chartLabels[i], chartDataValues[i] ]);
       }
 
-      // --- SHEET 2: PRODUCT TABLE (DYNAMIC - Ikut Filter) ---
-      
-      // 🔥 FIX: Panggil filterProducts menggunakan variabel state saat ini
-      const dataToExport = filterProducts(selectedYear, selectedMonth, selectedRating);
+      // --- SHEET 2: PRODUCT DETAILS ---
+      // Menggunakan data yang sudah terfilter secara global (filteredDataGlobal)
+      const dataToExport = filteredDataGlobal;
 
       if (dataToExport.length === 0) {
         alert("Tidak ada data produk untuk filter yang dipilih.");
         return;
       }
 
-      // Mapping Data Excel
-      const sheet2Data = dataToExport.map(item => ({
-        "ID": item.id,
+      // Mapping Kolom
+      const sheet2Data = dataToExport.map((item, index) => ({
+        "No": index + 1,
+        "Product ID": item.id,
         "Product Name": item.name,
         "Category": item.category,
         "Price": item.price,
         "Sold": item.sold,
-        "Date": item.date,
+        "Stock": item.stock,
         "Rating": item.rating,
         "Discount (%)": item.discount,
-        "Stock": item.stock,
-        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+        "Date": item.date,
+        "Status": getStockStatus(item.stock).text // Menggunakan helper status stok ratingTable
       }));
 
-      // Generate File
+      // --- GENERATE WORKBOOK ---
       const wb = XLSX.utils.book_new();
 
-      // Append Sheet 1
+      // Append Sheet 1: Overview
       const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
       XLSX.utils.book_append_sheet(wb, ws1, "Rating Overview");
 
-      // Append Sheet 2
+      // Append Sheet 2: Details (Logika Low Stock)
       const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
       XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
 
-      // Download
-      XLSX.writeFile(wb, "Rating_Product_Report.xlsx");
-    });
-  }
-}
-
-// -------- EARNING TABLE --------
-if ($("#earningTable").length) {
-
-  // ================================
-  // DUMMY DATA PRODUCT LIST (with Modal)
-  // ================================
-  // const productData = [
-  //   {
-  //     id: "P0767",
-  //     name: "Next Look Men Blue Slim Fit Solid Formal Shirt",
-  //     category: "Atasan Pria",
-  //     price: 104310,
-  //     modal: 70000,
-  //     sold: 60,
-  //     date: "2025-01-24",
-  //     rating: 4.51,
-  //     discount: 22,
-  //     stock: 10,
-  //     status: "In Stock",
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
-  //   {
-  //     id: "P0017",
-  //     name: "T-Shirt Mini Garis (Crop Top)",
-  //     category: "Atasan Wanita",
-  //     price: 149000,
-  //     modal: 90000,
-  //     sold: 250,
-  //     date: "2024-08-12",
-  //     rating: 4.08,
-  //     discount: 2,
-  //     stock: 11,
-  //     status: "In Stock",
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
-  //   {
-  //     id: "P0296",
-  //     name: "Ziyaa Women Grey Printed Kurta With Trousers",
-  //     category: "Bawahan Wanita",
-  //     price: 198930,
-  //     modal: 120000,
-  //     sold: 235,
-  //     date: "2025-06-30",
-  //     rating: 2.2,
-  //     discount: 11,
-  //     stock: 244,
-  //     status: "In Stock",
-  //     image: "../../images/asset/logo-02.jpg"
-  //   }
-  // ];
-
-  // ================================
-  // 1. SETUP VARIABLES
-  // ================================
-  let productData = [];
-  window.productData = [];
-  
-  // Default Filter state
-  let selectedYear = "all";
-  let selectedMonth = "all";
-
-  // ================================
-  // 2. LOAD JSON
-  // ================================
-  fetch("../../json/productEarning.json")
-    .then(res => res.json())
-    .then(data => {
-      // Ambil data acak 100 biji (sesuai logic kamu sebelumnya)
-      window.productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-      
-      console.log("Data Loaded:", window.productData.length);
-
-      // Render pertama kali
-      renderTable(filterProducts(selectedYear, selectedMonth));
-    })
-    .catch(err => console.error("Gagal load JSON:", err));
-
-  // ================================
-  // 3. FILTER FUNCTION
-  // ================================
-  function filterProducts(year, month) {
-    return window.productData.filter(item => {
-      const itemYear = item.date.split("-")[0];
-      const itemMonth = item.date.split("-")[1];
-
-      const matchYear = year === "all" || itemYear === year;
-      const matchMonth = month === "all" || itemMonth === month;
-
-      return matchYear && matchMonth;
+      // Download File
+      const fileName = `Rating_Product_Report_${selectedYear}_${selectedMonth}_${selectedMonth}.xlsx`;
+      XLSX.writeFile(wb, fileName);
     });
   }
 
-  // ================================
-  // 4. HELPER FUNCTIONS
-  // ================================
+  // HELPERS
   function formatDate(dateStr) {
-    return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric", month: "long", year: "numeric"
-    });
+    return new Date(dateStr).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
   }
-
   function getStockStatus(stock) {
     if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
     if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
     return { text: "Low Stock", class: "badge bg-danger" };
   }
+}
 
-  // ================================
-  // 5. RENDER TABLE (Hanya Render Visual HTML)
-  // ================================
-  function renderTable(filtered) {
+// -------- EARNING TABLE --------
+if ($("#earningTable").length) {
+  let staticEarningData = []; 
+  let filteredDataGlobal = [];
+  let selectedYear = "all";
+  let selectedMonth = "all";
+  let searchQuery = "";
+
+  // Konfigurasi Pagination
+  let currentPage = 1;
+  const rowsPerPage = 10;
+
+  // 1. FETCH DATA & INITIAL SORTING
+  fetch("../../json/product.json")
+    .then(res => res.json())
+    .then(data => {
+      // LOGIKA SORTING: Ascending by Date Only (Terlama ke Terbaru)
+      const sortedData = data.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
+
+      // Simpan seluruh data (Tampilkan semua data)
+      staticEarningData = sortedData;
+      filteredDataGlobal = [...staticEarningData];
+
+      renderEarningTable();
+    })
+    .catch(err => {
+      console.error("Gagal load JSON:", err);
+      const tbody = document.querySelector("#earningProductTableBody");
+      if(tbody) tbody.innerHTML = `<tr><td colspan="12" class="text-center py-3">Error loading data.</td></tr>`;
+    });
+
+  // 2. FUNGSI UPDATE FILTER (Search, Year, Month)
+  function updateEarningFilter() {
+    filteredDataGlobal = staticEarningData.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      const matchYear = (selectedYear === "all" || itemYear === selectedYear);
+      const matchMonth = (selectedMonth === "all" || itemMonth === selectedMonth);
+      const matchSearch = item.name.toLowerCase().includes(searchQuery);
+
+      return matchYear && matchMonth && matchSearch;
+    });
+
+    currentPage = 1; 
+    renderEarningTable();
+  }
+
+  // 3. LISTENERS
+  const searchInput = document.getElementById("searchProduct");
+  if (searchInput) {
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value.toLowerCase();
+      updateEarningFilter();
+    });
+  }
+
+  // Filter Year
+  document.querySelectorAll(".filter-year-earning").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear = this.dataset.year;
+      document.getElementById("filterEarningTableYearBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) + ' <span class="ms-1">&#9662;</span>';
+      updateEarningFilter();
+    });
+  });
+
+  // Filter Month
+  document.querySelectorAll(".filter-earning-month").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth = this.dataset.month;
+      const monthName = this.innerText.trim();
+      document.getElementById("filterEarningTableMonthLabel").textContent =
+        selectedMonth === "all" ? "All Months" : monthName;
+      updateEarningFilter();
+    });
+  });
+
+  // 4. RENDER TABLE & PAGINATION
+  function renderEarningTable() {
     const tbody = document.querySelector("#earningProductTableBody");
+    const paginationInfo = document.getElementById("paginationInfo");
+    if(!tbody) return;
     tbody.innerHTML = "";
 
-    if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="12" class="text-center">Tidak ada data untuk filter ini.</td></tr>`;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedItems = filteredDataGlobal.slice(startIndex, endIndex);
+
+    if (filteredDataGlobal.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="12" class="text-center py-3">Tidak ada data ditemukan.</td></tr>`;
+      document.getElementById("paginationControls").innerHTML = "";
+      paginationInfo.innerText = "Showing 0 to 0 of 0 entries";
       return;
     }
 
-    filtered.forEach(p => {
+    paginatedItems.forEach(p => {
       const stockInfo = getStockStatus(p.stock);
-
       tbody.innerHTML += `
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
+              <img src="${p.image}" class="product-img" style="width:40px;height:40px;margin-right:10px;border-radius:8px;" alt="">
               <div>
                 <h6 class="mb-0">${p.name}</h6>
                 <small>${p.id}</small>
@@ -2066,61 +1948,76 @@ if ($("#earningTable").length) {
             </div>
           </td>
           <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
-          <td>Rp ${p.earning.toLocaleString("id-ID")}</td>
-          <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
-          <td>Rp ${p.profit.toLocaleString("id-ID")}</td>
+          <td>Rp ${Number(p.price).toLocaleString("id-ID")}</td>
+          <td>Rp ${Number(p.earning).toLocaleString("id-ID")}</td>
+          <td>Rp ${Number(p.modal).toLocaleString("id-ID")}</td>
+          <td>Rp ${Number(p.profit).toLocaleString("id-ID")}</td>
           <td>${p.sold}</td>
           <td>${formatDate(p.date)}</td>
           <td>${p.rating}</td>
           <td>${p.discount}%</td>
           <td>${p.stock}</td>
           <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
+        </tr>`;
     });
+
+    paginationInfo.innerText = `Showing ${startIndex + 1} to ${Math.min(endIndex, filteredDataGlobal.length)} of ${filteredDataGlobal.length} entries`;
+    setupPagination(filteredDataGlobal.length);
   }
 
-  // ================================
-  // 6. FILTER EVENT LISTENERS
-  // ================================
-  
-  // Year Filter
-  document.querySelectorAll(".filter-year-earning").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedYear = this.dataset.year;
+  // 5. SETUP PAGINATION PINTAR
+  function setupPagination(totalItems) {
+    const paginationControls = document.getElementById("paginationControls");
+    paginationControls.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
+    if (totalPages <= 1) return;
 
-      document.getElementById("filterEarningTableYearBtn").innerHTML =
-        (selectedYear === "all" ? "All Years" : selectedYear) +
-        ' <span class="ms-1">&#9662;</span>';
+    addPageButton('<', currentPage > 1 ? currentPage - 1 : null);
 
-      renderTable(filterProducts(selectedYear, selectedMonth));
-    });
-  });
+    const range = 1; 
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+        addPageButton(i, i, i === currentPage);
+      } else if (i === currentPage - range - 1 || i === currentPage + range + 1) {
+        addPageButton('...', null, false, true);
+      }
+    }
 
-  // Month Filter
-  document.querySelectorAll(".filter-earning-month").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedMonth = this.dataset.month;
+    addPageButton('>', currentPage < totalPages ? currentPage + 1 : null);
+  }
 
-      const monthName = this.innerText.trim();
-      document.getElementById("filterEarningTableMonthLabel").textContent =
-        selectedMonth === "all" ? "All Months" : monthName;
+  function addPageButton(label, targetPage, isActive = false, isEllipsis = false) {
+    const paginationControls = document.getElementById("paginationControls");
+    const li = document.createElement("li");
+    li.className = `page-item ${isActive ? 'active' : ''} ${(targetPage === null && !isEllipsis) ? 'disabled' : ''}`;
+    
+    const btn = document.createElement("a");
+    btn.className = "page-link";
+    btn.href = "#";
+    btn.innerText = label;
 
-      renderTable(filterProducts(selectedYear, selectedMonth));
-    });
-  });
+    if (targetPage !== null) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = targetPage;
+        renderEarningTable();
+      });
+    } else if (isEllipsis) {
+      li.classList.add("disabled");
+    }
 
-  // ================================
-  // 7. EXPORT PRODUCT EARNING PAGE
-  // ================================
+    li.appendChild(btn);
+    paginationControls.appendChild(li);
+  }
+
+  // 6. EXPORT TO EXCEL (2 Sheets: Financial Overview & Product Details)
   const btnExport = document.getElementById('exportToExcel');
   if (btnExport) {
-    btnExport.addEventListener('click', function() {
-      
-      // --- A. Financial Overview (Hardcoded - Tetap/Tidak difilter sesuai request "hanya utk table") ---
+    const newBtn = btnExport.cloneNode(true);
+    btnExport.parentNode.replaceChild(newBtn, btnExport);
+
+    newBtn.addEventListener('click', function() {
+      // --- SHEET 1: Financial Overview (Static) ---
       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
       const financialData = {
         earning: {
@@ -2147,17 +2044,16 @@ if ($("#earningTable").length) {
         ]);
       }
 
-      // --- B. DATA TABLE (Ini yang difilter) ---
-      
-      // 🔥 FIX: Panggil fungsi filter menggunakan variabel selectedYear & selectedMonth saat ini
-      const dataToExport = filterProducts(selectedYear, selectedMonth);
+      // --- SHEET 2: Product Details (Filtered - Logika Low Stock) ---
+      const dataToExport = filteredDataGlobal;
 
       if (dataToExport.length === 0) {
-        alert("Tidak ada data tabel untuk diexport pada filter ini.");
+        alert("Tidak ada data untuk dieksport.");
         return;
       }
 
-      const sheet2Data = dataToExport.map(item => ({
+      const sheet2Data = dataToExport.map((item, index) => ({
+        "No": index + 1,
         "Product ID": item.id,
         "Product Name": item.name,
         "Category": item.category,
@@ -2165,26 +2061,31 @@ if ($("#earningTable").length) {
         "Modal": item.modal,
         "Earning": item.earning,
         "Profit": item.profit,
-        "Sold Qty": item.sold,
+        "Sold": item.sold,
         "Date": item.date,
         "Rating": item.rating,
         "Stock": item.stock,
-        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+        "Status": getStockStatus(item.stock).text
       }));
 
-      // --- C. Generate Excel ---
       const wb = XLSX.utils.book_new();
-      
-      // Sheet 1: Overview (Static)
       const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
       XLSX.utils.book_append_sheet(wb, ws1, "Financial Overview");
-      
-      // Sheet 2: Product Details (Filtered)
       const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
       XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
 
-      XLSX.writeFile(wb, "Product_Earning_Report.xlsx");
+      XLSX.writeFile(wb, `ProductEarning_Product_Report_${selectedYear}_${selectedMonth}.xlsx`);
     });
+  }
+
+  // HELPERS
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+  }
+  function getStockStatus(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
+    return { text: "Low Stock", class: "badge bg-danger" };
   }
 }
 
@@ -2364,362 +2265,235 @@ if ($("#earningTable").length) {
         GLOBAL_DATA.recommendations = filterProducts(selectedYear, selectedMonth);
       });
     });
-
-
-
   }
 
+
 // =============================
-// REC TABLE 2 (TOP 10 SALES)
+// REC TABLE 2 
 // =============================
 if ($("#recTable2").length) {
+  let staticRecData = []; 
+  let filteredDataGlobal = [];
+  let selectedYear2 = "all";
+  let selectedMonth2 = "all";
+  let searchQuery = "";
 
-  // ===============================================
-  // DUMMY PRODUCT DATA (10 items)
-  // ===============================================
-  // const productData2 = [
-  //   // ======= 1 =======
-  //   {
-  //     id: "P0001",
-  //     name: "Free authority men white batman printed t-shirt",
-  //     category: "Atasan pria",
-  //     price: 85310,
-  //     sold: 36,
-  //     date: "2025-12-29",
-  //     rating: 3.01,
-  //     discount: 0.1,
-  //     stock: 247,
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
-    
-  //   // ======= 2 =======
-  //   { 
-  //     id: "P0102", 
-  //     name: "Women Floral Summer Dress", 
-  //     category: "Gaun Wanita", 
-  //     price: 259000, 
-  //     sold: 400, 
-  //     date: "2025-02-10", 
-  //     rating: 4.5, 
-  //     discount: 12, 
-  //     stock: 120, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 3 =======
-  //   { 
-  //     id: "P0103", 
-  //     name: "Men Formal White Shirt Slim Fit", 
-  //     category: "Atasan Pria", 
-  //     price: 149000, 
-  //     sold: 300, 
-  //     date: "2024-08-01", 
-  //     rating: 4.3, 
-  //     discount: 5, 
-  //     stock: 85, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 4 =======
-  //   { 
-  //     id: "P0104", 
-  //     name: "Women Casual Sneakers White", 
-  //     category: "Sepatu Wanita", 
-  //     price: 329000, 
-  //     sold: 280, 
-  //     date: "2025-05-13", 
-  //     rating: 4.7, 
-  //     discount: 8, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
+  // Konfigurasi Pagination
+  let currentPage = 1;
+  const rowsPerPage = 10;
 
-  //   // ======= 5 =======  
-  //   { 
-  //     id: "P0105", 
-  //     name: "Kids Polo Shirt", 
-  //     category: "Anak", 
-  //     price: 89000, 
-  //     sold: 270, 
-  //     date: "2024-11-20", 
-  //     rating: 4.0, 
-  //     discount: 2, 
-  //     stock: 50,
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 6 =======
-  //   { 
-  //     id: "P0106", 
-  //     name: "Women Slim Fit Jeans Blue", 
-  //     category: "Bawahan Wanita", 
-  //     price: 209000, 
-  //     sold: 260, 
-  //     date: "2024-09-14", 
-  //     rating: 4.2, 
-  //     discount: 10, 
-  //     stock: 30, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 7 =======
-  //   { 
-  //     id: "P0107", 
-  //     name: "Men Sport Running Shoes Black", 
-  //     category: "Sepatu Pria", 
-  //     price: 399000, 
-  //     sold: 255, 
-  //     date: "2025-01-12", 
-  //     rating: 4.6, 
-  //     discount: 6, 
-  //     stock: 10, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 8 =======
-  //   { 
-  //     id: "P0108", 
-  //     name: "Women Handbag Leather Brown", 
-  //     category: "Aksesoris Wanita", 
-  //     price: 499000, 
-  //     sold: 230, 
-  //     date: "2025-06-07", 
-  //     rating: 4.9, 
-  //     discount: 15, 
-  //     stock: 140, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 9 =======
-  //   { 
-  //     id: "P0109", 
-  //     name: "Men Oversized Graphic T-shirt", 
-  //     category: "Atasan Pria", 
-  //     price: 129000, 
-  //     sold: 225, 
-  //     date: "2025-07-15", 
-  //     rating: 3.9, 
-  //     discount: 5, 
-  //     stock: 90, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 10 =======
-  //   { 
-  //     id: "P0110", 
-  //     name: "Sport Cap Black Edition", 
-  //     category: "Aksesoris Unisex", 
-  //     price: 69000, 
-  //     sold: 210, 
-  //     date: "2024-10-30", 
-  //     rating: 4.1, 
-  //     discount: 3, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   }
-  // ];
-
-
-  // Variabel untuk menyimpan 10 Rekomendasi Terbaik (Global)
-  let staticTop10Rec = []; 
-
-  // ===============================================
-  // 1. LOAD JSON & PROSES LOGIKA UTAMA
-  // ===============================================
+  // 1. FETCH DATA
   fetch("../../json/recTable2.json")
     .then(res => res.json())
     .then(data => {
-      
-      // LOGIKA REKOMENDASI:
-      // 1. Urutkan berdasarkan SOLD (Tinggi -> Rendah)
-      // 2. Jika sold sama, urutkan RATING (Tinggi -> Rendah)
-      // 3. Jika rating sama, urutkan PRICE (Rendah -> Tinggi / Murah)
-      
-      staticTop10Rec = data.sort((a, b) => {
-        // Cek Sales (Sold)
-        const soldA = Number(a.sold);
-        const soldB = Number(b.sold);
-        if (soldB !== soldA) return soldB - soldA; // Descending
+      // LOGIKA SORTING SEMUA DATA:
+      // 1. Sold Date (Ascending - Terlama ke Terbaru)
+      // 2. Jika tanggal sama, Product Sold (Descending - Terbanyak ke Terkecil)
+      staticRecData = data.sort((a, b) => {
+        const dateA = new Date(a.tgl_penjualan || a.date);
+        const dateB = new Date(b.tgl_penjualan || b.date);
 
-        // Cek Rating
-        const rateA = Number(a.rating);
-        const rateB = Number(b.rating);
-        if (rateB !== rateA) return rateB - rateA; // Descending
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateA - dateB; 
+        }
 
-        // Cek Price
-        const priceA = Number(a.price);
-        const priceB = Number(b.price);
-        return priceA - priceB; // Ascending (Cari yang murah)
-      })
-      .slice(0, 10); // AMBIL 10 TERBAIK SAJA & KUNCI
+        const salesA = a.sales_quantity || a.sold || 0;
+        const salesB = b.sales_quantity || b.sold || 0;
+        return salesB - salesA; 
+      });
 
-      console.log("Top 10 Recommendations Locked:", staticTop10Rec);
-
-      // Render pertama kali
-      renderTable2(staticTop10Rec);
+      filteredDataGlobal = [...staticRecData];
+      renderRecTable2();
     })
-    .catch(err => {
-      console.error("JSON Load Error:", err);
-      staticTop10Rec = [];
-      renderTable2([]);
-    });
+    .catch(err => console.error("JSON Load Error:", err));
 
-  // ===============================================
-  // 2. FILTER FUNCTION (Hanya main di Top 10)
-  // ===============================================
-  function getFilteredRec(year, month) {
-    // Kita filter DARI 10 data statis tadi
-    return staticTop10Rec.filter(item => {
-      const [itemYear, itemMonth] = item.date.split("-");
+  // 2. FUNGSI UPDATE FILTER
+  function updateRecFilter() {
+    filteredDataGlobal = staticRecData.filter(item => {
+      const dateStr = item.tgl_penjualan || item.date;
+      const [itemYear, itemMonth] = dateStr.split("-");
+      const name = (item.product_name || item.name || "").toLowerCase();
       
-      const matchYear = year === "all" || itemYear === year;
-      const matchMonth = month === "all" || itemMonth === month;
-      
-      return matchYear && matchMonth;
+      const matchYear = (selectedYear2 === "all" || itemYear === selectedYear2);
+      const matchMonth = (selectedMonth2 === "all" || itemMonth === selectedMonth2);
+      const matchSearch = name.includes(searchQuery);
+
+      return matchYear && matchMonth && matchSearch;
+    });
+
+    currentPage = 1; 
+    renderRecTable2();
+  }
+
+  // 3. LISTENERS (Search & Dropdown)
+  const searchInput = document.getElementById("searchProduct");
+  if (searchInput) {
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value.toLowerCase();
+      updateRecFilter();
     });
   }
 
-  // ===============================================
-  // 3. HELPER FUNCTIONS
-  // ===============================================
-  function formatDate2(dateStr) {
-    return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric", month: "long", year: "numeric"
-    });
-  }
-
-  function getStockStatus2(stock) {
-    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" }; 
-    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" }; 
-    return { text: "Low Stock", class: "badge bg-danger" }; 
-  }
-
-  // ===============================================
-  // 4. RENDER TABLE
-  // ===============================================
-  function renderTable2(filteredData) {
-    const tbody = document.getElementById("recProductTableBody2");
-    
-    // PENTING: Reset tabel biar ga double
-    tbody.innerHTML = "";
-
-    if (filteredData.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data rekomendasi di periode ini.</td></tr>`;
-      return;
-    }
-
-    filteredData.forEach(p => {
-      const stockInfo = getStockStatus2(p.stock);
-      
-      // Format Harga Indonesia
-      const formattedPrice = Number(p.price).toLocaleString("id-ID");
-
-      tbody.innerHTML += `
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
-              <div>
-                <h6 class="mb-0">${p.name}</h6>
-                <small>${p.id}</small>
-              </div>
-            </div>
-          </td>
-
-          <td>${p.category}</td>
-          <td>Rp ${formattedPrice}</td>
-          <td>${p.sold}</td>
-          <td>${formatDate2(p.date)}</td>
-          <td>${p.rating}</td>
-          <td>${p.discount}%</td>
-          <td>${p.stock}</td>
-
-          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
-    });
-  }
-
-  // ===============================================
-  // 5. FILTER EVENTS
-  // ===============================================
-  let selectedYear2 = "all";
-  let selectedMonth2 = "all";
-
-  // Filter Year
   document.querySelectorAll(".filter-year-2").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       selectedYear2 = this.dataset.year;
-
-      document.getElementById("filterYear2Btn").innerHTML =
+      document.getElementById("filterYear2Btn").innerHTML = 
         (selectedYear2 === "all" ? "All Years" : selectedYear2) + ' <span class="ms-1">&#9662;</span>';
-
-      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
+      updateRecFilter();
     });
   });
 
-  // Filter Month
   document.querySelectorAll(".filter-month-2").forEach(btn => {
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       selectedMonth2 = this.dataset.month;
-
-      const monthText = this.innerText.trim();
-      document.getElementById("filterMonth2Label").textContent =
-        selectedMonth2 === "all" ? "All Months" : monthText;
-
-      renderTable2(getFilteredRec(selectedYear2, selectedMonth2));
+      document.getElementById("filterMonth2Label").textContent = 
+        selectedMonth2 === "all" ? "All Months" : this.innerText;
+      updateRecFilter();
     });
   });
 
-  // ===============================================
-  // 6. EXPORT EXCEL
-  // ===============================================
-  const btnExport = document.getElementById('exportToExcel');
-  
-  if (btnExport) {
-    btnExport.addEventListener('click', function() {
-      // Ambil data dari hasil filter staticTop10Rec
-      const dataToExport = getFilteredRec(selectedYear2, selectedMonth2);
+  // 4. RENDER FUNCTION
+  function renderRecTable2() {
+    const tbody = document.getElementById("recProductTableBody2");
+    const paginationInfo = document.getElementById("paginationInfo");
+    
+    if(!tbody) return;
+    tbody.innerHTML = "";
 
-      if (dataToExport.length === 0) {
-        alert("Tidak ada data rekomendasi untuk filter yang dipilih.");
-        return;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedItems = filteredDataGlobal.slice(startIndex, endIndex);
+
+    if (filteredDataGlobal.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data ditemukan.</td></tr>`;
+      document.getElementById("paginationControls").innerHTML = "";
+      paginationInfo.innerText = "Showing 0 to 0 of 0 entries";
+      return;
+    }
+
+    paginatedItems.forEach(p => {
+      const id = p.product_id || p.id;
+      const name = p.product_name || p.name;
+      const sales = p.sales_quantity || p.sold;
+      const date = p.tgl_penjualan || p.date;
+      const stockInfo = getStockStatus2(p.stock);
+      
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image || '../../images/faces/face1.jpg'}" class="product-img" style="width:40px;height:40px;margin-right:10px;border-radius:8px;" alt="">
+              <div><h6 class="mb-0">${name}</h6><small>${id}</small></div>
+            </div>
+          </td>
+          <td>${p.category}</td>
+          <td>Rp ${Number(p.price).toLocaleString("id-ID")}</td>
+          <td>${sales}</td>
+          <td>${formatDate2(date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>`;
+    });
+
+    paginationInfo.innerText = `Showing ${startIndex + 1} to ${Math.min(endIndex, filteredDataGlobal.length)} of ${filteredDataGlobal.length} entries`;
+    setupPagination(filteredDataGlobal.length);
+  }
+
+  // 5. SETUP PAGINATION
+  function setupPagination(totalItems) {
+    const paginationControls = document.getElementById("paginationControls");
+    paginationControls.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
+    if (totalPages <= 1) return;
+
+    // Tombol Previous
+    addPageButton('<', currentPage > 1 ? currentPage - 1 : null);
+    
+    // Tombol Angka (Maksimal muncul 5 angka agar tidak kepanjangan)
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            addPageButton(i, i, i === currentPage);
+        } else if (i === currentPage - 2 || i === currentPage + 2) {
+            addPageButton("...", null);
+        }
+    }
+
+    // Tombol Next
+    addPageButton('>', currentPage < totalPages ? currentPage + 1 : null);
+  }
+
+  function addPageButton(label, targetPage, isActive = false) {
+    const paginationControls = document.getElementById("paginationControls");
+    const li = document.createElement("li");
+    li.className = `page-item ${isActive ? 'active' : ''} ${targetPage === null ? 'disabled' : ''}`;
+    const btn = document.createElement("a");
+    btn.className = "page-link";
+    btn.href = "#";
+    btn.innerText = label;
+    if (targetPage !== null) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = targetPage;
+        renderRecTable2();
+      });
+    }
+    li.appendChild(btn);
+    paginationControls.appendChild(li);
+  }
+
+  // 6. EXPORT TO EXCEL
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    // Clone node untuk memastikan event listener bersih (mencegah double download)
+    const newBtn = btnExport.cloneNode(true);
+    btnExport.parentNode.replaceChild(newBtn, btnExport);
+
+    newBtn.addEventListener('click', function() {
+      // Menggunakan data yang tampil saat ini (berdasarkan filter/search yang aktif)
+      const dataToExport = filteredDataGlobal; 
+      
+      if (dataToExport.length === 0) { 
+        alert("Data kosong untuk periode ini!"); 
+        return; 
       }
 
-      // Mapping Data untuk Excel
+      // Mapping properti agar rapi dan sama persis dengan format laporan Low Stock
       const sheetData = dataToExport.map((item, index) => ({
-        "No": index + 1, // Ranking berdasarkan logika sort di awal
-        "ID": item.id,
-        "Product Name": item.name,
+        "No": index + 1,
+        "Product ID": item.product_id || item.id,
+        "Product Name": item.product_name || item.name,
         "Category": item.category,
         "Price": item.price,
-        "Sold Count": item.sold,
-        "Date": item.date,
+        "Sold": item.sales_quantity || item.sold,
+        "Stock": item.stock,
         "Rating": item.rating,
         "Discount (%)": item.discount,
-        "Stock": item.stock,
-        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+        "Date": item.tgl_penjualan || item.date,
+        "Status": getStockStatus2(item.stock).text // Memakai helper status stok recTable2
       }));
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
-
-      ws['!cols'] = [
-        {wch: 6},  {wch: 10}, {wch: 40}, {wch: 15}, 
-        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
-        {wch: 10}, {wch: 8},  {wch: 10}
-      ];
       
-      XLSX.utils.book_append_sheet(wb, ws, "Top Recommendations");
-      XLSX.writeFile(wb, "Recommendation_Product_Report.xlsx");
+      // Memberikan nama sheet
+      XLSX.utils.book_append_sheet(wb, ws, "Recommendation Report");
+      
+      const fileName = `Recommendation_Product_Report_${selectedYear2}_${selectedMonth2}.xlsx`;
+      XLSX.writeFile(wb, fileName);
     });
   }
+
+  function formatDate2(d){ return new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}); }
+  function getStockStatus2(s){ if(s>=100)return{text:"In Stock",class:"badge bg-success"}; if(s>=11)return{text:"Warning",class:"badge bg-warning text-dark"}; return{text:"Low Stock",class:"badge bg-danger"}; }
 }
 
 
- // -------- LOW SALES TABLE --------
+
+// -------- LOW SALES TABLE --------
 if ($("#lowSalesTable").length) {
   // ================================
   // DUMMY DATA PRODUCT LIST
@@ -2886,409 +2660,253 @@ if ($("#lowSalesTable").length) {
   });
 }
 
+
 // =====================================================
 // LOW SALES TABLE 2 (LOWEST SALES PRODUCT)
 // =====================================================
 if ($("#lowSalesTable2").length) {
-  // const lowSalesProductData2 = [
-  //   // ======= 1 =======
-  //   { id: "P0101", 
-  //     name: "Men Black Hoodie Oversize", 
-  //     category: "Atasan Pria", 
-  //     price: 199000, 
-  //     sold: 450, 
-  //     date: "2025-03-21", 
-  //     rating: 4.8, 
-  //     discount: 10, 
-  //     stock: 10, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 2 =======
-  //   { 
-  //     id: "P0102", 
-  //     name: "Women Floral Summer Dress", 
-  //     category: "Gaun Wanita", 
-  //     price: 259000, sold: 400, 
-  //     date: "2025-02-10", 
-  //     rating: 4.5, 
-  //     discount: 12, 
-  //     stock: 120, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 3 =======
-  //   { 
-  //     id: "P0103", 
-  //     name: "Men Formal White Shirt Slim Fit", 
-  //     category: "Atasan Pria", 
-  //     price: 149000, 
-  //     sold: 300, 
-  //     date: "2024-08-01", 
-  //     rating: 4.3, 
-  //     discount: 5, 
-  //     stock: 85, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 4 =======
-  //   { 
-  //     id: "P0104", 
-  //     name: "Women Casual Sneakers White", 
-  //     category: "Sepatu Wanita", 
-  //     price: 329000, 
-  //     sold: 280, 
-  //     date: "2025-05-13", 
-  //     rating: 4.7, 
-  //     discount: 8, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
+  let staticLowSalesData = []; 
+  let filteredDataGlobal = [];
+  let selectedLowYear2 = "all";
+  let selectedLowMonth2 = "all";
+  let searchQuery = "";
 
-  //   // ======= 5 =======  
-  //   { 
-  //     id: "P0105", 
-  //     name: "Kids Polo Shirt", 
-  //     category: "Anak", 
-  //     price: 89000, 
-  //     sold: 270, 
-  //     date: "2024-11-20", 
-  //     rating: 4.0, 
-  //     discount: 2, 
-  //     stock: 50,
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
+  // Konfigurasi Pagination
+  let currentPage = 1;
+  const rowsPerPage = 10;
 
-  //   // ======= 6 =======
-  //   { 
-  //     id: "P0106", 
-  //     name: "Women Slim Fit Jeans Blue", 
-  //     category: "Bawahan Wanita", 
-  //     price: 209000, 
-  //     sold: 260, 
-  //     date: "2024-09-14", 
-  //     rating: 4.2, 
-  //     discount: 10, 
-  //     stock: 30, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 7 =======
-  //   { 
-  //     id: "P0107", 
-  //     name: "Men Sport Running Shoes Black", 
-  //     category: "Sepatu Pria", 
-  //     price: 399000, 
-  //     sold: 255, 
-  //     date: "2025-01-12", 
-  //     rating: 4.6, 
-  //     discount: 6, 
-  //     stock: 10, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 8 =======
-  //   { 
-  //     id: "P0108", 
-  //     name: "Women Handbag Leather Brown", 
-  //     category: "Aksesoris Wanita", 
-  //     price: 499000, 
-  //     sold: 230, 
-  //     date: "2025-06-07", 
-  //     rating: 4.9, 
-  //     discount: 15, 
-  //     stock: 140, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 9 =======
-  //   { 
-  //     id: "P0109", 
-  //     name: "Men Oversized Graphic T-shirt", 
-  //     category: "Atasan Pria", 
-  //     price: 129000, 
-  //     sold: 225, 
-  //     date: "2025-07-15", 
-  //     rating: 3.9, 
-  //     discount: 5, 
-  //     stock: 90, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 10 =======
-  //   { 
-  //     id: "P0110", 
-  //     name: "Sport Cap Black Edition", 
-  //     category: "Aksesoris Unisex", 
-  //     price: 69000, 
-  //     sold: 210, 
-  //     date: "2024-10-30", 
-  //     rating: 4.1, 
-  //     discount: 3, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   }
-  // ];
-
-  let sortFieldLow2 = null;
-  let sortDirectionLow2 = 'asc'; // asc / desc
-  let lowSalesProductData2 = []; // <- kosong dulu
-
-  window.lowSalesData = [];
-
-  // Load JSON dari folder data
-  fetch("../../json/lowSalesTable2.json")
+  // 1. FETCH DATA & INITIAL SORTING (Sama seperti recTable2)
+  fetch("../../json/product.json") 
     .then(response => response.json())
     .then(data => {
-      // lowSalesProductData2 = data;
+      // LOGIKA SORTING: Sold Terendah (Asc) -> Tanggal Terlama (Asc)
+      staticLowSalesData = data.sort((a, b) => {
+        if (a.sold !== b.sold) {
+          return a.sold - b.sold;
+        }
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
 
-      // window.lowSalesData = data;
-
-      // window.lowSalesData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-      // console.log("Data Low Sales Loaded:", window.lowSalesData.length);
-
-      const randomPool = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-      
-      // Simpan ke Global Variable
-      window.lowSalesData = randomPool;
-      
-      console.log("Data Low Sales (Random Pool) Loaded:", window.lowSalesData.length);
-
-      // Render setelah data selesai load
-      renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
+      filteredDataGlobal = [...staticLowSalesData];
+      renderLowSalesTable2();
     })
-    // .catch(err => console.error("Gagal load JSON:", err));
     .catch(err => {
       console.error("Gagal load JSON:", err);
-      window.lowSalesData = []; 
-      renderLowSalesTable2([]);
+      const tbody = document.getElementById("lowSalesProductTableBody2");
+      if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Error loading data.</td></tr>`;
     });
 
+  // 2. FUNGSI UPDATE FILTER (Sama seperti recTable2)
+  function updateLowSalesFilter() {
+    filteredDataGlobal = staticLowSalesData.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      const matchYear = (selectedLowYear2 === "all" || itemYear === selectedLowYear2);
+      const matchMonth = (selectedLowMonth2 === "all" || itemMonth === selectedLowMonth2);
+      const matchSearch = item.name.toLowerCase().includes(searchQuery);
 
+      return matchYear && matchMonth && matchSearch;
+    });
 
-
-  // ===============================================
-  // FILTER FUNCTION (Low Sales ASC)
-  // ===============================================
-  function filterLowSalesProducts2(year, month) {
-    return window.lowSalesData
-      .sort((a, b) => a.sold - b.sold)
-      .filter(item => {
-        const [itemYear, itemMonth] = item.date.split("-");
-
-        const matchYear = year === "all" || itemYear === year;
-        const matchMonth = month === "all" || itemMonth === month;
-
-        return matchYear && matchMonth;
-      })
-      .slice(0, 10);
+    currentPage = 1; 
+    renderLowSalesTable2();
   }
 
-
-  // ===============================================
-  // DATE FORMATTER
-  // ===============================================
-  function formatDateLow2(dateStr) {
-    return new Date(dateStr).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
+  // 3. LISTENERS
+  const searchInput = document.getElementById("searchProduct");
+  if (searchInput) {
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value.toLowerCase();
+      updateLowSalesFilter();
     });
   }
 
-
-  // ===============================================
-  // STOCK STATUS STYLE
-  // ===============================================
-    function getStockStatusLow2(stock) {
-      if (stock >= 100) {
-        return { text: "In Stock", class: "badge bg-success" }; 
-      }
-      if (stock >= 11) {
-        return { text: "Warning", class: "badge bg-warning text-dark" }; 
-      }
-      return { text: "Low Stock", class: "badge bg-danger" }; 
-    }
-
-    function sortLowSalesData(data) {
-    if (!sortFieldLow2) return data;
-
-    return data.sort((a, b) => {
-      let valA = a[sortFieldLow2];
-      let valB = b[sortFieldLow2];
-
-      // Convert date
-      if (sortFieldLow2 === "date") {
-        valA = new Date(valA);
-        valB = new Date(valB);
-      }
-
-      if (typeof valA === "string") {
-        valA = valA.toLowerCase();
-        valB = valB.toLowerCase();
-      }
-
-      if (sortDirectionLow2 === 'asc') {
-        return valA > valB ? 1 : -1;
-      } else {
-        return valA < valB ? 1 : -1;
-      }
+  document.querySelectorAll(".filter-year-low-2").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedLowYear2 = this.dataset.year;
+      document.getElementById("filterYearLow2Btn").innerHTML =
+        (selectedLowYear2 === "all" ? "All Years" : selectedLowYear2) + ' <span class="ms-1">&#9662;</span>';
+      updateLowSalesFilter();
     });
-  }
+  });
 
+  document.querySelectorAll(".filter-month-low-2").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedLowMonth2 = this.dataset.month;
+      const monthText = this.innerText.trim();
+      document.getElementById("filterMonthLow2Label").textContent =
+        selectedLowMonth2 === "all" ? "All Months" : monthText;
+      updateLowSalesFilter();
+    });
+  });
 
-  // ===============================================
-  // RENDER TABLE
-  // ===============================================
-  function renderLowSalesTable2(filtered) {
-    filtered = sortLowSalesData(filtered); // apply sorting
-
+  // 4. RENDER TABLE (Sama seperti recTable2)
+  function renderLowSalesTable2() {
     const tbody = document.getElementById("lowSalesProductTableBody2");
+    const paginationInfo = document.getElementById("paginationInfo");
+    
+    if(!tbody) return;
     tbody.innerHTML = "";
 
-    filtered.forEach(p => {
-      const stockInfo = getStockStatusLow2(p.stock);
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedItems = filteredDataGlobal.slice(startIndex, endIndex);
 
+    if (filteredDataGlobal.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data ditemukan.</td></tr>`;
+      document.getElementById("paginationControls").innerHTML = "";
+      paginationInfo.innerText = "Showing 0 to 0 of 0 entries";
+      return;
+    }
+
+    paginatedItems.forEach(p => {
+      const stockInfo = getStockStatusLow2(p.stock);
+      const hargaRupiah = Number(p.price).toLocaleString("id-ID");
+      
       tbody.innerHTML += `
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
-              <div>
-                <h6 class="mb-0">${p.name}</h6>
-                <small>${p.id}</small>
-              </div>
+              <img src="${p.image}" class="product-img" style="width:40px;height:40px;margin-right:10px;border-radius:8px;" alt="">
+              <div><h6 class="mb-0">${p.name}</h6><small>${p.id}</small></div>
             </div>
           </td>
           <td>${p.category}</td>
-          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${hargaRupiah}</td>
           <td>${p.sold}</td>
           <td>${formatDateLow2(p.date)}</td>
           <td>${p.rating}</td>
           <td>${p.discount}%</td>
           <td>${p.stock}</td>
           <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
+        </tr>`;
     });
+
+    paginationInfo.innerText = `Showing ${startIndex + 1} to ${Math.min(endIndex, filteredDataGlobal.length)} of ${filteredDataGlobal.length} entries`;
+    setupPagination(filteredDataGlobal.length);
   }
 
+  // 5. SETUP PAGINATION PINTAR (Sesuai Gambar dengan ...)
+  function setupPagination(totalItems) {
+    const paginationControls = document.getElementById("paginationControls");
+    paginationControls.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
+    if (totalPages <= 1) return;
 
-  // ===============================================
-  // DEFAULT
-  // ===============================================
-  let selectedLowYear2 = "all";
-  let selectedLowMonth2 = "all";
+    addPageButton('<', currentPage > 1 ? currentPage - 1 : null);
 
-  // renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
+    const range = 1; 
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+        addPageButton(i, i, i === currentPage);
+      } else if (i === currentPage - range - 1 || i === currentPage + range + 1) {
+        addPageButton('...', null, false, true);
+      }
+    }
 
+    addPageButton('>', currentPage < totalPages ? currentPage + 1 : null);
+  }
 
-  // ===============================================
-  // YEAR FILTER EVENT
-  // ===============================================
-  document.querySelectorAll(".filter-year-low-2").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedLowYear2 = this.dataset.year;
+  function addPageButton(label, targetPage, isActive = false, isEllipsis = false) {
+    const paginationControls = document.getElementById("paginationControls");
+    const li = document.createElement("li");
+    li.className = `page-item ${isActive ? 'active' : ''} ${(targetPage === null && !isEllipsis) ? 'disabled' : ''}`;
+    
+    const btn = document.createElement("a");
+    btn.className = "page-link";
+    btn.href = "#";
+    btn.innerText = label;
 
-      document.getElementById("filterYearLow2Btn").innerHTML =
-        (selectedLowYear2 === "all" ? "All Years" : selectedLowYear2) +
-        ' <span class="ms-1">&#9662;</span>';
+    if (targetPage !== null) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = targetPage;
+        renderLowSalesTable2();
+      });
+    } else if (isEllipsis) {
+      li.classList.add("disabled");
+    }
 
-      renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
-    });
-  });
+    li.appendChild(btn);
+    paginationControls.appendChild(li);
+  }
 
-
-  // ===============================================
-  // MONTH FILTER EVENT
-  // ===============================================
-  document.querySelectorAll(".filter-month-low-2").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      selectedLowMonth2 = this.dataset.month;
-
-      const monthText = this.innerText.trim();
-      document.getElementById("filterMonthLow2Label").textContent =
-        selectedLowMonth2 === "all" ? "All Months" : monthText;
-
-      renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
-    });
-  });
-
-    document.querySelectorAll("#lowSalesTable2 th.sortable").forEach(th => {
+  // Listener untuk klik header tabel
+  document.querySelectorAll("#lowSalesTable2 th.sortable").forEach(th => {
     th.addEventListener("click", function () {
-      const field = this.dataset.field;
+      const field = this.dataset.field; // Mengambil data-field dari HTML
 
-      // toggle direction
+      // Logika Toggle arah sort
       if (sortFieldLow2 === field) {
         sortDirectionLow2 = sortDirectionLow2 === "asc" ? "desc" : "asc";
       } else {
         sortFieldLow2 = field;
-        sortDirectionLow2 = "desc";
+        sortDirectionLow2 = "asc";
       }
 
-      renderLowSalesTable2(filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2));
+      // Jalankan fungsi sorting pada data yang sedang terfilter
+      sortDataManual(field, sortDirectionLow2);
 
-      // update icon
-      document.querySelectorAll("#lowSalesTable2 .sort-icon").forEach(icon => {
-        icon.textContent = "▲▼";
-      });
-
-      const icon = this.querySelector(".sort-icon");
-      icon.textContent = sortDirectionLow2 === "desc" ? "▲" : "▼";
+      // Update Icon (Opsional: Merubah visual ▲▼)
+      document.querySelectorAll("#lowSalesTable2 .sort-icon").forEach(icon => icon.textContent = "▲▼");
+      this.querySelector(".sort-icon").textContent = sortDirectionLow2 === "asc" ? "▲" : "▼";
     });
   });
 
-  // EXPORT LOW SALES PRODUCT PAGE
+  // 6. EXPORT TO EXCEL (SAMA DENGAN RECTABLE2 / LOW STOCK)
   const btnExport = document.getElementById('exportToExcel');
   if (btnExport) {
-    btnExport.addEventListener('click', function() {
+    // Clone node untuk memastikan event listener bersih (mencegah double download/trigger)
+    const newBtn = btnExport.cloneNode(true);
+    btnExport.parentNode.replaceChild(newBtn, btnExport);
+
+    newBtn.addEventListener('click', function() {
+      // Menggunakan data yang sudah terfilter (filteredDataGlobal)
+      const dataToExport = filteredDataGlobal; 
       
-      // Ambil data yang sedang ditampilkan (Filtered & Sorted)
-      // Kita panggil ulang fungsi filter agar data yang diexport sesuai dengan tampilan
-      const dataToExport = filterLowSalesProducts2(selectedLowYear2, selectedLowMonth2);
-
-      // Jika user melakukan sorting manual via klik header, kita gunakan sortLowSalesData juga
-      const finalData = sortLowSalesData(dataToExport);
-
-      if (finalData.length === 0) {
-        alert("Tidak ada data 'Low Sales' untuk filter yang dipilih.");
-        return;
+      if (dataToExport.length === 0) { 
+        alert("Tidak ada data untuk diekspor!"); 
+        return; 
       }
 
-      // Mapping Data untuk Excel
-      const sheetData = finalData.map((item, index) => ({
+      // Mapping properti agar rapi dan sama persis dengan format laporan Low Stock
+      const sheetData = dataToExport.map((item, index) => ({
         "No": index + 1,
-        "ID": item.id,
-        "Product Name": item.name,
+        "Product ID": item.product_id || item.id,
+        "Product Name": item.product_name || item.name,
         "Category": item.category,
         "Price": item.price,
-        "Sold Count": item.sold, // Kolom penting di halaman ini
-        "Date": item.date,
+        "Sold": item.sales_quantity || item.sold,
+        "Stock": item.stock,
         "Rating": item.rating,
         "Discount (%)": item.discount,
-        "Stock": item.stock,
-        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+        "Date": item.tgl_penjualan || item.date,
+        "Status": getStockStatusLow2(item.stock).text // Menggunakan helper status stok yang sama
       }));
 
-      // Generate Excel File
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
-
-      // Auto-width kolom
-      const wscols = [
-        {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
-        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
-        {wch: 10}, {wch: 8},  {wch: 10}
-      ];
-      ws['!cols'] = wscols;
-
-      XLSX.utils.book_append_sheet(wb, ws, "Low Sales Products");
-
-      // NAMA FILE OUTPUT
-      XLSX.writeFile(wb, "LowSales_Product_Report.xlsx");
+      
+      // Memberikan nama sheet
+      XLSX.utils.book_append_sheet(wb, ws, "Low Sales Report");
+      
+      // Memberikan nama file sesuai filter tahun dan bulan yang aktif (mengikuti format recTable2)
+      const fileName = `LowSales_Product_Report_${selectedLowYear2}_${selectedLowMonth2}.xlsx`;
+      XLSX.writeFile(wb, fileName);
     });
+  }
+
+  // HELPERS
+  function formatDateLow2(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+  }
+  function getStockStatusLow2(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
+    return { text: "Low Stock", class: "badge bg-danger" };
   }
 }
 
@@ -3467,234 +3085,110 @@ if ($("#lowStockTable").length) {
 // LOW STOCK TABLE 2 
 // ================================
 if ($("#lowStockTable2").length) {
+  let staticLowStockData = []; 
+  let filteredDataGlobal = [];
+  let selectedLowStockYear2 = "all";
+  let selectedLowStockMonth2 = "all";
+  let searchQuery = ""; 
 
-  // const lowStockData2 = [
-  //   // ======= 1 =======
-  //   { id: "P0101", 
-  //     name: "Men Black Hoodie Oversize", 
-  //     category: "Atasan Pria", 
-  //     price: 199000, 
-  //     sold: 450, 
-  //     date: "2025-03-21", 
-  //     rating: 4.8, 
-  //     discount: 10, 
-  //     stock: 200, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 2 =======
-  //   { 
-  //     id: "P0102", 
-  //     name: "Women Floral Summer Dress", 
-  //     category: "Gaun Wanita", 
-  //     price: 259000, sold: 400, 
-  //     date: "2025-02-10", 
-  //     rating: 4.5, 
-  //     discount: 12, 
-  //     stock: 120, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 3 =======
-  //   { 
-  //     id: "P0103", 
-  //     name: "Men Formal White Shirt Slim Fit", 
-  //     category: "Atasan Pria", 
-  //     price: 149000, 
-  //     sold: 300, 
-  //     date: "2024-08-01", 
-  //     rating: 4.3, 
-  //     discount: 5, 
-  //     stock: 85, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-    
-  //   // ======= 4 =======
-  //   { 
-  //     id: "P0104", 
-  //     name: "Women Casual Sneakers White", 
-  //     category: "Sepatu Wanita", 
-  //     price: 329000, 
-  //     sold: 280, 
-  //     date: "2025-05-13", 
-  //     rating: 4.7, 
-  //     discount: 8, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg"
-  //   },
-
-  //   // ======= 5 =======  
-  //   { 
-  //     id: "P0105", 
-  //     name: "Kids Polo Shirt", 
-  //     category: "Anak", 
-  //     price: 89000, 
-  //     sold: 270, 
-  //     date: "2024-11-20", 
-  //     rating: 4.0, 
-  //     discount: 2, 
-  //     stock: 50,
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 6 =======
-  //   { 
-  //     id: "P0106", 
-  //     name: "Women Slim Fit Jeans Blue", 
-  //     category: "Bawahan Wanita", 
-  //     price: 209000, 
-  //     sold: 260, 
-  //     date: "2024-09-14", 
-  //     rating: 4.2, 
-  //     discount: 10, 
-  //     stock: 30, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 7 =======
-  //   { 
-  //     id: "P0107", 
-  //     name: "Men Sport Running Shoes Black", 
-  //     category: "Sepatu Pria", 
-  //     price: 399000, 
-  //     sold: 255, 
-  //     date: "2025-01-12", 
-  //     rating: 4.6, 
-  //     discount: 6, 
-  //     stock: 10, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 8 =======
-  //   { 
-  //     id: "P0108", 
-  //     name: "Women Handbag Leather Brown", 
-  //     category: "Aksesoris Wanita", 
-  //     price: 499000, 
-  //     sold: 230, 
-  //     date: "2025-06-07", 
-  //     rating: 4.9, 
-  //     discount: 15, 
-  //     stock: 140, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 9 =======
-  //   { 
-  //     id: "P0109", 
-  //     name: "Men Oversized Graphic T-shirt", 
-  //     category: "Atasan Pria", 
-  //     price: 129000, 
-  //     sold: 225, 
-  //     date: "2025-07-15", 
-  //     rating: 3.9, 
-  //     discount: 5, 
-  //     stock: 90, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   },
-
-  //   // ======= 10 =======
-  //   { 
-  //     id: "P0110", 
-  //     name: "Sport Cap Black Edition", 
-  //     category: "Aksesoris Unisex", 
-  //     price: 69000, 
-  //     sold: 210, 
-  //     date: "2024-10-30", 
-  //     rating: 4.1, 
-  //     discount: 3, 
-  //     stock: 300, 
-  //     image: "../../images/asset/logo-02.jpg" 
-  //   }
-  // ];
-
-  let lowStockData2 = []; // kosong dulu, nanti terisi dari JSON
-  // Variabel untuk menyimpan 10 data terendah yang statis (tidak berubah)
-  let staticTop10Data = []; 
-
-  // ================================
-  // LOAD JSON
-  // ================================
+  let currentPage = 1;
+  const rowsPerPage = 10;
+  
   fetch("../../json/lowStockTable2.json")
     .then(res => res.json())
     .then(data => {
+      // 1. SORTING: Berdasarkan Sold Date (Ascending: Terlama ke Terbaru)
+      // Kita urutkan SEMUA data yang ada di file JSON
+     const sortedData = data.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (dateA.getTime() !== dateB.getTime()) {
+        return dateA - dateB; // Tanggal Terlama ke Terbaru
+      }
+      return a.stock - b.stock; // Stok Terkecil ke Terbesar
+    });
+
+      // 2. SIMPAN SEMUA DATA: Tidak perlu .slice(0, 100) lagi
+      staticLowStockData = sortedData;
       
-      // LOGIKA BARU: 
-      // 1. Urutkan semua data dari stock terkecil ke terbesar
-      // 2. Ambil 10 teratas SAJA dan simpan sebagai data statis.
-      // Jadi nanti kalau difilter, dia cuma mengotak-atik 10 data ini.
-      staticTop10Data = data
-        .sort((a, b) => a.stock - b.stock) // Urutkan stock 1 - 100
-        .slice(0, 10); // Ambil 10 biji saja
-
-      console.log("Top 10 Low Stock Loaded:", staticTop10Data);
-
-      // Render pertama kali (tampilkan semua dari 10 data itu)
-      renderLowStockTable2(staticTop10Data);
+      // 3. SINKRONISASI: Update variabel global untuk pagination & search
+      filteredDataGlobal = [...staticLowStockData];
+      
+      // 4. RENDER: Tampilkan ke tabel
+      currentPage = 1;
+      renderLowStockTable2();
     })
     .catch(err => {
       console.error("Gagal load JSON:", err);
-      staticTop10Data = [];
-      renderLowStockTable2([]);
+      const tbody = document.getElementById("lowStockTableBody2");
+      if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="text-center">Error loading data.</td></tr>`;
     });
 
-  // ================================
-  // FILTER LOGIC
-  // ================================
-  function getFilteredData(year, month) {
-    // Kita filter DARI 10 data statis tadi, bukan dari seluruh database.
-    return staticTop10Data.filter(item => {
-      const [itemYear, itemMonth] = item.date.split("-");
-      
-      const matchYear = (year === "all" || itemYear === year);
-      const matchMonth = (month === "all" || itemMonth === month);
-
-      return matchYear && matchMonth;
-    });
-  }
-
-  // ================================
-  // DATE FORMAT
-  // ================================
+  // Fungsi Helper (PASTIKAN ADA)
   function formatDateLowStock2(dateStr) {
     return new Date(dateStr).toLocaleDateString("id-ID", {
       day: "numeric", month: "long", year: "numeric"
     });
   }
 
-  // ================================
-  // STOCK STATUS
-  // ================================
+  // Listener untuk Input Search
+  const searchInput = document.getElementById("searchProduct");
+  if (searchInput) {
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value.toLowerCase();
+      
+      // Menjalankan filter ulang tanpa merubah data asli (staticLowStockData)
+      filteredDataGlobal = staticLowStockData.filter(item => {
+        const [itemYear, itemMonth] = item.date.split("-");
+        const matchYear = (selectedLowStockYear2 === "all" || itemYear === selectedLowStockYear2);
+        const matchMonth = (selectedLowStockMonth2 === "all" || itemMonth === selectedLowStockMonth2);
+        
+        // Filter berdasarkan nama produk
+        const matchSearch = item.name.toLowerCase().includes(searchQuery);
+
+        return matchYear && matchMonth && matchSearch;
+      });
+
+      currentPage = 1; // Balik ke halaman 1 setiap kali mencari
+      renderLowStockTable2();
+    });
+  }
+
   function getStockStatusLowStock2(stock) {
     if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
     if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
     return { text: "Low Stock", class: "badge bg-danger" };
   }
 
-  // ================================
-  // RENDER TABLE
-  // ================================
-  function renderLowStockTable2(filteredData) {
+  // Fungsi Render Utama
+  function renderLowStockTable2() {
     const tbody = document.getElementById("lowStockTableBody2");
+    const paginationControls = document.getElementById("paginationControls");
+    const paginationInfo = document.getElementById("paginationInfo");
+    
+    if(!tbody) return;
     tbody.innerHTML = "";
 
-    // Jika hasil filter kosong (misal di Top 10 itu tidak ada yg bulan Mei)
-    if (filteredData.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data di Top 10 Low Stock untuk periode ini.</td></tr>`;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedItems = filteredDataGlobal.slice(startIndex, endIndex);
+
+    if (filteredDataGlobal.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data.</td></tr>`;
+      paginationControls.innerHTML = "";
+      paginationInfo.innerText = "Showing 0 to 0 of 0 entries";
       return;
     }
 
-    filteredData.forEach(p => {
+    paginatedItems.forEach(p => {
       const stockInfo = getStockStatusLowStock2(p.stock);
-
-      // PERBAIKAN HARGA: Paksa jadi Number dulu baru di-format
       const hargaRupiah = Number(p.price).toLocaleString("id-ID");
-
       tbody.innerHTML += `
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img src="${p.image}" class="product-img" alt="">
+              <img src="${p.image}" class="product-img" style="width:40px;height:40px;margin-right:10px;" alt="">
               <div>
                 <h6 class="mb-0">${p.name}</h6>
                 <small>${p.id}</small>
@@ -3709,97 +3203,127 @@ if ($("#lowStockTable2").length) {
           <td>${p.discount}%</td>
           <td>${p.stock}</td>
           <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
-        </tr>
-      `;
+        </tr>`;
     });
+
+    paginationInfo.innerText = `Showing ${startIndex + 1} to ${Math.min(endIndex, filteredDataGlobal.length)} of ${filteredDataGlobal.length} entries`;
+    setupPagination(filteredDataGlobal.length);
   }
 
-  // ================================
-  // DEFAULT STATE
-  // ================================
-  let selectedLowStockYear2 = "all";
-  let selectedLowStockMonth2 = "all";
+  function setupPagination(totalItems) {
+    const paginationControls = document.getElementById("paginationControls");
+    paginationControls.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
 
-  // ================================
-  // YEAR FILTER EVENT
-  // ================================
+    if (totalPages <= 1) return;
+
+    // Gunakan simbol panah < dan >
+    addPageButton('<', currentPage > 1 ? currentPage - 1 : null);
+
+    for (let i = 1; i <= totalPages; i++) {
+      addPageButton(i, i, i === currentPage);
+    }
+
+    addPageButton('>', currentPage < totalPages ? currentPage + 1 : null);
+  }
+
+  function addPageButton(label, targetPage, isActive = false) {
+    const paginationControls = document.getElementById("paginationControls");
+    const li = document.createElement("li");
+    li.className = `page-item ${isActive ? 'active' : ''} ${targetPage === null ? 'disabled' : ''}`;
+    const btn = document.createElement("a");
+    btn.className = "page-link";
+    btn.href = "#";
+    btn.innerText = label;
+
+    if (targetPage !== null) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = targetPage;
+        renderLowStockTable2();
+      });
+    }
+    li.appendChild(btn);
+    paginationControls.appendChild(li);
+  }
+
+  function updateFilter() {
+    filteredDataGlobal = staticLowStockData.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      const matchYear = (selectedLowStockYear2 === "all" || itemYear === selectedLowStockYear2);
+      const matchMonth = (selectedLowStockMonth2 === "all" || itemMonth === selectedLowStockMonth2);
+      return matchYear && matchMonth;
+    });
+    currentPage = 1; 
+    renderLowStockTable2();
+  }
+
+  // Listener untuk Filter (Sesuaikan class dengan HTML)
   document.querySelectorAll(".filter-year-low-stock-2").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-
       selectedLowStockYear2 = btn.dataset.year;
-
-      document.getElementById("filterYearLowStock2Btn").innerHTML =
+      document.getElementById("filterYearLowStock2Btn").innerHTML = 
         `${selectedLowStockYear2 === "all" ? "All Years" : selectedLowStockYear2} <span class="ms-1">&#9662;</span>`;
-
-      // Render ulang berdasarkan data yang sudah disaring dari Top 10
-      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
+      updateFilter();
     });
   });
 
-  // ================================
-  // MONTH FILTER EVENT
-  // ================================
   document.querySelectorAll(".filter-month-low-stock-2").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-
       selectedLowStockMonth2 = btn.dataset.month;
-
       const monthText = btn.innerText.trim();
-      document.getElementById("filterMonthLowStock2Label").textContent =
+      document.getElementById("filterMonthLowStock2Label").textContent = 
         selectedLowStockMonth2 === "all" ? "All Months" : monthText;
-
-      // Render ulang berdasarkan data yang sudah disaring dari Top 10
-      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
+      updateFilter();
     });
   });
 
-  // ================================
-  // EXPORT EXCEL
-  // ================================
+  // Export to Excel
   const btnExport = document.getElementById('exportToExcel');
-  
   if (btnExport) {
-    btnExport.addEventListener('click', function() {
-      // Ambil data yang sedang tampil di layar (Filtered version of Top 10)
-      const dataToExport = getFilteredData(selectedLowStockYear2, selectedLowStockMonth2);
+    // Clone node digunakan untuk menghapus event listener lama agar tidak double
+    const newBtn = btnExport.cloneNode(true);
+    btnExport.parentNode.replaceChild(newBtn, btnExport);
 
-      if (dataToExport.length === 0) {
-        alert("Tidak ada data untuk diexport pada periode ini.");
-        return;
+    newBtn.addEventListener('click', function() {
+      // PERBAIKAN: Gunakan filteredDataGlobal (data yang sudah terfilter di tabel)
+      const dataToExport = filteredDataGlobal; 
+      
+      if (dataToExport.length === 0) { 
+        alert("Data kosong untuk periode ini!"); 
+        return; 
       }
 
+      // PERBAIKAN: Pastikan mapping property sesuai dengan object product.json kamu
       const sheetData = dataToExport.map((item, index) => ({
         "No": index + 1,
-        "ID": item.id,
+        "Product ID": item.id,
         "Product Name": item.name,
         "Category": item.category,
-        "Price": item.price, 
-        "Sold Count": item.sold,
-        "Date": item.date,
+        "Price": item.price,
+        "Sold": item.sold,
+        "Stock": item.stock,
         "Rating": item.rating,
         "Discount (%)": item.discount,
-        "Stock": item.stock,
-        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+        "Date": item.date,
+        "Status": getStockStatusLowStock2(item.stock).text // Mengambil teks status (Low/Warning/In Stock)
       }));
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
-
-      // Mengatur lebar kolom
-      ws['!cols'] = [
-        {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
-        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
-        {wch: 10}, {wch: 8},  {wch: 10}
-      ];
-
-      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Product");
-      XLSX.writeFile(wb, "LowStock_Product_Report.xlsx");
+      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Report");
+      
+      // Nama file disesuaikan dengan konteks halaman
+      XLSX.writeFile(wb, `LowStock_Product_Report_${selectedLowStockYear2}_${selectedLowStockMonth2}.xlsx`);
     });
   }
-
 }
+
+
+
+
 
 // ------GREETINGS------
 if ($("#greetingUpdate").length) {

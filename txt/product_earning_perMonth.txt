@@ -899,3 +899,264 @@
                             </div>
                             </div>
                   </div>
+
+
+
+
+
+
+
+if ($("#earningTable").length) {
+
+  // ================================
+  // DUMMY DATA PRODUCT LIST (with Modal)
+  // ================================
+  // const productData = [
+  //   {
+  //     id: "P0767",
+  //     name: "Next Look Men Blue Slim Fit Solid Formal Shirt",
+  //     category: "Atasan Pria",
+  //     price: 104310,
+  //     modal: 70000,
+  //     sold: 60,
+  //     date: "2025-01-24",
+  //     rating: 4.51,
+  //     discount: 22,
+  //     stock: 10,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+  //   {
+  //     id: "P0017",
+  //     name: "T-Shirt Mini Garis (Crop Top)",
+  //     category: "Atasan Wanita",
+  //     price: 149000,
+  //     modal: 90000,
+  //     sold: 250,
+  //     date: "2024-08-12",
+  //     rating: 4.08,
+  //     discount: 2,
+  //     stock: 11,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   },
+  //   {
+  //     id: "P0296",
+  //     name: "Ziyaa Women Grey Printed Kurta With Trousers",
+  //     category: "Bawahan Wanita",
+  //     price: 198930,
+  //     modal: 120000,
+  //     sold: 235,
+  //     date: "2025-06-30",
+  //     rating: 2.2,
+  //     discount: 11,
+  //     stock: 244,
+  //     status: "In Stock",
+  //     image: "../../images/asset/logo-02.jpg"
+  //   }
+  // ];
+
+  // ================================
+  // 1. SETUP VARIABLES
+  // ================================
+  let productData = [];
+  window.productData = [];
+  
+  // Default Filter state
+  let selectedYear = "all";
+  let selectedMonth = "all";
+
+  // ================================
+  // 2. LOAD JSON
+  // ================================
+  fetch("../../json/product.json")
+    .then(res => res.json())
+    .then(data => {
+      // Ambil data acak 100 biji (sesuai logic kamu sebelumnya)
+      window.productData = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      console.log("Data Loaded:", window.productData.length);
+
+      // Render pertama kali
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    })
+    .catch(err => console.error("Gagal load JSON:", err));
+
+  // ================================
+  // 3. FILTER FUNCTION
+  // ================================
+  function filterProducts(year, month) {
+    return window.productData.filter(item => {
+      const itemYear = item.date.split("-")[0];
+      const itemMonth = item.date.split("-")[1];
+
+      const matchYear = year === "all" || itemYear === year;
+      const matchMonth = month === "all" || itemMonth === month;
+
+      return matchYear && matchMonth;
+    });
+  }
+
+  // ================================
+  // 4. HELPER FUNCTIONS
+  // ================================
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+  }
+
+  function getStockStatus(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
+    return { text: "Low Stock", class: "badge bg-danger" };
+  }
+
+  // ================================
+  // 5. RENDER TABLE (Hanya Render Visual HTML)
+  // ================================
+  function renderTable(filtered) {
+    const tbody = document.querySelector("#earningProductTableBody");
+    tbody.innerHTML = "";
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="12" class="text-center">Tidak ada data untuk filter ini.</td></tr>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const stockInfo = getStockStatus(p.stock);
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
+            </div>
+          </td>
+          <td>${p.category}</td>
+          <td>Rp ${p.price.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.earning.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.modal.toLocaleString("id-ID")}</td>
+          <td>Rp ${p.profit.toLocaleString("id-ID")}</td>
+          <td>${p.sold}</td>
+          <td>${formatDate(p.date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
+
+  // ================================
+  // 6. FILTER EVENT LISTENERS
+  // ================================
+  
+  // Year Filter
+  document.querySelectorAll(".filter-year-earning").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedYear = this.dataset.year;
+
+      document.getElementById("filterEarningTableYearBtn").innerHTML =
+        (selectedYear === "all" ? "All Years" : selectedYear) +
+        ' <span class="ms-1">&#9662;</span>';
+
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    });
+  });
+
+  // Month Filter
+  document.querySelectorAll(".filter-earning-month").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      selectedMonth = this.dataset.month;
+
+      const monthName = this.innerText.trim();
+      document.getElementById("filterEarningTableMonthLabel").textContent =
+        selectedMonth === "all" ? "All Months" : monthName;
+
+      renderTable(filterProducts(selectedYear, selectedMonth));
+    });
+  });
+
+  // ================================
+  // 7. EXPORT PRODUCT EARNING PAGE
+  // ================================
+  const btnExport = document.getElementById('exportToExcel');
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      
+      // --- A. Financial Overview (Hardcoded - Tetap/Tidak difilter sesuai request "hanya utk table") ---
+      const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const financialData = {
+        earning: {
+          2024: [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+          2025: [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560]
+        },
+        modal: {
+          2024: [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+          2025: [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808]
+        },
+        profit: {
+          2024: [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870],
+          2025: [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+        }
+      };
+
+      let sheet1Content = [["Month", "Earning 2024", "Earning 2025", "Modal 2024", "Modal 2025", "Profit 2024", "Profit 2025"]];
+      for (let i = 0; i < months.length; i++) {
+        sheet1Content.push([
+          months[i],
+          financialData.earning[2024][i], financialData.earning[2025][i],
+          financialData.modal[2024][i],   financialData.modal[2025][i],
+          financialData.profit[2024][i],  financialData.profit[2025][i]
+        ]);
+      }
+
+      // --- B. DATA TABLE (Ini yang difilter) ---
+      
+      // 🔥 FIX: Panggil fungsi filter menggunakan variabel selectedYear & selectedMonth saat ini
+      const dataToExport = filterProducts(selectedYear, selectedMonth);
+
+      if (dataToExport.length === 0) {
+        alert("Tidak ada data tabel untuk diexport pada filter ini.");
+        return;
+      }
+
+      const sheet2Data = dataToExport.map(item => ({
+        "Product ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price,
+        "Modal": item.modal,
+        "Earning": item.earning,
+        "Profit": item.profit,
+        "Sold Qty": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      // --- C. Generate Excel ---
+      const wb = XLSX.utils.book_new();
+      
+      // Sheet 1: Overview (Static)
+      const ws1 = XLSX.utils.aoa_to_sheet(sheet1Content);
+      XLSX.utils.book_append_sheet(wb, ws1, "Financial Overview");
+      
+      // Sheet 2: Product Details (Filtered)
+      const ws2 = XLSX.utils.json_to_sheet(sheet2Data);
+      XLSX.utils.book_append_sheet(wb, ws2, "Product Details");
+
+      XLSX.writeFile(wb, "Product_Earning_Report.xlsx");
+    });
+  }
+}

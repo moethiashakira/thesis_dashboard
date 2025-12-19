@@ -31057,6 +31057,45 @@ div.tagsinput span.tag a {
   background: #007bff;
 }
 
+/* Menghilangkan border default dan spacing */
+  .pagination .page-item {
+    margin: 0 5px;
+  }
+
+  
+
+  /* Warna biru untuk halaman aktif */
+  .pagination .page-item.active .page-link {
+    background-color: #1F3BB3 !important; /* Warna oranye sesuai gambar */
+    border-color: #1F3BB3 !important;
+    color: white !important;
+  }
+
+  /* Gaya untuk tombol disabled (prev/next di ujung) */
+  .pagination .page-item.disabled .page-link {
+    border-color: #eee;
+    color: #ccc;
+  }
+  
+  .product-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .pagination .page-item .page-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3px;
+    border-radius: 8px !important; /* Kotak rounded */
+    color: #333;
+    border: 1px solid #dee2e6;
+  }
+
 
 
 

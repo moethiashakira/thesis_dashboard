@@ -1,0 +1,196 @@
+if ($("#lowStockTable2").length) {
+
+  let lowStockData2 = []; 
+  // Ganti nama variabel biar lebih umum (bukan top 10 lagi, tapi top 25)
+  let staticLowStockData = []; 
+
+  // ================================
+  // LOAD JSON
+  // ================================
+  fetch("../../json/product.json")
+    .then(res => res.json())
+    .then(data => {
+      
+      // LOGIKA BARU:
+      
+      // 1. Urutkan dulu semua data dari stock terkecil ke terbesar
+      const sortedData = data.sort((a, b) => a.stock - b.stock);
+
+      // 2. Hapus Duplicate (berdasarkan ID)
+      // Kita lakukan loop manual agar bisa ambil yang pertama ketemu (paling rendah stocknya)
+      const uniqueData = [];
+      const seenIds = new Set();
+
+      for (const item of sortedData) {
+        if (!seenIds.has(item.id)) {
+          uniqueData.push(item);
+          seenIds.add(item.id); // Tandai ID ini sudah diambil
+        }
+      }
+
+      // 3. Ambil 25 data teratas saja
+      staticLowStockData = uniqueData.slice(0, 25);
+
+      console.log("Top 25 Low Stock (Unique) Loaded:", staticLowStockData);
+
+      // Render pertama kali
+      renderLowStockTable2(staticLowStockData);
+    })
+    .catch(err => {
+      console.error("Gagal load JSON:", err);
+      staticLowStockData = [];
+      renderLowStockTable2([]);
+    });
+
+  // ================================
+  // FILTER LOGIC
+  // ================================
+  function getFilteredData(year, month) {
+    // Filter dari variable staticLowStockData (yang isinya sudah fix 25 data unik terendah)
+    return staticLowStockData.filter(item => {
+      const [itemYear, itemMonth] = item.date.split("-");
+      
+      const matchYear = (year === "all" || itemYear === year);
+      const matchMonth = (month === "all" || itemMonth === month);
+
+      return matchYear && matchMonth;
+    });
+  }
+
+  // ================================
+  // DATE FORMAT
+  // ================================
+  function formatDateLowStock2(dateStr) {
+    return new Date(dateStr).toLocaleDateString("id-ID", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+  }
+
+  // ================================
+  // STOCK STATUS
+  // ================================
+  function getStockStatusLowStock2(stock) {
+    if (stock >= 100) return { text: "In Stock", class: "badge bg-success" };
+    if (stock >= 11) return { text: "Warning", class: "badge bg-warning text-dark" };
+    return { text: "Low Stock", class: "badge bg-danger" };
+  }
+
+  // ================================
+  // RENDER TABLE
+  // ================================
+  function renderLowStockTable2(filteredData) {
+    const tbody = document.getElementById("lowStockTableBody2");
+    tbody.innerHTML = "";
+
+    if (filteredData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-3">Tidak ada data di Top 25 Low Stock untuk periode ini.</td></tr>`;
+      return;
+    }
+
+    filteredData.forEach(p => {
+      const stockInfo = getStockStatusLowStock2(p.stock);
+      const hargaRupiah = Number(p.price).toLocaleString("id-ID");
+
+      tbody.innerHTML += `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${p.image}" class="product-img" alt="">
+              <div>
+                <h6 class="mb-0">${p.name}</h6>
+                <small>${p.id}</small>
+              </div>
+            </div>
+          </td>
+          <td>${p.category}</td>
+          <td>Rp ${hargaRupiah}</td> 
+          <td>${p.sold}</td>
+          <td>${formatDateLowStock2(p.date)}</td>
+          <td>${p.rating}</td>
+          <td>${p.discount}%</td>
+          <td>${p.stock}</td>
+          <td><span class="${stockInfo.class}">${stockInfo.text}</span></td>
+        </tr>
+      `;
+    });
+  }
+
+  // ================================
+  // DEFAULT STATE
+  // ================================
+  let selectedLowStockYear2 = "all";
+  let selectedLowStockMonth2 = "all";
+
+  // ================================
+  // YEAR FILTER EVENT
+  // ================================
+  document.querySelectorAll(".filter-year-low-stock-2").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      selectedLowStockYear2 = btn.dataset.year;
+
+      document.getElementById("filterYearLowStock2Btn").innerHTML =
+        `${selectedLowStockYear2 === "all" ? "All Years" : selectedLowStockYear2} <span class="ms-1">&#9662;</span>`;
+
+      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
+    });
+  });
+
+  // ================================
+  // MONTH FILTER EVENT
+  // ================================
+  document.querySelectorAll(".filter-month-low-stock-2").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      selectedLowStockMonth2 = btn.dataset.month;
+
+      const monthText = btn.innerText.trim();
+      document.getElementById("filterMonthLowStock2Label").textContent =
+        selectedLowStockMonth2 === "all" ? "All Months" : monthText;
+
+      renderLowStockTable2(getFilteredData(selectedLowStockYear2, selectedLowStockMonth2));
+    });
+  });
+
+  // ================================
+  // EXPORT EXCEL
+  // ================================
+  const btnExport = document.getElementById('exportToExcel');
+  
+  if (btnExport) {
+    btnExport.addEventListener('click', function() {
+      const dataToExport = getFilteredData(selectedLowStockYear2, selectedLowStockMonth2);
+
+      if (dataToExport.length === 0) {
+        alert("Tidak ada data untuk diexport pada periode ini.");
+        return;
+      }
+
+      const sheetData = dataToExport.map((item, index) => ({
+        "No": index + 1,
+        "ID": item.id,
+        "Product Name": item.name,
+        "Category": item.category,
+        "Price": item.price, 
+        "Sold Count": item.sold,
+        "Date": item.date,
+        "Rating": item.rating,
+        "Discount (%)": item.discount,
+        "Stock": item.stock,
+        "Status": item.stock >= 100 ? "In Stock" : (item.stock >= 11 ? "Warning" : "Low Stock")
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+
+      ws['!cols'] = [
+        {wch: 5},  {wch: 10}, {wch: 40}, {wch: 15}, 
+        {wch: 12}, {wch: 10}, {wch: 12}, {wch: 8},  
+        {wch: 10}, {wch: 8},  {wch: 10}
+      ];
+
+      XLSX.utils.book_append_sheet(wb, ws, "Low Stock Product");
+      XLSX.writeFile(wb, "LowStock_Product_Report.xlsx");
+    });
+  }
+}

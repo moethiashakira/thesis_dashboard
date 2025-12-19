@@ -1245,6 +1245,10 @@
                             <!-- FILTERS -->
                             <div class="d-flex gap-3 mt-3">
 
+                              <div class="form-group mb-0">
+                                <input type="text" id="searchProduct" class="form-control form-control-sm" placeholder="Cari nama produk..." style="width: 200px;">
+                              </div>
+
                               <!-- Filter Year -->
                               <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle toggle-dark btn-sm" 
@@ -1311,6 +1315,16 @@
                               </tbody>
 
                             </table>
+
+                            <div class="d-flex justify-content-between align-items-center mt-4 mb-3 px-2">
+                              <div id="paginationInfo" class="text-muted small fw-bold">
+                                Showing 1 to 10 of 25 entries
+                              </div>
+                                <nav>
+                                  <ul class="pagination mb-0" id="paginationControls">
+                                </ul>
+                              </nav>
+                            </div>
 
                           </div>
                         </div>
