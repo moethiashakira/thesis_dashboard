@@ -28958,6 +28958,38 @@ div.tagsinput span.tag a {
   }
 }
 
+/* NEW FOR SIDEBAR */
+/* Untuk Desktop (Layar > 991px) */
+@media (min-width: 992px) {
+  .container-scroller {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .page-body-wrapper {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden; /* Mencegah double scrollbar pada body */
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 97px; /* Sesuaikan dengan tinggi navbar Anda */
+    height: calc(100vh - 97px);
+    width: 235px; /* Sesuaikan dengan lebar sidebar asli Anda */
+    overflow-y: auto;
+    z-index: 10;
+  }
+
+  .main-panel {
+    margin-left: 235px; /* Harus sama dengan lebar sidebar agar tidak tertutup */
+    width: calc(100% - 235px);
+    height: calc(100vh - 97px);
+    overflow-y: auto; /* Panel utama yang akan di-scroll */
+  }
+}
+
 /* Navbar */
 .navbar {
   font-weight: 400;
