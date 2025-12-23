@@ -509,6 +509,30 @@ window.GLOBAL_DATA = {
               discount: 3,
               stock: 254,
               status: "In Stock",
+            },
+            {
+              id: "P0672",
+              name: "C9 airwear women coral-coloured solid track pants",
+              category: "Bawahan Wanita",
+              price: 118370,
+              sold: 111,
+              date: "2024-01-10",
+              rating: 4.9,
+              discount: 25,
+              stock: 176,
+              status: "In Stock",
+            },
+            {
+              id: "P0355",
+              name: "Ants women navy blue regular fit solid layered high-low casual shirt",
+              category: "Atasan Wanita",
+              price: 99560,
+              sold: 89,
+              date: "2025-03-03",
+              rating: 4.94,
+              discount: 3,
+              stock: 145,
+              status: "In Stock",
             }
           ];
           const lowSalesData = [
@@ -547,6 +571,30 @@ window.GLOBAL_DATA = {
               discount: 7,
               stock: 13,
               status: "Warning",
+            },
+            {
+              id: "P0128",
+              name: "Mast & harbour men pink & white printed round neck t-shirt",
+              category: "Atasan Pria",
+              price: 132810,
+              sold: 2,
+              date: "2024-06-02",
+              rating: 2.03,
+              discount: 27,
+              stock: 22,
+              status: "Warning",
+            },
+            {
+              id: "P0157",
+              name: "Ecko unltd men rust orange & navy blue slim fit checked casual shirt",
+              category: "Atasan pria",
+              price: 132810,
+              sold: 2,
+              date: "2025-03-01",
+              rating: 1.96,
+              discount: 21,
+              stock: 64,
+              status: "Warning",
             }
           ];
           const lowStockData = [
@@ -563,6 +611,18 @@ window.GLOBAL_DATA = {
             status: "Low Stock",
           },
           {
+            id: "P0541",
+            name: "Calvin klein jeans men navy blue solid regular fit woven track pants",
+            category: "Bawahan pria",
+            price: 797810,
+            sold: 1,
+            date: "2025-09-30",
+            rating: 4.82,
+            discount: 10,
+            stock: 3,
+            status: "Low Stock",
+          },
+          {
             id: "P0232",
             name: "Park avenue women maroon regular fit printed casual shirt",
             category: "Atasan Wanita",
@@ -571,6 +631,18 @@ window.GLOBAL_DATA = {
             date: "2024-06-11",
             rating: 4.26,
             discount: 6,
+            stock: 5,
+            status: "Low Stock",
+          },
+          {
+            id: "P0276",
+            name: "Dodo & moa women white printed shirt style top",
+            category: "Atasan wanita",
+            price: 118750,
+            sold: 2,
+            date: "2024-01-21",
+            rating: 4.73,
+            discount: 24,
             stock: 5,
             status: "Low Stock",
           },
@@ -906,9 +978,9 @@ window.GLOBAL_DATA = {
                     2088,
                     2141 ],
 
-              backgroundColor: "#52CDFF",
+              backgroundColor: "#1F3BB3",
               borderColor: [
-                  '#52CDFF',
+                '#1F3BB3',
               ],
               borderWidth: 0,
               fill: true, // 3: no fill
@@ -928,9 +1000,9 @@ window.GLOBAL_DATA = {
                   1949,
                   2210 ],
 
-            backgroundColor: "#1F3BB3",
+            backgroundColor: "#52CDFF",
             borderColor: [
-                '#1F3BB3',
+                '#52CDFF',
             ],
             borderWidth: 0,
             fill: true, // 3: no fill
@@ -2233,6 +2305,32 @@ if ($("#earningTable").length) {
         stock: 254,
         // status: "In Stock",
         image: "./images/asset/logo-02.jpg"
+      },
+      {
+        id: "P0672",
+        name: "C9 airwear women coral-coloured solid track pants",
+        category: "Bawahan Wanita",
+        price: 118370,
+        sold: 111,
+        date: "2024-01-10",
+        rating: 4.9,
+        discount: 25,
+        stock: 176,
+        // status: "In Stock",
+        image: "./images/asset/logo-02.jpg"
+      },
+      {
+        id: "P0355",
+        name: "Ants women navy blue regular fit solid layered high-low casual shirt",
+        category: "Atasan Wanita",
+        price: 99560,
+        sold: 89,
+        date: "2025-03-03",
+        rating: 4.94,
+        discount: 3,
+        stock: 145,
+        // status: "In Stock",
+        image: "./images/asset/logo-02.jpg"
       }
     ];
 
@@ -2633,6 +2731,30 @@ if ($("#lowSalesTable").length) {
       discount: 7,
       stock: 13,
       image: "./images/asset/logo-02.jpg"
+    },
+    {
+      id: "P0128",
+      name: "Mast & harbour men pink & white printed round neck t-shirt",
+      category: "Atasan Pria",
+      price: 132810,
+      sold: 2,
+      date: "2024-06-02",
+      rating: 2.03,
+      discount: 27,
+      stock: 22,
+      image: "./images/asset/logo-02.jpg"
+    },
+    {
+      id: "P0157",
+      name: "Ecko unltd men rust orange & navy blue slim fit checked casual shirt",
+      category: "Atasan pria",
+      price: 132810,
+      sold: 2,
+      date: "2025-03-01",
+      rating: 1.96,
+      discount: 21,
+      stock: 64,
+      image: "./images/asset/logo-02.jpg"
     }
   ];
 
@@ -3030,6 +3152,18 @@ if ($("#lowStockTable").length) {
       image: "./images/asset/logo-02.jpg"
     },
     {
+      id: "P0541",
+      name: "Calvin klein jeans men navy blue solid regular fit woven track pants",
+      category: "Bawahan pria",
+      price: 797810,
+      sold: 1,
+      date: "2025-09-30",
+      rating: 4.82,
+      discount: 10,
+      stock: 3,
+      image: "./images/asset/logo-02.jpg"
+    },
+    {
       id: "P0232",
       name: "Park avenue women maroon regular fit printed casual shirt",
       category: "Atasan Wanita",
@@ -3038,6 +3172,18 @@ if ($("#lowStockTable").length) {
       date: "2024-06-11",
       rating: 4.26,
       discount: 6,
+      stock: 5,
+      image: "./images/asset/logo-02.jpg"
+    },
+    {
+      id: "P0276",
+      name: "Dodo & moa women white printed shirt style top",
+      category: "Atasan wanita",
+      price: 118750,
+      sold: 2,
+      date: "2024-01-21",
+      rating: 4.73,
+      discount: 24,
       stock: 5,
       image: "./images/asset/logo-02.jpg"
     },
@@ -3095,15 +3241,15 @@ if ($("#lowStockTable").length) {
   }
 
   // ================================
-  // RENDER TABLE (TOP 3 LOW STOCK)
+  // RENDER TABLE (TOP 5 LOW STOCK)
   // ================================
   function renderLowStockTable(filtered) {
     const tbody = document.querySelector("#lowStockTableBody");
     tbody.innerHTML = "";
 
-    const top3 = filtered.sort((a, b) => a.stock - b.stock).slice(0, 3);
+    const top5 = filtered.sort((a, b) => a.stock - b.stock).slice(0, 5);
 
-    top3.forEach(p => {
+    top5.forEach(p => {
       const stockInfo = getStockStatus(p.stock);
 
       tbody.innerHTML += `
@@ -3435,7 +3581,7 @@ if ($("#greetingUpdate").length) {
       greeting = "Good Morning";
     } else if (hour >= 12 && hour < 17) {
       greeting = "Good Afternoon";
-    } else if (hour >= 17 && hour < 21) {
+    } else if (hour >= 17 && hour < 22) {
       greeting = "Good Evening";
     } else {
       greeting = "Good Night";
@@ -3524,6 +3670,7 @@ if ($("#greetingUpdate").length) {
             borderColor: [
                 '#1F3BB3',
             ],
+            
             borderWidth: 0,
             fill: true, // 3: no fill
         }]
