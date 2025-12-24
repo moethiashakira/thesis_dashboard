@@ -28992,8 +28992,6 @@ div.tagsinput span.tag a {
     transition: margin-left 0.25s ease, width 0.25s ease; /* Tambahkan animasi halus */
   }
 
-  /* 2. TAMBAHAN: KONDISI SAAT TOMBOL DIKLIK (MENU TERTUTUP) */
-  /* Biasanya template menambahkan class 'sidebar-icon-only' ke <body> saat diklik */
  /* KONDISI SAAT TOMBOL DIKLIK (MENU TERTUTUP) */
   body.sidebar-icon-only #sidebar {
     width: 0;
