@@ -9548,5 +9548,12 @@ if ($("#greetingUpdate").length) {
     //   });
     // }
 
+
+    // document.querySelector('.navbar-toggler').addEventListener('click', () => {
+    //   document.body.classList.toggle('sidebar-hidden');
+    // });
+
+
+
   });
 })(jQuery);

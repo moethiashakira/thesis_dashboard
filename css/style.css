@@ -28961,6 +28961,7 @@ div.tagsinput span.tag a {
 /* NEW FOR SIDEBAR */
 /* Untuk Desktop (Layar > 991px) */
 @media (min-width: 992px) {
+  /* 1. KONDISI NORMAL (MENU TERBUKA) */
   .container-scroller {
     display: flex;
     flex-direction: column;
@@ -28970,23 +28971,39 @@ div.tagsinput span.tag a {
   .page-body-wrapper {
     display: flex;
     flex-direction: row;
-    overflow: hidden; /* Mencegah double scrollbar pada body */
+    overflow: hidden;
   }
 
   #sidebar {
     position: fixed;
-    top: 97px; /* Sesuaikan dengan tinggi navbar Anda */
+    top: 97px;
     height: calc(100vh - 97px);
-    width: 235px; /* Sesuaikan dengan lebar sidebar asli Anda */
+    width: 235px; /* Lebar normal */
     overflow-y: auto;
     z-index: 10;
+    transition: width 0.25s ease; /* Tambahkan animasi halus */
   }
 
   .main-panel {
-    margin-left: 235px; /* Harus sama dengan lebar sidebar agar tidak tertutup */
+    margin-left: 235px; /* Jarak normal */
     width: calc(100% - 235px);
     height: calc(100vh - 97px);
-    overflow-y: auto; /* Panel utama yang akan di-scroll */
+    overflow-y: auto;
+    transition: margin-left 0.25s ease, width 0.25s ease; /* Tambahkan animasi halus */
+  }
+
+  /* 2. TAMBAHAN: KONDISI SAAT TOMBOL DIKLIK (MENU TERTUTUP) */
+  /* Biasanya template menambahkan class 'sidebar-icon-only' ke <body> saat diklik */
+ /* KONDISI SAAT TOMBOL DIKLIK (MENU TERTUTUP) */
+  body.sidebar-icon-only #sidebar {
+    width: 0;
+  }
+
+  body.sidebar-icon-only .main-panel {
+    margin-left: 0; 
+    width: 100%;
+    /* Tambahkan baris ini agar ada jarak nafas dari kiri layar */
+    padding-left: 70px; 
   }
 }
 
