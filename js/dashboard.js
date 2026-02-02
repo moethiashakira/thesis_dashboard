@@ -193,11 +193,25 @@
   }
 
   // PRINT BUTTON
-  if ($("#btnPrint").length) {
-    $("#btnPrint").click(() => {
-      window.print();
-    });
-  }
+  // if ($("#btnPrint").length) {
+  //   $("#btnPrint").click(() => {
+  //     window.print();
+  //   });
+  // }
+
+   $("#btnPrint").click(function() {
+    // 1. Jika kamu pakai DataTables, tampilkan semua baris dulu
+    // var table = $('#namaTableKamu').DataTable();
+    // table.page.len(-1).draw(); 
+
+    // 2. Beri jeda sebentar supaya browser sempat merender semua baris
+    setTimeout(function() {
+        window.print();
+        
+        // 3. Opsional: Balikin lagi ke 10 baris setelah print selesai biar web gak lemot
+        // table.page.len(10).draw();
+    }, 500);
+});
 
 // =======================================
 // GLOBAL DATA (FIX agar tidak ketimpa)

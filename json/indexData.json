@@ -1,0 +1,37 @@
+{
+  "financials": {
+    "2024": {
+      "earning": [545793890, 513947010, 585199210, 527651480, 500142760, 547111760, 507096200, 523495040, 525045610, 545509930, 545128110, 515579710],
+      "modal": [300186640, 282670856, 321859566, 290208314, 275078518, 300911468, 278902910, 287922272, 288775086, 300030462, 299820461, 283568841],
+      "profit": [245607251, 231276155, 263339645, 237443166, 225064242, 246200292, 228193290, 235572768, 236270525, 245479469, 245307650, 232010870]
+    },
+    "2025": {
+      "earning": [551084640, 496027720, 528916630, 460343530, 518326990, 466498040, 504488350, 549120020, 504427940, 554361270, 484436980, 552710560],
+      "modal": [303096552, 272815246, 290904147, 253188942, 285079845, 256573922, 277468593, 302016011, 277435367, 304898699, 266440339, 303990808],
+      "profit": [247988088, 223212474, 238012484, 207154589, 233247146, 209924118, 227019758, 247104009, 226992573, 249462572, 217996641, 248719752]
+    }
+  },
+  "tables": {
+    "recommendations": [
+      { "id": "P0097", "name": "Ether white t-shirt", "category": "Atasan Pria", "price": 47310, "sold": 126, "date": "2025-01-09", "rating": 4.77, "discount": 22, "stock": 155, "status": "In Stock" },
+      { "id": "P0305", "name": "Alcis women black & off-white striped round neck t-shirt", "category": "Atasan Wanita", "price": 94810, "sold": 174, "date": "2024-07-31", "rating": 4.45, "discount": 8, "stock": 209, "status": "In Stock" },
+      { "id": "P0339", "name": "Besiva women black printed detail round neck t-shirt", "category": "Atasan Wanita", "price": 104120, "sold": 126, "date": "2025-07-22", "rating": 4.67, "discount": 3, "stock": 254, "status": "In Stock" },
+      { "id": "P0672", "name": "C9 airwear women coral-coloured solid track pants", "category": "Bawahan Wanita", "price": 118370, "sold": 111, "date": "2024-01-10", "rating": 4.9, "discount": 25, "stock": 176, "status": "In Stock" },
+      { "id": "P0355", "name": "Ants women navy blue regular fit solid layered high-low casual shirt", "category": "Atasan Wanita", "price": 99560, "sold": 89, "date": "2025-03-03", "rating": 4.94, "discount": 3, "stock": 145, "status": "In Stock" }
+    ],
+    "lowSales": [
+      { "id": "P0247", "name": "Yaadleen women yellow regular fit printed casual shirt", "category": "Atasan Wanita", "price": 117610, "sold": 1, "date": "2024-03-30", "rating": 1.3, "discount": 12, "stock": 102, "status": "In Stock" },
+      { "id": "P0106", "name": "Wrogn men black slim fit solid denim jacket", "category": "Atasan Pria", "price": 376010, "sold": 1, "date": "2025-11-01", "rating": 2.05, "discount": 2, "stock": 41, "status": "Warning" },
+      { "id": "P0670", "name": "The pink moon plus size women grey melange solid track pants", "category": "Bawahan Wanita", "price": 334210, "sold": 1, "date": "2024-03-23", "rating": 3.19, "discount": 7, "stock": 13, "status": "Warning" },
+      { "id": "P0128", "name": "Mast & harbour men pink & white printed round neck t-shirt", "category": "Atasan Pria", "price": 132810, "sold": 2, "date": "2024-06-02", "rating": 2.03, "discount": 27, "stock": 22, "status": "Warning" },
+      { "id": "P0157", "name": "Ecko unltd men rust orange & navy blue slim fit checked casual shirt", "category": "Atasan pria", "price": 132810, "sold": 2, "date": "2025-03-01", "rating": 1.96, "discount": 21, "stock": 64, "status": "Warning" }
+    ],
+    "lowStock": [
+      { "id": "P0065", "name": "Gap men's vintage slub jersey colorblock t-shirt", "category": "Atasan Pria", "price": 142310, "sold": 1, "date": "2024-06-16", "rating": 4.29, "discount": 13, "stock": 3, "status": "Low Stock" },
+      { "id": "P0541", "name": "Calvin klein jeans men navy blue solid regular fit woven track pants", "category": "Bawahan pria", "price": 797810, "sold": 1, "date": "2025-09-30", "rating": 4.82, "discount": 10, "stock": 3, "status": "Low Stock" },
+      { "id": "P0232", "name": "Park avenue women maroon regular fit printed casual shirt", "category": "Atasan Wanita", "price": 96710, "sold": 2, "date": "2024-06-11", "rating": 4.26, "discount": 6, "stock": 5, "status": "Low Stock" },
+      { "id": "P0276", "name": "Dodo & moa women white printed shirt style top", "category": "Atasan wanita", "price": 118750, "sold": 2, "date": "2024-01-21", "rating": 4.73, "discount": 24, "stock": 5, "status": "Low Stock" },
+      { "id": "P0543", "name": "Basics men blue tapered fit checked regular trousers", "category": "Bawahan Pria", "price": 319010, "sold": 5, "date": "2025-09-27", "rating": 4.33, "discount": 15, "stock": 7, "status": "Low Stock" }
+    ]
+  }
+}

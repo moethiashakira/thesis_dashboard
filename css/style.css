@@ -31143,6 +31143,37 @@ div.tagsinput span.tag a {
     border: 1px solid #dee2e6;
   }
 
+  @media print {
+  /* Hilangkan scrollbar dan paksa container melebar ke bawah */
+  .table-responsive, .card-body, main {
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  /* Hilangkan tombol-tombol yang tidak perlu diprint */
+  .btn, #btnPrint, .export-buttons, .show-more {
+    display: none !important;
+  }
+
+  /* Paksa tabel menggunakan lebar maksimal kertas */
+  table {
+    width: 100% !important;
+    border-collapse: collapse;
+  }
+
+  /* Kecilkan font agar kolom di kanan (Price, dll) tidak terbuang */
+  table td, table th {
+    font-size: 9pt !important;
+    padding: 5px !important;
+  }
+
+  /* Jika masih kepotong di kanan, gunakan zoom */
+  body {
+    zoom: 45%; 
+  }
+}
+
 
 
 
